@@ -1,0 +1,31 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyO6FRBF+Wg0/+AaBFZkUgzS"
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Nombre: Juan Pablo Gómez Gómez\n",
+        "Correo Institucional: juangomezgom@unal.edu.co\n",
+        "Usuario de GitHub: @YeipiGGy\n",
+        "Dato curioso: He estado usando GitHub desde hace años y lo unico que sabia de eso era darle a la pestaña de \"Releases\""
+      ],
+      "metadata": {
+        "id": "RWnd3D6-ynoQ"
+      }
+    }
+  ]
+}
