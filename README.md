@@ -27,13 +27,13 @@ El directorio está organizado para soportar el trabajo simultáneo de todos los
 
 Ejecutamos el código en Google Colab y almacenamos el progreso en GitHub. Aplica estos pasos para cada tarea:
 
-1. **Crea tu espacio (Rama/Branch):** Nunca trabajes directamente en `main`. Antes de iniciar, ve a GitHub y crea una nueva rama con tu nombre o el de tu equipo si es el caso (ej. `rama-juan-perez`).
+1. **Crea tu espacio (Rama/Branch):** Nunca trabajes directamente en `main`. Antes de iniciar, ve a GitHub y crea una nueva rama con tu nombre o el de tu equipo si es el caso (ej. `juan-perez`).
 2. **Ejecuta en Colab:** Abre los notebooks del curso directamente en tu navegador usando el botón que encontrarás en la parte superior de los archivos:
    [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/)
 3. **Guarda tu progreso:** Google Colab NO guarda automáticamente en GitHub. Para registrar tu trabajo:
    * Ve al menú superior en Colab: `Archivo` > `Guardar una copia en GitHub`.
    * **Repositorio:** Selecciona este repositorio.
-   * **Rama (Branch):** Selecciona **TU RAMA** (ej. `rama-juan-perez`), nunca la rama `main`.
+   * **Rama (Branch):** Selecciona **TU RAMA** (ej. `juan-perez`), nunca la rama `main`.
    * Escribe un mensaje de commit descriptivo.
 4. **Entrega (Pull Request):** Ve a GitHub. Verás un banner sugiriendo hacer un "Compare & pull request" de tu rama. Ábrelo hacia la rama `main` para iniciar el proceso de evaluación.
 
