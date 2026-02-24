@@ -155,7 +155,7 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 22
-* **Nombre:** Juan Pabño Gómez Gómez
+* **Nombre:** Juan Pablo Gómez Gómez
 * **Correo:** juangomezgom@unal.edu.co
 * **Alias de GitHub:** YeipiGGy
 * **Dato Curioso:** Tengo ese alias desde 8vo grado del colegio
