@@ -89,7 +89,7 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 11
-* **Nombre:** [Escribe aquí]
+* **Nombre:** [Escribe aquí] (Prueba)
 * **Correo:** [Escribe aquí]
 * **Alias de GitHub:** [Escribe aquí]
 * **Dato Curioso:** [Escribe aquí]
@@ -113,7 +113,7 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 15
-* **Nombre:** [Escribe aquí] (Prueba)
+* **Nombre:** [Escribe aquí] 
 * **Correo:** [Escribe aquí]
 * **Alias de GitHub:** [Escribe aquí]
 * **Dato Curioso:** [Escribe aquí]
