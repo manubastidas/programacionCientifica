@@ -42,7 +42,7 @@ Ejecutamos el código en Google Colab y almacenamos el progreso en GitHub. Aplic
 ## 🚦 Protocolo de Revisión por Pares (Peer Review)
 
 Todo código nuevo debe pasar por un proceso de auditoría. Tu Pull Request no podrá fusionarse automáticamente. 
-**Para fusionar tu código y completar la entrega, necesitas la aprobación explícita de Tres (3) compañeros distintos y La Profe :).**
+**Para fusionar tu código y completar la entrega, necesitas la aprobación explícita de Tres (3) compañeros distintos (o dos (2) + La Profe :)).**
 
 * **Si eres el Autor:** * En tu Pull Request, ve a **"Reviewers"** (barra lateral derecha).
   * Etiqueta a 3 o más compañeros solicitando su revisión.
