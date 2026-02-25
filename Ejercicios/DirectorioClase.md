@@ -29,10 +29,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 ## 📂 Base de Datos de Investigadores
 
 ### 🧑‍🔬 Investigador 01
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Alexa Marly Osorio Cano
+* **Correo:** aosorioca@unal.edu.co
+* **Alias de GitHub:** aosorioca-boop
+* **Dato Curioso:** nunca aprendí a silbar
 
 ### 🧑‍🔬 Investigador 02
 * **Nombre:** [Escribe aquí]
