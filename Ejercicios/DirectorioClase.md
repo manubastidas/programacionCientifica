@@ -203,10 +203,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 30
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Maria Fernanda Castro Cano
+* **Correo:** marcastroca@unal.edu.co
+* **Alias de GitHub:** mfcastroc7
+* **Dato Curioso:** Tengo sueños místicos (quizá sólo soy creativa)
 
 ### 🧑‍🔬 Investigador 31
 * **Nombre:** [Escribe aquí]
