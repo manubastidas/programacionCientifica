@@ -35,10 +35,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** nunca aprendí a silbar
 
 ### 🧑‍🔬 Investigador 02
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Santiago Abelardo Salcedo Rodriguez
+* **Correo:** ssalcedor@unal.edu.co
+* **Alias de GitHub:** Salcedo21
+* **Dato Curioso:** Soy Zurdo (de escribir) 🖐️ y tocaba trompeta hasta los 12 🎺
 
 ### 🧑‍🔬 Investigador 03
 * **Nombre:** [Escribe aquí]
