@@ -22,10 +22,6 @@ Agrega tu bloque al final de este documento usando este formato exacto:
 * **Autor:** [Tu Nombre y Apellido]
 * **Comando SSH:** `ssh bandit[X]@bandit.labs.overthewire.org -p 2220`
 * **Comandos de solución:**
-```bash
-[Escribe aquí los comandos exactos]
-```
-```markdown
 * **Explicación técnica:** [Explica la función de cada comando utilizado y cómo extrajiste la bandera]
 * **Próximo turno:** @[Usuario de GitHub del siguiente estudiante]
 
