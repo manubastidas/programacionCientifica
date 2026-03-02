@@ -203,10 +203,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 30
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Ana Isabel Zapata Gonzalez
+* **Correo:** anzapatago@unal.edu.co
+* **Alias de GitHub:** anzapatago
+* **Dato Curioso:** Tengo una perrita salchicha
 
 ### 🧑‍🔬 Investigador 31
 * **Nombre:** [Escribe aquí]
