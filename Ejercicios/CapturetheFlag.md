@@ -1,3 +1,5 @@
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/)
+
 # Actividad Colaborativa: Capture the Flag (Bandit)
 
 **Objetivo:** Practicar conexiones SSH y comandos de terminal resolviendo el wargame Bandit https://overthewire.org/wargames/bandit/. 
