@@ -15,12 +15,11 @@ Designa explícitamente al compañero que debe resolver el siguiente nivel.
 9. **Aprueba y fusiona:** Los dos revisores verifican la sintaxis del comando y el formato Markdown, y aprueban los cambios. 
 ---
 
-### Plantilla para `soluciones_bandit.md`
-
-Agrega tu bloque al final del documento usando este formato exacto:
+Agrega tu bloque al final de este documento usando este formato exacto:
 
 ```markdown
 ### Nivel X a Nivel X+1
 * **Autor:** [Tu Nombre y Apellido]
 * **Comandos utilizados:** ```bash
   [inserta tus comandos aquí]
+* **Compañero asignado para el nivel X+2: [Nombre y Apellido o alias de Github]
