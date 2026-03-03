@@ -44,7 +44,7 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Nombre:** David Delgado Ortiz
 * **Correo:** ddelgadoo@unal.edu.co
 * **Alias de GitHub:** ddelgadoo
-* **Dato Curioso:** Gengis Khan murió hace 799 años
+* **Dato Curioso:** Ricardo Corazón de león (rey de inglaterra) no sabía inglés. 
 
 ### 🧑‍🔬 Investigador 04
 * **Nombre:** Diego Carvajal González
