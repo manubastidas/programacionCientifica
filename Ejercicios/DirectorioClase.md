@@ -47,16 +47,16 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Gengis Khan murió hace 799 años
 
 ### 🧑‍🔬 Investigador 04
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Diego Carvajal González
+* **Correo:** dicarvajalg@unal.edu.co
+* **Alias de GitHub:** Diego-72
+* **Dato Curioso:** Me gusta Björk
 
 ### 🧑‍🔬 Investigador 05
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Simon Londoño Restrepo
+* **Correo:** Silondonor@unal.edu.co
+* **Alias de GitHub:** Silondonor
+* **Dato Curioso:** Mi PR en press banca es 120 kg
 
 ### 🧑‍🔬 Investigador 06
 * **Nombre:** [Escribe aquí]
@@ -149,10 +149,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 21
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Alejandro Taborda Lopez
+* **Correo:** altabordal@unal.edu.co
+* **Alias de GitHub:** Noether-335
+* **Dato Curioso:** A mi gato le gusta oler pies
 
 ### 🧑‍🔬 Investigador 22
 * **Nombre:** Juan Pablo Gómez Gómez
@@ -233,10 +233,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 35
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** John Smith Ramírez Echeverry
+* **Correo:** jramirezec@unal.edu.co
+* **Alias de GitHub:** jonesmithre
+* **Dato Curioso:** Muy pequeño me pegue con el filo de una silla y me abrí la ceja. 
 
 ### 🧑‍🔬 Investigador 36
 * **Nombre:** [Escribe aquí]
