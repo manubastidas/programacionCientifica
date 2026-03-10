@@ -137,10 +137,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Eu falo português 
 
 ### 🧑‍🔬 Investigador 19
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Yuliana Quiñonez Medina
+* **Correo:** yquinonez@unal.edu.co
+* **Alias de GitHub:** yquinonez-sys
+* **Dato Curioso:** No me gusta el chocolate
 
 ### 🧑‍🔬 Investigador 20
 * **Nombre:** [Escribe aquí]
