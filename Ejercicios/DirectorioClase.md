@@ -59,10 +59,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Mi PR en press banca es 120 kg
 
 ### 🧑‍🔬 Investigador 06
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Jack Jarol Jauregui Jauregui
+* **Correo:** Jajaureguij@unal.edu.co
+* **Alias de GitHub:** jackjack
+* **Dato Curioso:** Fiel amante del cafe
 
 ### 🧑‍🔬 Investigador 07
 * **Nombre:** Christian Bustos Betancur
