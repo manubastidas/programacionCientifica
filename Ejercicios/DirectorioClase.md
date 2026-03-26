@@ -107,10 +107,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Tengo 1020 días de racha en duolingo
 
 ### 🧑‍🔬 Investigador 14
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Juan Felipe Muriel Mosquera
+* **Correo:** jmurielm@unal.edu.co
+* **Alias de GitHub:** Jmurielm
+* **Dato Curioso:** Tengo un portátil de mesa (Si no lo conecto se muere)
 
 ### 🧑‍🔬 Investigador 15
 * **Nombre:** Ana Isabel Zapata Gonzalez 
