@@ -71,10 +71,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Me gusta el café 
 
 ### 🧑‍🔬 Investigador 08
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Thomas Serna Restrepo
+* **Correo:** tsernar@unal.edu.co
+* **Alias de GitHub:** tsernar
+* **Dato Curioso:** me gusta desarmar cosas
 
 ### 🧑‍🔬 Investigador 09
 * **Nombre:** Laura Gomez Angulo
