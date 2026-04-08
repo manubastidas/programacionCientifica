@@ -83,10 +83,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Me encanta Star Trek
 
 ### 🧑‍🔬 Investigador 10
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Kevin Andrés Marulanda Durán
+* **Correo:** kmarulanda@unal.edu.co
+* **Alias de GitHub:** KevinLM102412
+* **Dato Curioso:** Elegí el 10 por Messi
 
 ### 🧑‍🔬 Investigador 11
 * **Nombre:** Alejandro Ramírez Ramírez
