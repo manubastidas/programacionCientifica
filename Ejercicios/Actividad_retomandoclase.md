@@ -82,11 +82,8 @@ Agreguen una nueva celda de tipo `markdown` al inicio del notebook (después de 
 ```
 ## Quiénes somos y desde dónde
 
-- **Pareja:** nombre1_nombre2
-- **Usuario en el servidor:** (salida de whoami)
-- **Servidor:** (salida de hostname)
+- **Nombres:** nombre1 nombre 2
 - **Fecha y hora:** (salida de date)
-- **Directorio de trabajo:** (salida de pwd)
 ```
 
 ---
