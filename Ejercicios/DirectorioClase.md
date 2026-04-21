@@ -95,10 +95,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Mi primera aparición pública fue como el Niño Jesús en la iglesia de mi barrio
 
 ### 🧑‍🔬 Investigador 12
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Juan Esteban Osorno Duque
+* **Correo:** juosorno@unal.edu.co
+* **Alias de GitHub:** JuanOsorner
+* **Dato Curioso:** Tengo una racha de 466 en tiktok
 
 ### 🧑‍🔬 Investigador 13
 * **Nombre:** Juan Camilo Castaño Chavarriaga
