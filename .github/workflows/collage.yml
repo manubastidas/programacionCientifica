@@ -20,7 +20,7 @@ jobs:
           python-version: '3.11'
 
       - name: Generar collage.md
-        run: python scripts/generar_collage.py
+        run: python Ejercicios/actividad3/make_collage.py
 
       - name: Commit y push collage.md
         run: |
