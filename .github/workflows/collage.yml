@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'plots/**.jpg'
+      - 'Ejercicios/actividad3/plots/**.jpg'
 
 jobs:
   collage:
@@ -26,6 +26,6 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add plots/collage.md
+          git add Ejercicios/actividad3/plots/collage.md
           git diff --staged --quiet || git commit -m "chore: update collage [skip ci]"
           git push
