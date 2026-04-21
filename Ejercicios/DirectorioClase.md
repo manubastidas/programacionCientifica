@@ -119,10 +119,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** mi proyecto de taller 2 fue una inyectora de plástico
 
 ### 🧑‍🔬 Investigador 16
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Julián Gustavo Corredor Alfonso
+* **Correo:** Jcorredora@unal.edu.co
+* **Alias de GitHub:** JcorredorG
+* **Dato Curioso:** Los pulpos tienen tres corazones y su sangre es azul.
 
 ### 🧑‍🔬 Investigador 17
 * **Nombre:** José Daniel Moreno Ceballos
