@@ -13,7 +13,7 @@ Ejemplo: `ana_luis`.
 
 ---
 
-## Bloque 1 — Conexión SSH al servidor `(10 min)`
+## Bloque 1 — Conexión SSH al servidor
 
 Abran una terminal. En Windows usen PowerShell.
 
@@ -41,7 +41,7 @@ El archivo `taller.ipynb` es de solo lectura. No pueden modificarlo ni ejecutarl
 
 ---
 
-## Bloque 2 — Trabajar en el servidor `(20 min)`
+## Bloque 2 — Trabajar en el servidor
 
 ### 2.1 Crear su carpeta y copiar el archivo
 
@@ -95,7 +95,7 @@ Deben responder en sus propias palabras: ¿Qué hace este código?
 
 ---
 
-## Bloque 3 — GitHub desde el servidor `(15 min)`
+## Bloque 3 — GitHub desde el servidor 
 
 ### 3.1 Clonar el repositorio del curso
 
@@ -152,7 +152,7 @@ git push origin BRANCH
 
 ---
 
-## Bloque 4 — Google Colab `(15 min)`
+## Bloque 4 — Google Colab 
 
 ### 4.1 Abrir su notebook desde GitHub
 
