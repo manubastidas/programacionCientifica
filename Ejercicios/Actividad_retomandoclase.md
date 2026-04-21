@@ -103,15 +103,9 @@ Clonen el repositorio **dentro de su propia carpeta**:
 
 ```bash
 cd ~/nombre1_nombre2
-git clone https://github.com/mbastidaso/collage-unal.git
-cd collage-unal
+git clone https://github.com/manubastidas/programacionCientifica.git
+cd programacionCientifica
 ```
-
-Cuando pida credenciales:
-- **Username:** su usuario de GitHub
-- **Password:** su token de GitHub (ver abajo cómo crearlo)
-
-> **Crear token:** GitHub → foto de perfil → **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)** → **Generate new token (classic)** → marcar `repo` → **Generate token**. Copien el token antes de cerrar la página, no se vuelve a mostrar.
 
 ### 3.2 Configurar su identidad git (local, solo para este repo)
 
@@ -129,13 +123,20 @@ git config user.name
 git config user.email
 ```
 
+Cuando pida credenciales:
+- **Username:** su usuario de GitHub
+- **Password:** su token de GitHub (ver abajo cómo crearlo)
+
+> **Crear token:** GitHub → foto de perfil → **Settings** → **Developer settings** → **Personal access tokens** → **Tokens (classic)** → **Generate new token (classic)** → marcar `repo` → **Generate token**. Copien el token antes de cerrar la página, no se vuelve a mostrar.
+
+
 ### 3.3 Moverse a su rama
 
 Cada pareja tiene una rama ya creada (y al orden del día) con su nombre (alguno de los dos):
 
 ```bash
 git fetch origin
-git checkout nombre1_nombre2
+git checkout BRANCH
 git status
 ```
 
@@ -146,7 +147,7 @@ cp ~/nombre1_nombre2/nombre1_nombre2.ipynb .
 git add nombre1_nombre2.ipynb
 git status
 git commit -m " Escribir lo que hicimos "
-git push origin nombre1_nombre2
+git push origin BRANCH
 ```
 
 ---
