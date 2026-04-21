@@ -1,14 +1,16 @@
 """
-Genera plots/collage.md con galería oscura estilo HTML embebido.
+Genera Ejercicios/actividad3/plots/collage.md con galería oscura estilo HTML embebido.
 Corre automáticamente desde el GitHub Action al hacer merge a main.
 """
 
 from pathlib import Path
 from datetime import datetime
 
-PLOTS = Path("plots")
+PLOTS = Path("Ejercicios/actividad3/plots")
 OUT   = PLOTS / "collage.md"
 COLS  = 4
+
+PLOTS.mkdir(parents=True, exist_ok=True)
 
 imagenes = sorted(
     p for p in PLOTS.glob("*.jpg")
@@ -38,29 +40,22 @@ lineas = [
 ]
 
 # ── cuadrícula ────────────────────────────────────────────────────────────────
-lineas += [
-    '<table>',
-]
+lineas += ["<table>"]
 
 filas = [imagenes[i:i+COLS] for i in range(0, len(imagenes), COLS)]
 
 for fila in filas:
-    # fila de imágenes
     lineas.append("<tr>")
     for img in fila:
-        url = f"https://raw.githubusercontent.com/mbastidaso/collage-unal/main/plots/{img.name}"
+        url = f"https://raw.githubusercontent.com/mbastidaso/programacionCientifica/main/Ejercicios/actividad3/plots/{img.name}"
         lineas.append(
             f'  <td align="center" style="background:#0d1117; padding:8px; border:none;">'
             f'<img src="{url}" width="180"/></td>'
         )
-    # rellenar celdas vacías si la fila está incompleta
     for _ in range(COLS - len(fila)):
-        lineas.append(
-            '  <td style="background:#0d1117; border:none;"></td>'
-        )
+        lineas.append('  <td style="background:#0d1117; border:none;"></td>')
     lineas.append("</tr>")
 
-    # fila de nombres
     lineas.append("<tr>")
     for img in fila:
         lineas.append(
@@ -68,9 +63,7 @@ for fila in filas:
             f'<sub><i style="color:#8b949e;">{nombre_display(img.stem)}</i></sub></td>'
         )
     for _ in range(COLS - len(fila)):
-        lineas.append(
-            '  <td style="background:#0d1117; border:none;"></td>'
-        )
+        lineas.append('  <td style="background:#0d1117; border:none;"></td>')
     lineas.append("</tr>")
 
 lineas += [
