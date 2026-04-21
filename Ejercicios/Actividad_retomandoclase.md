@@ -9,7 +9,7 @@
 Formen las parejas. Decidan desde qué computador van a trabajar juntos. Todo el taller se hace desde **una sola máquina por pareja**.
 
 A lo largo del taller usarán `nombre1_nombre2` como identificador — reemplácenlo siempre por sus nombres reales en minúsculas sin tildes, separados por guión bajo. 
-Ejemplo: `sara_luis`.
+Ejemplo: `ana_luis`.
 
 ---
 
@@ -52,15 +52,26 @@ cd ~/nombre1_nombre2
 ls -lh
 ```
 
-### 2.2 Abrir el notebook con nano
+### 2.2 Abrir el notebook con vi
 
 ```bash
-nano nombre1_nombre2.ipynb
+vi nombre1_nombre2.ipynb
 ```
 
 El archivo es JSON. Busquen las celdas de tipo `"source"` — ahí está el contenido.
 
-Deben hacer **tres modificaciones**. Guarden con `Ctrl+O → Enter → Ctrl+X` al terminar.
+Comandos básicos de vi:
+
+| Acción | Comando |
+|--------|---------|
+| Entrar en modo edición | `i` |
+| Salir del modo edición | `Esc` |
+| Guardar y salir | `Esc` → `:wq` → `Enter` |
+| Salir sin guardar | `Esc` → `:q!` → `Enter` |
+| Buscar texto | `Esc` → `/texto` → `Enter` |
+| Siguiente resultado | `n` |
+
+Deben hacer **dos modificaciones**. Guarden con `Esc → :wq → Enter` al terminar.
 
 ---
 
@@ -82,31 +93,8 @@ Agreguen una nueva celda de tipo `markdown` al inicio del notebook (después de 
 
 ### Modificación 2 — Celda de descripción del código
 
-Agreguen otra celda `markdown` justo antes de la celda de parámetros con una descripción breve del código. Deben responder en sus propias palabras:
-
-- ¿Qué representan matemáticamente `x(t)` e `y(t)`?
-- ¿Qué efecto tiene cambiar `a` y `b`?
-- ¿Qué pasa cuando `delta` cambia?
-
-No copien la explicación del notebook base. Escríbanla ustedes.
-
----
-
-### Modificación 3 — Parámetros únicos
-
-En la celda de parámetros cambien los valores para que su curva sea **distinta a la de todas las demás parejas**. Coordinen con los grupos cercanos si es necesario.
-
-| Parámetro | Qué controla | Valores sugeridos |
-|-----------|-------------|-------------------|
-| `a` | frecuencia en x | 1 – 7 |
-| `b` | frecuencia en y | 1 – 7 |
-| `delta` | desfase | `np.pi/6`, `np.pi/4`, `np.pi/3`, `np.pi/2` |
-| `COLOR` | color de la curva | cualquier hex, ej `"#06d6a0"` |
-| `FONDO` | color de fondo | `"#0d1117"`, `"#ffffff"`, `"#1a1a2e"` |
-| `GROSOR` | grosor de línea | 0.8 – 3.0 |
-| `ALPHA` | transparencia | 0.4 – 1.0 |
-
-> **Regla:** ninguna pareja puede tener la misma combinación de `a`, `b` y `delta`.
+Agreguen otra celda `markdown` justo después del código con una descripción breve del código.
+Deben responder en sus propias palabras: ¿Qué hace este código?
 
 ---
 
@@ -130,14 +118,14 @@ Cuando pida credenciales:
 
 ### 3.2 Configurar su identidad git (local, solo para este repo)
 
-Como todos comparten el mismo usuario del servidor, la configuración debe ser **local** — aplica solo a su carpeta y no afecta a las demás parejas:
+Como todos comparten el mismo usuario del servidor, configuren su identidad **localmente** — aplica solo a su clon y no afecta a las demás parejas:
 
 ```bash
-git config user.name "Nombre1 Nombre2"
+git config user.name "Nombre"
 git config user.email "correo@unal.edu.co"
 ```
 
-Sin `--global`. Verifiquen:
+Verifiquen:
 
 ```bash
 git config user.name
@@ -146,7 +134,7 @@ git config user.email
 
 ### 3.3 Moverse a su rama
 
-Cada pareja tiene una rama ya creada con su nombre:
+Cada pareja tiene una rama ya creada (y al orden del día) con su nombre (alguno de los dos):
 
 ```bash
 git fetch origin
@@ -160,8 +148,7 @@ git status
 cp ~/nombre1_nombre2/nombre1_nombre2.ipynb .
 git add nombre1_nombre2.ipynb
 git status
-git commit -m "feat: add notebook for nombre1_nombre2"
-git log --oneline -3
+git commit -m " Escribir lo que hicimos "
 git push origin nombre1_nombre2
 ```
 
@@ -174,12 +161,26 @@ git push origin nombre1_nombre2
 En el navegador:
 
 ```
-https://colab.research.google.com/github/mbastidaso/collage-unal/blob/nombre1_nombre2/nombre1_nombre2.ipynb
+https://colab.research.google.com/github/.../nombre1_nombre2/nombre1_nombre2.ipynb
 ```
 
-Reemplazando `nombre1_nombre2` por el suyo en ambos lugares.
+### 4.2 Parámetros únicos
 
-### 4.2 Ejecutar el notebook
+En la celda de parámetros cambien los valores para que su curva sea **distinta a la de todas las demás parejas**. Coordinen con los grupos cercanos si es necesario.
+
+| Parámetro | Qué controla | Valores sugeridos |
+|-----------|-------------|-------------------|
+| `a` | frecuencia en x | 1 – 7 |
+| `b` | frecuencia en y | 1 – 7 |
+| `delta` | desfase | `np.pi/6`, `np.pi/4`, `np.pi/3`, `np.pi/2` |
+| `COLOR` | color de la curva | cualquier hex, ej `"#06d6a0"` |
+| `FONDO` | color de fondo | `"#0d1117"`, `"#ffffff"`, `"#1a1a2e"` |
+| `GROSOR` | grosor de línea | 0.8 – 3.0 |
+| `ALPHA` | transparencia | 0.4 – 1.0 |
+
+> **Regla:** ninguna pareja puede tener la misma combinación de `a`, `b` y `delta`.
+
+### 4.3 Ejecutar el notebook
 
 Corran todas las celdas en orden: `Runtime → Run all`.
 
