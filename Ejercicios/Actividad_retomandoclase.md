@@ -34,7 +34,7 @@ Noten que están en un servidor Linux remoto. Exploren brevemente:
 
 ```bash
 ls 
-cat taller.ipynb
+cat compartido/taller.ipynb
 ```
 
 El archivo `taller.ipynb` es de solo lectura. No pueden modificarlo ni ejecutarlo aquí.
