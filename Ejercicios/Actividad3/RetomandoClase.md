@@ -197,14 +197,13 @@ NOMBRE_ARCHIVO = "nombre1_nombre2"   # ← su nombre real
 
 Corran esa celda. Esto genera `nombre1_nombre2.jpg` y lo descarga automáticamente.
 
-### 4.4 Subir la imagen al Pull Request
+### 4.4 Subir la imagen directamente a main en GitHub
 
-En GitHub, abran su rama y creen un Pull Request hacia `main`:
-
-- **Título:** `feat: figura de nombre1_nombre2`
-- **Descripción:** arrastren la imagen `nombre1_nombre2.jpg` al campo de descripción
-
-> Solo suben la imagen en el PR, **no el notebook** — ese ya está en la rama.
+- Add file → Upload files
+- Suben nombre1_nombre2.jpg
+- Seleccionan Create a new branch y la nombran plot-nombre1_nombre2
+- Clic en Propose changes → abre el PR automáticamente
+- Crean el PR hacia main
 
 ---
 
