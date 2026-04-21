@@ -143,10 +143,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** No me gusta el chocolate
 
 ### 🧑‍🔬 Investigador 20
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Johan Andres Guzman Benitez
+* **Correo:** Joguzmanb@unal.edu.co
+* **Alias de GitHub:** joguzmanb-creator
+* **Dato Curioso:** quien pa' jugar basket?
 
 ### 🧑‍🔬 Investigador 21
 * **Nombre:** Alejandro Taborda Lopez
