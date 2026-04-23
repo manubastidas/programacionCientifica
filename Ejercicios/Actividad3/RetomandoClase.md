@@ -6,7 +6,7 @@
 
 ## Antes de empezar
 
-Formen las parejas. Decidan desde qué computador van a trabajar juntos. Todo el taller se hace desde **una sola máquina por pareja**.
+Formen las parejas. Decidan desde qué computador van a trabajar juntos. Todo el taller se hace desde **un computador por pareja**.
 
 A lo largo del taller usarán `nombre1_nombre2` como identificador — reemplácenlo siempre por sus nombres reales en minúsculas sin tildes, separados por guión bajo. 
 Ejemplo: `ana_luis`.
