@@ -41,28 +41,28 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Soy Zurdo (de escribir) 🖐️ y tocaba trompeta hasta los 12 🎺
 
 ### 🧑‍🔬 Investigador 03
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** David Delgado Ortiz
+* **Correo:** ddelgadoo@unal.edu.co
+* **Alias de GitHub:** ddelgadoo
+* **Dato Curioso:** Ricardo Corazón de león (rey de inglaterra) no sabía inglés. 
 
 ### 🧑‍🔬 Investigador 04
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Diego Carvajal González
+* **Correo:** dicarvajalg@unal.edu.co
+* **Alias de GitHub:** Diego-72
+* **Dato Curioso:** Me gusta Björk
 
 ### 🧑‍🔬 Investigador 05
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Simon Londoño Restrepo
+* **Correo:** Silondonor@unal.edu.co
+* **Alias de GitHub:** Silondonor
+* **Dato Curioso:** Mi PR en press banca es 120 kg
 
 ### 🧑‍🔬 Investigador 06
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Jack Jarol Jauregui Jauregui
+* **Correo:** Jajaureguij@unal.edu.co
+* **Alias de GitHub:** jackjack
+* **Dato Curioso:** Fiel amante del cafe
 
 ### 🧑‍🔬 Investigador 07
 * **Nombre:** Christian Bustos Betancur
@@ -71,22 +71,22 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Me gusta el café 
 
 ### 🧑‍🔬 Investigador 08
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Thomas Serna Restrepo
+* **Correo:** tsernar@unal.edu.co
+* **Alias de GitHub:** tsernar
+* **Dato Curioso:** me gusta desarmar cosas
 
 ### 🧑‍🔬 Investigador 09
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Laura Gomez Angulo
+* **Correo:** lgomezan@unal.edu.co
+* **Alias de GitHub:** lgomezan-dev
+* **Dato Curioso:** Me encanta Star Trek
 
 ### 🧑‍🔬 Investigador 10
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Kevin Andrés Marulanda Durán
+* **Correo:** kmarulanda@unal.edu.co
+* **Alias de GitHub:** KevinLM102412
+* **Dato Curioso:** Elegí el 10 por Messi
 
 ### 🧑‍🔬 Investigador 11
 * **Nombre:** Alejandro Ramírez Ramírez
@@ -95,10 +95,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Mi primera aparición pública fue como el Niño Jesús en la iglesia de mi barrio
 
 ### 🧑‍🔬 Investigador 12
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Juan Esteban Osorno Duque
+* **Correo:** juosorno@unal.edu.co
+* **Alias de GitHub:** JuanOsorner
+* **Dato Curioso:** Tengo una racha de 466 en tiktok
 
 ### 🧑‍🔬 Investigador 13
 * **Nombre:** Juan Camilo Castaño Chavarriaga
@@ -107,10 +107,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Tengo 1020 días de racha en duolingo
 
 ### 🧑‍🔬 Investigador 14
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Juan Felipe Muriel Mosquera
+* **Correo:** jmurielm@unal.edu.co
+* **Alias de GitHub:** Jmurielm
+* **Dato Curioso:** Tengo un portátil de mesa (Si no lo conecto se muere)
 
 ### 🧑‍🔬 Investigador 15
 * **Nombre:** Ana Isabel Zapata Gonzalez 
@@ -119,16 +119,16 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** mi proyecto de taller 2 fue una inyectora de plástico
 
 ### 🧑‍🔬 Investigador 16
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Julián Gustavo Corredor Alfonso
+* **Correo:** Jcorredora@unal.edu.co
+* **Alias de GitHub:** JcorredorG
+* **Dato Curioso:** Los pulpos tienen tres corazones y su sangre es azul.
 
 ### 🧑‍🔬 Investigador 17
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** José Daniel Moreno Ceballos
+* **Correo:** jmorenoce@unal.edu.co
+* **Alias de GitHub:** Din0Dan1
+* **Dato Curioso:** soy afiebrado del volei femenino
 
 ### 🧑‍🔬 Investigador 18
 * **Nombre:** Juan Diego Ospina Ocampo
@@ -137,22 +137,22 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Eu falo português 
 
 ### 🧑‍🔬 Investigador 19
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Yuliana Quiñonez Medina
+* **Correo:** yquinonez@unal.edu.co
+* **Alias de GitHub:** yquinonez-sys
+* **Dato Curioso:** No me gusta el chocolate
 
 ### 🧑‍🔬 Investigador 20
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Johan Andres Guzman Benitez
+* **Correo:** Joguzmanb@unal.edu.co
+* **Alias de GitHub:** joguzmanb-creator
+* **Dato Curioso:** quien pa' jugar basket?
 
 ### 🧑‍🔬 Investigador 21
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Alejandro Taborda Lopez
+* **Correo:** altabordal@unal.edu.co
+* **Alias de GitHub:** Noether-335
+* **Dato Curioso:** A mi gato le gusta oler pies
 
 ### 🧑‍🔬 Investigador 22
 * **Nombre:** Juan Pablo Gómez Gómez
@@ -179,10 +179,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 26
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Mateo Sebastian Mora
+* **Correo:** mmora@unal.edu.co
+* **Alias de GitHub:** Mmora-07
+* **Dato Curioso:** Tengo pánico escenico
 
 ### 🧑‍🔬 Investigador 27
 * **Nombre:** Miguel Angel Fonseca Aldana
@@ -191,10 +191,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** Tuve orejas de coliflor
 
 ### 🧑‍🔬 Investigador 28
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** Shara Vergara Pérez
+* **Correo:** shvergarap@unal.edu.co
+* **Alias de GitHub:** Sharavepe
+* **Dato Curioso:** Apenas voy a sacar mi licencia de conducción
 
 ### 🧑‍🔬 Investigador 29
 * **Nombre:** [Escribe aquí]
@@ -233,10 +233,10 @@ Aprenderemos que Git fusiona el trabajo de 40 personas automáticamente si respe
 * **Dato Curioso:** [Escribe aquí]
 
 ### 🧑‍🔬 Investigador 35
-* **Nombre:** [Escribe aquí]
-* **Correo:** [Escribe aquí]
-* **Alias de GitHub:** [Escribe aquí]
-* **Dato Curioso:** [Escribe aquí]
+* **Nombre:** John Smith Ramírez Echeverry
+* **Correo:** jramirezec@unal.edu.co
+* **Alias de GitHub:** jonesmithre
+* **Dato Curioso:** Muy pequeño me pegue con el filo de una silla y me abrí la ceja. 
 
 ### 🧑‍🔬 Investigador 36
 * **Nombre:** [Escribe aquí]
