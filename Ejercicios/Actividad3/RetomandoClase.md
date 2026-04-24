@@ -47,7 +47,7 @@ El archivo `taller.ipynb` es de solo lectura. No pueden modificarlo ni ejecutarl
 
 ```bash
 mkdir ~/nombre1_nombre2
-cp /compartido/taller.ipynb ~/nombre1_nombre2/nombre1_nombre2.ipynb
+cp ~/compartido/taller.ipynb ~/nombre1_nombre2/nombre1_nombre2.ipynb
 cd ~/nombre1_nombre2
 ls -lh
 ```
