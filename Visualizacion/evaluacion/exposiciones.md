@@ -74,47 +74,69 @@ El viernes, en el horario habitual, cada pareja presenta en **2–3 minutos**:
 $$\nabla^2 u = 0$$
 
 Condiciones de frontera: $u=0$ en tres lados, $u=\sin(\pi x/L)$ en el techo.
+
 Solución exacta:
+
 $$u(x,y) = \frac{\sinh(\pi y/L)}{\sinh(\pi)}\sin\!\left(\frac{\pi x}{L}\right)$$
+
 Modela temperatura estacionaria, potencial electrostático, flujo potencial.
 
+
 ### 2. Membrana vibrante: modos normales
+
 $$u_{mn}(x,y,t) = \sin\!\left(\frac{m\pi x}{L}\right)\sin\!\left(\frac{n\pi y}{L}\right)\cos(\omega_{mn}t)$$
+
 Los **nodos** (líneas donde $u=0$ para todo $t$) son las líneas donde $\sin(m\pi x/L)=0$ o $\sin(n\pi y/L)=0$.
 Los **antinodos** oscilan entre $\pm 1$.
 
 ### 3. Flujo potencial alrededor de un cilindro
+
 $$\psi(r,\theta) = U_\infty\!\left(r - \frac{R^2}{r}\right)\sin\theta$$
+
 El coeficiente de presión por la ecuación de Bernoulli:
 $$C_p = 1 - \frac{|\mathbf{u}|^2}{U_\infty^2}$$
 
 ### 4. Dipolo eléctrico
+
 $$V(x,y) = \frac{kq}{r_+} - \frac{kq}{r_-}, \qquad \mathbf{E} = -\nabla V$$
+
 Las equipotenciales ($V=\text{cte}$) son perpendiculares a las líneas de campo.
 
 ### 5. Onda estacionaria 2D
+
 $$u(x,y,t) = \cos(k_x x)\cos(k_y y)\cos(\omega t)$$
+
 Los nodos (donde $u=0$ para todo $t$) son las líneas donde $\cos(k_x x)=0$ o $\cos(k_y y)=0$: una reticulación fija.
 
 ### 6. Celda de convección (Rayleigh-Bénard)
+
 Flujo de Stokes en una celda de convección:
+
 $$\psi = \sin(\pi x/L)\sin(\pi y/L), \qquad T = \cos(\pi x/L)\sin(\pi y/L)$$
 
 ### 7. Potencial gravitacional de $N$ cuerpos
+
 $$\Phi(x,y) = -G\sum_{i=1}^{N}\frac{m_i}{r_i}$$
+
 Los pozos gravitacionales (mínimos de $\Phi$) son zonas de atracción. El campo $\mathbf{g} = -\nabla\Phi$ apunta hacia las masas.
 
 ### 8. Vórtice de Lamb-Oseen
+
 Solución exacta de Navier-Stokes para un vórtice axisimétrico:
+
 $$\omega(r) = \frac{\Gamma}{\pi r_c^2}e^{-r^2/r_c^2}, \qquad
 u_\theta(r) = \frac{\Gamma}{2\pi r}\left(1 - e^{-r^2/r_c^2}\right)$$
 
 ### 9. Difusión 2D: impulso gaussiano
+
 $$u(x,y,t) = \frac{1}{4\pi\alpha t}\exp\!\left(-\frac{x^2+y^2}{4\alpha t}\right)$$
+
 El flujo difusivo $\mathbf{J} = -\alpha\nabla u$ se aleja del máximo y la anchura crece como $\sigma = \sqrt{2\alpha t}$.
 
 ### 10. Campo magnético: espira circular (Biot-Savart)
+
 $$d\mathbf{B} = \frac{\mu_0 I}{4\pi}\frac{d\boldsymbol{\ell}\times\hat{r}}{r^2}$$
+
 Integramos sobre $N$ segmentos de la espira en $z=h$ y observamos el campo en el plano $z=0$.
 
 ### 11. Considere el siguiente campo escalar generado con la función de Himmelblau, definida como:
