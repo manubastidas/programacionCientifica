@@ -70,7 +70,9 @@ El viernes, en el horario habitual, cada pareja presenta en **2–3 minutos**:
 ## Algunos problemas interesantes: 
 
 ### 1. Ecuación de Laplace
+
 $$\nabla^2 u = 0$$
+
 Condiciones de frontera: $u=0$ en tres lados, $u=\sin(\pi x/L)$ en el techo.
 Solución exacta:
 $$u(x,y) = \frac{\sinh(\pi y/L)}{\sinh(\pi)}\sin\!\left(\frac{\pi x}{L}\right)$$
