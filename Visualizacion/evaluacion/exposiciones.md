@@ -30,7 +30,7 @@ Cada pareja elige un conjunto de datos o problema para construir una comparació
 
 ## Entrega del informe (PDF)
 
-Subir a la carpeta `entregas` en la rama `entregaVisualizacion` del repositorio. El documento es de **una sola página** con el siguiente contenido:
+Subir a la carpeta `Visualizacion/evaluacion/entregas` en la rama `entregaVisualizacion` del repositorio. El documento es de **una sola página** con el siguiente contenido:
 
 | | Descripción |
 |---|---|
