@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Curvas Paramétricas — Repaso Interactivo</title>
+<style>
+:root {
+  --bg:#0f1117; --bg2:#1a1d27; --bg3:#22263a;
+  --text:#e8eaf0; --text2:#8892aa; --border:#2d3250;
+  --poly:#e74c3c; --spline:#2ab0a0; --bezier:#7b68ee; --bsp:#e67e22;
+  --acc:#2ab0a0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+/* SIDEBAR */
+.sidebar{width:210px;background:var(--bg2);border-right:1px solid var(--border);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
+.logo{padding:20px;border-bottom:1px solid var(--border);}
+.logo h2{font-size:13px;font-weight:700;color:var(--acc);line-height:1.4;}
+.logo p{font-size:11px;color:var(--text2);margin-top:3px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;cursor:pointer;font-size:13px;color:var(--text2);border-left:3px solid transparent;transition:.2s;}
+.nav-item:hover,.nav-item.active{background:rgba(42,176,160,.1);color:var(--text);border-left-color:var(--acc);}
+.nav-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+/* MAIN */
+.main{margin-left:210px;flex:1;padding:36px 44px;max-width:1080px;}
+.section{display:none;}
+.section.active{display:block;}
+/* HEADERS */
+.stag{font-size:11px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+.stitle{font-size:26px;font-weight:700;margin-bottom:10px;}
+.sdesc{font-size:14px;color:var(--text2);line-height:1.65;max-width:680px;margin-bottom:28px;}
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:22px;}
+.card-title{font-size:14px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+/* GRID */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+/* BUTTONS */
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+.btn{padding:7px 15px;border-radius:6px;border:1px solid var(--border);background:var(--bg3);color:var(--text2);cursor:pointer;font-size:12px;font-weight:500;transition:.2s;}
+.btn:hover{border-color:var(--acc);color:var(--text);}
+.btn.on{background:rgba(42,176,160,.18);border-color:var(--acc);color:var(--acc);}
+.btn-poly.on{background:rgba(231,76,60,.18);border-color:var(--poly);color:var(--poly);}
+.btn-spline.on{background:rgba(42,176,160,.18);border-color:var(--spline);color:var(--spline);}
+.btn-bezier.on{background:rgba(123,104,238,.18);border-color:var(--bezier);color:var(--bezier);}
+.btn-bsp.on{background:rgba(230,126,34,.18);border-color:var(--bsp);color:var(--bsp);}
+/* SLIDER */
+.sl-row{display:flex;align-items:center;gap:12px;margin-top:10px;}
+.sl-row label{font-size:12px;color:var(--text2);white-space:nowrap;}
+input[type=range]{flex:1;accent-color:var(--acc);}
+.sl-val{font-size:13px;color:var(--acc);font-weight:600;min-width:36px;text-align:right;}
+/* MATH */
+.mbox{background:var(--bg3);border-left:3px solid var(--acc);padding:11px 16px;border-radius:0 8px 8px 0;font-family:Georgia,serif;font-size:14px;margin:10px 0;color:var(--text);line-height:1.7;}
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse;font-size:13px;}
+.tbl th,.tbl td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+.tbl th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);}
+.tbl tr:hover td{background:rgba(255,255,255,.02);}
+/* BADGES */
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600;margin:2px;}
+.bg{background:rgba(42,176,160,.2);color:#2ab0a0;}
+.br{background:rgba(231,76,60,.2);color:#e74c3c;}
+.bp{background:rgba(123,104,238,.2);color:#7b68ee;}
+.bo{background:rgba(230,126,34,.2);color:#e67e22;}
+/* STAT CARDS */
+.stat-row{display:flex;gap:14px;margin-bottom:16px;}
+.stat{background:var(--bg3);border-radius:8px;padding:12px 16px;flex:1;}
+.stat-l{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;}
+.stat-v{font-size:18px;font-weight:700;margin-top:4px;}
+/* QUIZ */
+.question{margin-bottom:28px;}
+.qtext{font-size:15px;font-weight:500;margin-bottom:14px;line-height:1.5;display:flex;align-items:flex-start;gap:10px;}
+.qn{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--acc);color:var(--bg);font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px;}
+.opts{display:flex;flex-direction:column;gap:7px;}
+.opt{padding:11px 15px;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-size:13px;line-height:1.4;transition:.2s;}
+.opt:hover:not(.disabled){border-color:var(--acc);background:rgba(42,176,160,.05);}
+.opt.correct{border-color:#2ab0a0;background:rgba(42,176,160,.15);color:#2ab0a0;}
+.opt.wrong{border-color:#e74c3c;background:rgba(231,76,60,.15);color:#e74c3c;}
+.opt.disabled{pointer-events:none;}
+.expl{display:none;margin-top:10px;padding:11px 14px;background:var(--bg3);border-radius:8px;font-size:13px;color:var(--text2);line-height:1.5;}
+.expl.show{display:block;}
+/* SCORE */
+.score-box{text-align:center;padding:32px;}
+.score-n{font-size:72px;font-weight:700;color:var(--acc);}
+.score-msg{font-size:16px;color:var(--text2);margin-top:8px;}
+/* SURFACE */
+.surf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;width:200px;}
+.surf-cell{width:46px;height:46px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:rgba(255,255,255,.9);}
+/* INFO */
+.info{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:13px;line-height:1.65;margin:10px 0;}
+.info strong{color:var(--text);}
+canvas{border-radius:8px;display:block;background:#141725;}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="logo">
+    <h2>Curvas Paramétricas</h2>
+    <p>Prog. Científica · UNAL 2026-1</p>
+  </div>
+  <div class="nav-item active" onclick="nav(1)"><div class="nav-dot" style="background:#2ab0a0"></div>1. Curva paramétrica</div>
+  <div class="nav-item" onclick="nav(2)"><div class="nav-dot" style="background:#e74c3c"></div>2. Comparación de métodos</div>
+  <div class="nav-item" onclick="nav(3)"><div class="nav-dot" style="background:#7b68ee"></div>3. Bézier interactivo</div>
+  <div class="nav-item" onclick="nav(4)"><div class="nav-dot" style="background:#e67e22"></div>4. Bernstein vs B-spline</div>
+  <div class="nav-item" onclick="nav(5)"><div class="nav-dot" style="background:#9b59b6"></div>5. Superficies</div>
+  <div class="nav-item" onclick="nav(6)"><div class="nav-dot" style="background:#f39c12"></div>6. Quiz</div>
+</nav>
+
+<main class="main">
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 1: CURVA PARAMÉTRICA
+════════════════════════════════════════════════════════ -->
+<section id="s1" class="section active">
+  <div class="stag">Concepto fundamental</div>
+  <div class="stitle">¿Qué es una curva paramétrica?</div>
+  <div class="sdesc">
+    En lugar de <em>y = f(x)</em> (que falla con letras como "S" o "U"), usamos dos funciones del mismo parámetro <em>t</em>:
+    la curva es el punto que recorre el trazo mientras <em>t</em> avanza de 0 a 1.
+  </div>
+  <div class="mbox">𝐫(t) = (x(t), y(t)),  t ∈ [0, 1]<br>
+    donde t se define por <strong>longitud de arco normalizada</strong>: t avanza proporcionalmente a la distancia recorrida.</div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Trazo de la letra <span id="s1-letra-label" style="color:var(--acc)">M</span></div>
+      <div class="btn-row" id="s1-letters"></div>
+      <canvas id="c1" width="380" height="380"></canvas>
+      <div class="sl-row">
+        <label>t =</label>
+        <input type="range" id="sl1" min="0" max="1" step="0.002" value="0">
+        <span class="sl-val" id="sl1-v">0.000</span>
+        <button class="btn on" id="btn-play1" onclick="togglePlay1()">⏸ Pause</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">x(t) e y(t) por separado</div>
+      <canvas id="c1b" width="380" height="180"></canvas>
+      <div style="height:12px"></div>
+      <canvas id="c1c" width="380" height="180"></canvas>
+      <div class="info" style="margin-top:10px">
+        <strong>Clave:</strong> x(t) e y(t) son funciones <em>independientes</em> del mismo parámetro. La curva en el plano surge de trazarlas juntas.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2: COMPARACIÓN
+════════════════════════════════════════════════════════ -->
+<section id="s2" class="section">
+  <div class="stag">Los cuatro métodos</div>
+  <div class="stitle">Comparación de métodos</div>
+  <div class="sdesc">
+    Todos los métodos comparten la misma estructura: <em>𝐫(t) = Σ P<sub>i</sub> φ<sub>i</sub>(t)</em>.
+    Lo único que cambia es la <strong>base {φ<sub>i</sub>}</strong>.
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-poly on" id="tb-poly" onclick="toggleMethod('poly')">● Polinomial (Lagrange)</button>
+    <button class="btn btn-spline on" id="tb-spl"  onclick="toggleMethod('spl')">● Spline cúbico</button>
+    <button class="btn btn-bezier on" id="tb-bez"  onclick="toggleMethod('bez')">● Bézier (Bernstein)</button>
+    <button class="btn btn-bsp on"   id="tb-bsp"  onclick="toggleMethod('bsp')">● B-spline</button>
+    <button class="btn" id="tb-pts" onclick="toggleMethod('pts')">● Puntos</button>
+    <select id="s2-sel" class="btn" onchange="s2Init()" style="color:var(--text)">
+      <option value="M">Letra M</option>
+      <option value="S">Letra S</option>
+      <option value="U">Letra U</option>
+      <option value="C">Letra C</option>
+    </select>
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Trazado en el plano (x, y)</div>
+      <canvas id="c2" width="460" height="460"></canvas>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card">
+        <div class="card-title">Estadísticas</div>
+        <div class="stat-row">
+          <div class="stat"><div class="stat-l">RMSE polinomial</div><div class="stat-v" id="err-poly" style="color:var(--poly)">—</div></div>
+          <div class="stat"><div class="stat-l">RMSE spline</div><div class="stat-v" id="err-spl" style="color:var(--spline)">—</div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="stat-l">RMSE Bézier</div><div class="stat-v" id="err-bez" style="color:var(--bezier)">—</div></div>
+          <div class="stat"><div class="stat-l">RMSE B-spline</div><div class="stat-v" id="err-bsp" style="color:var(--bsp)">—</div></div>
+        </div>
+        <div class="info"><strong>Nota:</strong> RMSE = 0 significa interpolación exacta. Bézier ≠ 0 porque solo <em>aproxima</em> los puntos interiores.</div>
+      </div>
+      <div class="card">
+        <table class="tbl">
+          <thead><tr><th>Método</th><th>Interpola</th><th>Soporte</th><th>Continuidad</th></tr></thead>
+          <tbody>
+            <tr><td style="color:var(--poly)">Polinomial</td><td><span class="badge bg">Sí</span></td><td><span class="badge br">Global</span></td><td>C<sup>n</sup></td></tr>
+            <tr><td style="color:var(--spline)">Spline cúb.</td><td><span class="badge bg">Sí</span></td><td><span class="badge bg">Local</span></td><td>C<sup>2</sup></td></tr>
+            <tr><td style="color:var(--bezier)">Bézier</td><td><span class="badge br">No (aprox.)</span></td><td><span class="badge br">Global</span></td><td>C<sup>n-1</sup></td></tr>
+            <tr><td style="color:var(--bsp)">B-spline</td><td><span class="badge bg">Sí</span></td><td><span class="badge bg">Local</span></td><td>C<sup>k-1</sup></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 3: BÉZIER INTERACTIVO
+════════════════════════════════════════════════════════ -->
+<section id="s3" class="section">
+  <div class="stag">Experimento interactivo</div>
+  <div class="stitle">Curva de Bézier</div>
+  <div class="sdesc">
+    Arrastra los puntos de control y observa cómo responde la curva. La curva <em>no pasa</em> por los puntos interiores — los usa como imanes.
+  </div>
+  <div class="mbox">C(t) = Σ<sub>i=0</sub><sup>n</sup> B<sub>i,n</sub>(t) · P<sub>i</sub>,  B<sub>i,n</sub>(t) = C(n,i) · tⁱ · (1−t)<sup>n−i</sup></div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Arrastra los puntos de control</div>
+      <div class="btn-row">
+        <button class="btn on" id="btn-polygon" onclick="togglePolygon()">Polígono de control</button>
+        <button class="btn" id="btn-cast" onclick="toggleCast()">Construcción de Casteljau</button>
+        <button class="btn" onclick="resetBez()">Reset</button>
+      </div>
+      <canvas id="c3" width="460" height="460" style="cursor:crosshair"></canvas>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card">
+        <div class="card-title">Propiedades clave</div>
+        <div class="info"><strong>① Extremos garantizados:</strong> B<sub>0,n</sub>(0)=1 y B<sub>n,n</sub>(1)=1 → la curva siempre pasa por P<sub>0</sub> y P<sub>n</sub>.</div>
+        <div class="info"><strong>② Partición de la unidad:</strong> Σ B<sub>i,n</sub>(t) = 1 → la curva vive dentro de la cápsula convexa.</div>
+        <div class="info"><strong>③ Soporte global:</strong> cada B<sub>i,n</sub> ≠ 0 en todo [0,1] → mover un punto afecta <em>toda</em> la curva.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Pesos de Bernstein en t = <span id="s3-t-val" style="color:var(--acc)">0.50</span></div>
+        <canvas id="c3b" width="340" height="200"></canvas>
+        <div class="sl-row">
+          <label>t =</label>
+          <input type="range" id="sl3" min="0" max="1" step="0.01" value="0.5" oninput="s3UpdateT()">
+          <span class="sl-val" id="sl3-v">0.50</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 4: BERNSTEIN VS B-SPLINE
+════════════════════════════════════════════════════════ -->
+<section id="s4" class="section">
+  <div class="stag">Bases y soporte</div>
+  <div class="stitle">Bernstein vs B-spline: soporte global vs local</div>
+  <div class="sdesc">
+    La diferencia fundamental entre Bézier y B-spline está en el <strong>soporte</strong> de sus funciones base.
+    En B-spline cada función N<sub>i,k</sub>(t) es distinta de cero solo en k+1 intervalos consecutivos.
+  </div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title" style="color:var(--bezier)">Base de Bernstein (soporte global)</div>
+      <canvas id="c4a" width="460" height="280"></canvas>
+      <div class="sl-row">
+        <label>t =</label>
+        <input type="range" id="sl4" min="0.001" max="0.999" step="0.005" value="0.5" oninput="s4Draw()">
+        <span class="sl-val" id="sl4-v">0.50</span>
+      </div>
+      <div class="info" style="margin-top:10px">Cada función cubre todo [0,1]. <strong>Runge</strong> ocurre con grado alto: las bases se aplanan y las oscilaciones numéricas crecen.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--bsp)">Base B-spline cúbica (soporte local = 4 intervalos)</div>
+      <canvas id="c4b" width="460" height="280"></canvas>
+      <div class="info" style="margin-top:10px">Cada N<sub>i,3</sub> vive solo en <strong>4 intervalos</strong>. La línea vertical muestra qué funciones están activas en t actual.</div>
+      <div class="info"><strong>Consecuencia:</strong> mover un punto de control solo deforma la curva <em>localmente</em>.</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <div class="card-title">Comparación de soporte por función base</div>
+    <canvas id="c4c" width="900" height="160"></canvas>
+    <div style="display:flex;gap:24px;margin-top:10px;font-size:12px;color:var(--text2)">
+      <span><span style="color:var(--bezier)">■</span> Bernstein B<sub>i,n</sub> — siempre [0,1]</span>
+      <span><span style="color:var(--bsp)">■</span> B-spline N<sub>i,3</sub> — solo k+1 intervalos</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 5: SUPERFICIES
+════════════════════════════════════════════════════════ -->
+<section id="s5" class="section">
+  <div class="stag">Extensión a 2D</div>
+  <div class="stitle">De curvas a superficies: el producto tensorial</div>
+  <div class="sdesc">
+    Una superficie paramétrica es una curva cuya base se aplica en dos direcciones independientes u y v.
+    La malla de control reemplaza al polígono de control.
+  </div>
+
+  <div class="mbox">S(u,v) = Σ<sub>i</sub> Σ<sub>j</sub> P<sub>ij</sub> · φ<sub>i</sub>(u) · φ<sub>j</sub>(v)</div>
+
+  <div class="g2">
+    <div class="card">
+      <div class="card-title">Superficie de Bézier (producto tensorial)</div>
+      <canvas id="c5" width="460" height="400"></canvas>
+      <div class="sl-row">
+        <label>u =</label>
+        <input type="range" id="sl5u" min="0" max="1" step="0.01" value="0.5" oninput="s5Draw()">
+        <span class="sl-val" id="sl5u-v">0.50</span>
+      </div>
+      <div class="sl-row">
+        <label>v =</label>
+        <input type="range" id="sl5v" min="0" max="1" step="0.01" value="0.5" oninput="s5Draw()">
+        <span class="sl-val" id="sl5v-v">0.50</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div class="card">
+        <div class="card-title">Analogía curva → superficie</div>
+        <table class="tbl">
+          <thead><tr><th>Curva 1D</th><th>Superficie 2D</th></tr></thead>
+          <tbody>
+            <tr><td>Parámetro t</td><td>Parámetros (u, v)</td></tr>
+            <tr><td>Polígono de control</td><td>Malla de control</td></tr>
+            <tr><td>φ<sub>i</sub>(t)</td><td>φ<sub>i</sub>(u) · φ<sub>j</sub>(v)</td></tr>
+            <tr><td>Pasa por P<sub>0</sub>, P<sub>n</sub></td><td>Pasa por las 4 esquinas</td></tr>
+            <tr><td>Cápsula convexa</td><td>Cápsula convexa 3D</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-title">Malla de control (valores z)</div>
+        <div id="s5-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:220px;"></div>
+        <div class="info" style="margin-top:12px"><strong>Usa:</strong> los sliders de u y v mueven la cruz sobre la superficie. El punto marcado en rojo es S(u,v).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 6: QUIZ
+════════════════════════════════════════════════════════ -->
+<section id="s6" class="section">
+  <div class="stag">Autoevaluación</div>
+  <div class="stitle">Quiz — Curvas Paramétricas</div>
+  <div class="sdesc">Haz clic en la respuesta. Recibirás retroalimentación inmediata.</div>
+
+  <div class="card">
+    <div id="quiz-body"></div>
+    <div id="quiz-score" class="score-box" style="display:none">
+      <div class="score-n" id="score-n">0/6</div>
+      <div class="score-msg" id="score-msg"></div>
+      <button class="btn" style="margin-top:20px" onclick="resetQuiz()">Repetir quiz</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+//  DATOS
+// ═══════════════════════════════════════════════════════════
+const LETRAS = {
+  M:[[.05,.05],[.05,.4],[.05,.7],[.05,1],[.28,.75],[.5,.5],[.72,.75],[.95,1],[.95,.7],[.95,.4],[.95,.05]],
+  S:[[.75,.95],[.55,1],[.3,.95],[.15,.8],[.2,.65],[.4,.55],[.6,.5],[.8,.42],[.85,.28],[.7,.12],[.5,.05],[.28,.08],[.15,.2]],
+  U:[[.2,1],[.2,.8],[.2,.55],[.22,.35],[.3,.18],[.5,.05],[.7,.18],[.78,.35],[.8,.55],[.8,.8],[.8,1]],
+  C:[[.8,.85],[.6,1],[.38,.95],[.2,.8],[.12,.6],[.12,.4],[.2,.2],[.38,.05],[.6,0],[.8,.15]]
+};
+
+// ═══════════════════════════════════════════════════════════
+//  MATH
+// ═══════════════════════════════════════════════════════════
+function binom(n,k){
+  if(k<0||k>n)return 0; if(k===0||k===n)return 1;
+  let r=1; for(let i=0;i<Math.min(k,n-k);i++){r=r*(n-i)/(i+1);} return r;
+}
+function B(i,n,t){return binom(n,i)*Math.pow(t,i)*Math.pow(1-t,n-i);}
+
+function arcParam(pts){
+  const d=[0];
+  for(let i=1;i<pts.length;i++){const dx=pts[i][0]-pts[i-1][0],dy=pts[i][1]-pts[i-1][1];d.push(d[i-1]+Math.sqrt(dx*dx+dy*dy));}
+  const tot=d[d.length-1]; return d.map(v=>v/tot);
+}
+
+// Natural cubic spline
+class Spl1D{
+  constructor(ts,ys){
+    this.ts=[...ts];this.ys=[...ys];
+    const n=ts.length-1;
+    const h=Array(n).fill(0).map((_,i)=>ts[i+1]-ts[i]);
+    const m=Array(n+1).fill(0);
+    if(n>=2){
+      const sz=n-1;
+      const diag=Array(sz).fill(0).map((_,i)=>2*(h[i]+h[i+1]));
+      const sup=Array(sz-1).fill(0).map((_,i)=>h[i+1]);
+      const rhs=Array(sz).fill(0).map((_,i)=>6*((ys[i+2]-ys[i+1])/h[i+1]-(ys[i+1]-ys[i])/h[i]));
+      const b=[...diag],r=[...rhs];
+      for(let i=1;i<sz;i++){const w=h[i]/b[i-1];b[i]-=w*sup[i-1];r[i]-=w*r[i-1];}
+      const x=Array(sz);x[sz-1]=r[sz-1]/b[sz-1];
+      for(let i=sz-2;i>=0;i--)x[i]=(r[i]-sup[i]*x[i+1])/b[i];
+      for(let i=0;i<sz;i++)m[i+1]=x[i];
+    }
+    this.a=ys.slice(0,n);
+    this.b=Array(n).fill(0).map((_,i)=>(ys[i+1]-ys[i])/h[i]-h[i]*(2*m[i]+m[i+1])/6);
+    this.c=Array(n).fill(0).map((_,i)=>m[i]/2);
+    this.d=Array(n).fill(0).map((_,i)=>(m[i+1]-m[i])/(6*h[i]));
+    this.h=h;this.n=n;
+  }
+  eval(t){
+    let i=this.n-1;
+    for(let k=0;k<this.n;k++){if(t<=this.ts[k+1]){i=k;break;}}
+    const dt=t-this.ts[i];
+    return this.a[i]+this.b[i]*dt+this.c[i]*dt*dt+this.d[i]*dt*dt*dt;
+  }
+}
+
+// Barycentric Lagrange
+function lagW(ts){const n=ts.length,w=Array(n).fill(1);for(let i=0;i<n;i++)for(let j=0;j<n;j++)if(i!==j)w[i]/=(ts[i]-ts[j]);return w;}
+function lagE(ts,ys,ws,t){
+  let num=0,den=0;
+  for(let i=0;i<ts.length;i++){if(Math.abs(t-ts[i])<1e-12)return ys[i];const w=ws[i]/(t-ts[i]);num+=w*ys[i];den+=w;}
+  return num/den;
+}
+
+// Bezier
+function bezPt(pts,t){const n=pts.length-1;let x=0,y=0;for(let i=0;i<=n;i++){const b=B(i,n,t);x+=b*pts[i][0];y+=b*pts[i][1];}return[x,y];}
+
+// B-spline basis (Cox-de Boor, memoized)
+const _bsMemo={};
+function bsB(i,k,t,kv){
+  if(k===0)return(t>=kv[i]&&t<kv[i+1])?1:0;
+  const key=`${i},${k},${Math.round(t*1000)}`;
+  if(_bsMemo[key]!==undefined)return _bsMemo[key];
+  const d1=kv[i+k]-kv[i],d2=kv[i+k+1]-kv[i+1];
+  const L=d1>1e-12?(t-kv[i])/d1*bsB(i,k-1,t,kv):0;
+  const R=d2>1e-12?(kv[i+k+1]-t)/d2*bsB(i+1,k-1,t,kv):0;
+  return _bsMemo[key]=L+R;
+}
+
+// Clamped uniform knots for n ctrl pts, degree k
+function clampedKnots(n,k){
+  const m=n+k+1,kv=Array(m).fill(0);
+  for(let i=n;i<m;i++)kv[i]=1;
+  for(let i=k+1;i<n;i++)kv[i]=(i-k)/(n-k);
+  return kv;
+}
+
+// B-spline interpolation: solve collocation system via Gaussian elim
+function bsplineInterp(ts,pts,k){
+  const n=ts.length,kv=clampedKnots(n,k);
+  // Special: last t=1 needs the basis evaluated at 1-eps
+  // Build n×n collocation matrix
+  const A=Array(n).fill(0).map(()=>Array(n).fill(0));
+  for(let i=0;i<n;i++){
+    const t=i===n-1?0.9999999:ts[i];
+    for(let j=0;j<n;j++)A[i][j]=bsB(j,k,t,kv);
+  }
+  // Gauss elim for x-coords and y-coords
+  function gauss(mat,rhs){
+    const m=[...mat.map(r=>[...r])], b=[...rhs];
+    const sz=m.length;
+    for(let col=0;col<sz;col++){
+      let pivot=col;
+      for(let r=col+1;r<sz;r++)if(Math.abs(m[r][col])>Math.abs(m[pivot][col]))pivot=r;
+      [m[col],m[pivot]]=[m[pivot],m[col]];[b[col],b[pivot]]=[b[pivot],b[col]];
+      for(let r=col+1;r<sz;r++){const f=m[r][col]/m[col][col];for(let c=col;c<sz;c++)m[r][c]-=f*m[col][c];b[r]-=f*b[col];}
+    }
+    const x=Array(sz);
+    for(let i=sz-1;i>=0;i--){x[i]=b[i];for(let j=i+1;j<sz;j++)x[i]-=m[i][j]*x[j];x[i]/=m[i][i];}
+    return x;
+  }
+  const cx=gauss(A,pts.map(p=>p[0]));
+  const cy=gauss(A,pts.map(p=>p[1]));
+  const cp=cx.map((x,i)=>[x,cy[i]]);
+  // Evaluate
+  return function(t){
+    const tt=t>=1?0.9999999:t;
+    let x=0,y=0;
+    for(let j=0;j<n;j++){const b=bsB(j,k,tt,kv);x+=b*cp[j][0];y+=b*cp[j][1];}
+    return[x,y];
+  };
+}
+
+// ═══════════════════════════════════════════════════════════
+//  CANVAS HELPERS
+// ═══════════════════════════════════════════════════════════
+function toC(x,y,canvas,pad=30){
+  const W=canvas.width-2*pad,H=canvas.height-2*pad;
+  return[pad+x*W, canvas.height-pad-y*H];
+}
+function toCRange(x,y,canvas,xmin,xmax,ymin,ymax,pad=30){
+  const W=canvas.width-2*pad,H=canvas.height-2*pad;
+  return[pad+(x-xmin)/(xmax-xmin)*W, canvas.height-pad-(y-ymin)/(ymax-ymin)*H];
+}
+
+function clearCanvas(ctx,canvas){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#141725';ctx.fillRect(0,0,canvas.width,canvas.height);
+}
+
+function drawCurve(ctx,ptsXY,color,lw=2.5,dash=[]){
+  if(ptsXY.length<2)return;
+  ctx.beginPath();ctx.strokeStyle=color;ctx.lineWidth=lw;ctx.setLineDash(dash);
+  ctx.moveTo(ptsXY[0][0],ptsXY[0][1]);
+  for(let i=1;i<ptsXY.length;i++)ctx.lineTo(ptsXY[i][0],ptsXY[i][1]);
+  ctx.stroke();ctx.setLineDash([]);
+}
+
+function drawDots(ctx,ptsXY,color='#fff',r=5){
+  ptsXY.forEach(([x,y])=>{ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=color;ctx.fill();});
+}
+
+// linspace
+function linspace(a,b,n){const s=[];for(let i=0;i<n;i++)s.push(a+(b-a)*i/(n-1));return s;}
+
+// ═══════════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════════
+let currentSection=1;
+function nav(n){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  document.querySelectorAll('.nav-item')[n-1].classList.add('active');
+  currentSection=n;
+  if(n===2)s2Init();
+  if(n===3)s3Init();
+  if(n===4)s4Init();
+  if(n===5)s5Init();
+  if(n===6)buildQuiz();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SECTION 1: Parametric animation
+// ═══════════════════════════════════════════════════════════
+let s1Playing=true, s1T=0, s1RAF=null;
+let s1Pts=LETRAS.M;
+let s1TArr=[], s1SplX=null, s1SplY=null;
+
+function s1SetLetter(key){
+  s1Pts=LETRAS[key];
+  document.getElementById('s1-letra-label').textContent=key;
+  s1TArr=arcParam(s1Pts);
+  s1SplX=new Spl1D(s1TArr,s1Pts.map(p=>p[0]));
+  s1SplY=new Spl1D(s1TArr,s1Pts.map(p=>p[1]));
+}
+
+function s1Draw(){
+  const cv=document.getElementById('c1');
+  const ctx=cv.getContext('2d');
+  clearCanvas(ctx,cv);
+  const t=s1T;
+  const N=300;
+  const tfine=linspace(0,1,N);
+
+  // Draw spline curve
+  const curvePts=tfine.map(tt=>{
+    const x=s1SplX.eval(tt),y=s1SplY.eval(tt);
+    return toC(x,y,cv);
+  });
+  drawCurve(ctx,curvePts,'#2ab0a0',2.5);
+
+  // Draw data points
+  drawDots(ctx,s1Pts.map(p=>toC(p[0],p[1],cv)),'#ffffff',4);
+
+  // Animated point
+  const cx=s1SplX.eval(t),cy=s1SplY.eval(t);
+  const [px,py]=toC(cx,cy,cv);
+  ctx.beginPath();ctx.arc(px,py,8,0,Math.PI*2);
+  ctx.fillStyle='#f39c12';ctx.fill();
+  ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);
+  ctx.fillStyle='#fff';ctx.fill();
+
+  // t label
+  ctx.fillStyle='#f39c12';ctx.font='14px monospace';
+  ctx.fillText(`t = ${t.toFixed(3)}`,12,22);
+
+  // x(t) mini plot
+  const c1b=document.getElementById('c1b');
+  const ctx1b=c1b.getContext('2d');
+  clearCanvas(ctx1b,c1b);
+  // x(t)
+  const xpts=tfine.map((tt,i)=>{
+    const xv=s1SplX.eval(tt);
+    return toCRange(tt,xv,c1b,0,1,-0.1,1.1,20);
+  });
+  drawCurve(ctx1b,xpts,'#e74c3c',2);
+  // current t line
+  const [tlx,_]=toCRange(t,0,c1b,0,1,-0.1,1.1,20);
+  ctx1b.beginPath();ctx1b.strokeStyle='#f39c12';ctx1b.lineWidth=1.5;ctx1b.setLineDash([4,3]);
+  ctx1b.moveTo(tlx,0);ctx1b.lineTo(tlx,c1b.height);ctx1b.stroke();ctx1b.setLineDash([]);
+  const cv_x=s1SplX.eval(t);
+  const [tx,ty]=toCRange(t,cv_x,c1b,0,1,-0.1,1.1,20);
+  ctx1b.beginPath();ctx1b.arc(tx,ty,5,0,Math.PI*2);ctx1b.fillStyle='#f39c12';ctx1b.fill();
+  ctx1b.fillStyle='#e74c3c';ctx1b.font='12px sans-serif';ctx1b.fillText('x(t)',8,16);
+
+  // y(t) mini plot
+  const c1c=document.getElementById('c1c');
+  const ctx1c=c1c.getContext('2d');
+  clearCanvas(ctx1c,c1c);
+  const ypts=tfine.map(tt=>{
+    const yv=s1SplY.eval(tt);
+    return toCRange(tt,yv,c1c,0,1,-0.1,1.1,20);
+  });
+  drawCurve(ctx1c,ypts,'#7b68ee',2);
+  const [tlx2,__]=toCRange(t,0,c1c,0,1,-0.1,1.1,20);
+  ctx1c.beginPath();ctx1c.strokeStyle='#f39c12';ctx1c.lineWidth=1.5;ctx1c.setLineDash([4,3]);
+  ctx1c.moveTo(tlx2,0);ctx1c.lineTo(tlx2,c1c.height);ctx1c.stroke();ctx1c.setLineDash([]);
+  const cv_y=s1SplY.eval(t);
+  const [tx2,ty2]=toCRange(t,cv_y,c1c,0,1,-0.1,1.1,20);
+  ctx1c.beginPath();ctx1c.arc(tx2,ty2,5,0,Math.PI*2);ctx1c.fillStyle='#f39c12';ctx1c.fill();
+  ctx1c.fillStyle='#7b68ee';ctx1c.font='12px sans-serif';ctx1c.fillText('y(t)',8,16);
+}
+
+function s1Tick(){
+  if(currentSection!==1){s1RAF=requestAnimationFrame(s1Tick);return;}
+  if(s1Playing){
+    s1T+=0.003;if(s1T>1)s1T=0;
+    document.getElementById('sl1').value=s1T;
+    document.getElementById('sl1-v').textContent=s1T.toFixed(3);
+  }
+  s1Draw();
+  s1RAF=requestAnimationFrame(s1Tick);
+}
+
+function togglePlay1(){
+  s1Playing=!s1Playing;
+  document.getElementById('btn-play1').textContent=s1Playing?'⏸ Pause':'▶ Play';
+}
+
+document.getElementById('sl1').addEventListener('input',function(){
+  s1T=parseFloat(this.value);
+  document.getElementById('sl1-v').textContent=s1T.toFixed(3);
+});
+
+// Build letter buttons
+(()=>{
+  const row=document.getElementById('s1-letters');
+  Object.keys(LETRAS).forEach(k=>{
+    const b=document.createElement('button');
+    b.className='btn';b.textContent=k;
+    b.onclick=()=>{
+      row.querySelectorAll('.btn').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      s1SetLetter(k);
+    };
+    if(k==='M')b.classList.add('on');
+    row.appendChild(b);
+  });
+})();
+
+s1SetLetter('M');
+s1Tick();
+
+// ═══════════════════════════════════════════════════════════
+//  SECTION 2: Comparison
+// ═══════════════════════════════════════════════════════════
+const s2Vis={poly:true,spl:true,bez:true,bsp:true,pts:true};
+let s2Data={};
+
+function toggleMethod(m){
+  s2Vis[m]=!s2Vis[m];
+  const id=m==='pts'?'tb-pts':'tb-'+m;
+  document.getElementById(id).classList.toggle('on',s2Vis[m]);
+  s2Draw();
+}
+
+function computeS2(letter){
+  const pts=LETRAS[letter];
+  const tp=arcParam(pts);
+  const N=350;
+  const tf=linspace(0,1,N);
+
+  // Spline
+  const sx=new Spl1D(tp,pts.map(p=>p[0]));
+  const sy=new Spl1D(tp,pts.map(p=>p[1]));
+  const splPts=tf.map(t=>[sx.eval(t),sy.eval(t)]);
+  const errSpl=Math.sqrt(tp.reduce((s,t,i)=>s+(sx.eval(t)-pts[i][0])**2+(sy.eval(t)-pts[i][1])**2,0)/tp.length);
+
+  // Lagrange
+  const wx=lagW(tp),wy=lagW(tp);
+  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  const polyPts=tf.map(t=>[lagE(tp,xs,wx,t),lagE(tp,ys,wy,t)]);
+  const errPoly=Math.sqrt(tp.reduce((s,t,i)=>s+(lagE(tp,xs,wx,t)-pts[i][0])**2+(lagE(tp,ys,wy,t)-pts[i][1])**2,0)/tp.length);
+
+  // Bezier
+  const bezPts2=tf.map(t=>bezPt(pts,t));
+  const errBez=Math.sqrt(tp.reduce((s,t,i)=>{const p=bezPt(pts,t);return s+(p[0]-pts[i][0])**2+(p[1]-pts[i][1])**2;},0)/tp.length);
+
+  // B-spline
+  let bspFn; try{bspFn=bsplineInterp(tp,pts,3);}catch(e){bspFn=t=>[sx.eval(t),sy.eval(t)];}
+  const bspPts=tf.map(t=>bspFn(t));
+  const errBsp=Math.sqrt(tp.reduce((s,t,i)=>{const p=bspFn(t);return s+(p[0]-pts[i][0])**2+(p[1]-pts[i][1])**2;},0)/tp.length);
+
+  return{pts,tp,splPts,polyPts,bezPts:bezPts2,bspPts,errSpl,errPoly,errBez,errBsp};
+}
+
+function s2Init(){
+  const letter=document.getElementById('s2-sel').value;
+  s2Data=computeS2(letter);
+  document.getElementById('err-poly').textContent=s2Data.errPoly<1e-9?'~0':s2Data.errPoly.toFixed(4);
+  document.getElementById('err-spl').textContent=s2Data.errSpl<1e-9?'~0':s2Data.errSpl.toFixed(4);
+  document.getElementById('err-bez').textContent=s2Data.errBez.toFixed(4);
+  document.getElementById('err-bsp').textContent=s2Data.errBsp<1e-9?'~0':s2Data.errBsp.toFixed(4);
+  s2Draw();
+}
+
+function s2Draw(){
+  const cv=document.getElementById('c2');
+  const ctx=cv.getContext('2d');
+  clearCanvas(ctx,cv);
+  if(!s2Data.pts)return;
+
+  // draw grid
+  ctx.strokeStyle='rgba(255,255,255,0.04)';ctx.lineWidth=1;
+  for(let i=0;i<=10;i++){
+    const [x1,y1]=toC(i/10,0,cv,30),[x2,y2]=toC(i/10,1,cv,30);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    const [xa,ya]=toC(0,i/10,cv,30),[xb,yb]=toC(1,i/10,cv,30);
+    ctx.beginPath();ctx.moveTo(xa,ya);ctx.lineTo(xb,yb);ctx.stroke();
+  }
+
+  const map=pts=>pts.map(([x,y])=>toC(x,y,cv,30));
+
+  if(s2Vis.poly) drawCurve(ctx,map(s2Data.polyPts),'#e74c3c',2.5);
+  if(s2Vis.spl)  drawCurve(ctx,map(s2Data.splPts),'#2ab0a0',2.5);
+  if(s2Vis.bsp)  drawCurve(ctx,map(s2Data.bspPts),'#e67e22',2,[6,3]);
+  if(s2Vis.bez)  drawCurve(ctx,map(s2Data.bezPts),'#7b68ee',2.5);
+  if(s2Vis.pts)  drawDots(ctx,s2Data.pts.map(p=>toC(p[0],p[1],cv,30)),'#fff',5);
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SECTION 3: Interactive Bezier
+// ═══════════════════════════════════════════════════════════
+let s3Pts=JSON.parse(JSON.stringify(LETRAS.M));
+let s3Drag=-1, s3T=0.5, s3Polygon=true, s3Cast=false;
+
+function s3Init(){
+  const cv=document.getElementById('c3');
+  cv.onmousedown=s3MouseDown;cv.onmousemove=s3MouseMove;cv.onmouseup=s3MouseUp;
+  cv.ontouchstart=e=>{e.preventDefault();const t=e.touches[0];s3MouseDown({offsetX:t.clientX-cv.getBoundingClientRect().left,offsetY:t.clientY-cv.getBoundingClientRect().top});};
+  cv.ontouchmove=e=>{e.preventDefault();const t=e.touches[0];s3MouseMove({offsetX:t.clientX-cv.getBoundingClientRect().left,offsetY:t.clientY-cv.getBoundingClientRect().top});};
+  cv.ontouchend=()=>s3MouseUp();
+  s3DrawAll();s3DrawBasis();
+}
+
+function canvasXY(canvas,cx,cy,pad=30){
+  const W=canvas.width-2*pad,H=canvas.height-2*pad;
+  return[(cx-pad)/W,(canvas.height-pad-cy)/H];
+}
+
+function s3MouseDown(e){
+  const cv=document.getElementById('c3');
+  const [mx,my]=canvasXY(cv,e.offsetX,e.offsetY);
+  let best=-1,bestD=999;
+  s3Pts.forEach(([x,y],i)=>{const d=Math.hypot(x-mx,y-my);if(d<bestD){bestD=d;best=i;}});
+  if(bestD<0.06)s3Drag=best;
+}
+function s3MouseMove(e){
+  if(s3Drag<0)return;
+  const cv=document.getElementById('c3');
+  let [x,y]=canvasXY(cv,e.offsetX,e.offsetY);
+  x=Math.max(0,Math.min(1,x));y=Math.max(0,Math.min(1,y));
+  s3Pts[s3Drag]=[x,y];s3DrawAll();s3DrawBasis();
+}
+function s3MouseUp(){s3Drag=-1;}
+
+function deCasteljau(pts,t){
+  let p=pts.map(x=>[...x]);
+  const levels=[p.map(x=>[...x])];
+  while(p.length>1){
+    const q=[];
+    for(let i=0;i<p.length-1;i++)q.push([(1-t)*p[i][0]+t*p[i+1][0],(1-t)*p[i][1]+t*p[i+1][1]]);
+    p=q;levels.push(p.map(x=>[...x]));
+  }
+  return levels;
+}
+
+function s3DrawAll(){
+  const cv=document.getElementById('c3');
+  const ctx=cv.getContext('2d');
+  clearCanvas(ctx,cv);
+  const N=300;
+  const tf=linspace(0,1,N);
+
+  if(s3Polygon){
+    // control polygon
+    ctx.beginPath();ctx.strokeStyle='rgba(150,150,180,0.4)';ctx.lineWidth=1.5;ctx.setLineDash([4,4]);
+    s3Pts.forEach(([x,y],i)=>{const[cx,cy]=toC(x,y,cv);i===0?ctx.moveTo(cx,cy):ctx.lineTo(cx,cy);});
+    ctx.stroke();ctx.setLineDash([]);
+  }
+
+  // bezier curve
+  const bez=tf.map(t=>bezPt(s3Pts,t));
+  drawCurve(ctx,bez.map(([x,y])=>toC(x,y,cv)),'#7b68ee',2.5);
+
+  // de Casteljau construction
+  if(s3Cast){
+    const levels=deCasteljau(s3Pts,s3T);
+    const castColors=['#e74c3c','#f39c12','#2ecc71','#3498db','#9b59b6','#1abc9c','#e67e22'];
+    levels.slice(1).forEach((lv,li)=>{
+      ctx.beginPath();ctx.strokeStyle=castColors[li%castColors.length];ctx.lineWidth=1.5;ctx.globalAlpha=0.7;
+      lv.forEach(([x,y],i)=>{const[cx,cy]=toC(x,y,cv);i===0?ctx.moveTo(cx,cy):ctx.lineTo(cx,cy);});
+      ctx.stroke();ctx.globalAlpha=1;
+      lv.forEach(([x,y])=>{ctx.beginPath();ctx.arc(...toC(x,y,cv),4,0,Math.PI*2);ctx.fillStyle=castColors[li%castColors.length];ctx.fill();});
+    });
+  }
+
+  // Control points (draggable)
+  s3Pts.forEach(([x,y],i)=>{
+    const [cx,cy]=toC(x,y,cv);
+    const isFirst=i===0,isLast=i===s3Pts.length-1;
+    ctx.beginPath();ctx.arc(cx,cy,7,0,Math.PI*2);
+    ctx.fillStyle=isFirst||isLast?'#e74c3c':'rgba(200,200,255,0.3)';ctx.fill();
+    ctx.strokeStyle=isFirst||isLast?'#ff7675':'#7b68ee';ctx.lineWidth=2;ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='10px sans-serif';ctx.fillText(i,cx+9,cy-5);
+  });
+
+  // Animated point on curve at s3T
+  const [px,py]=bezPt(s3Pts,s3T);
+  const [cx2,cy2]=toC(px,py,cv);
+  ctx.beginPath();ctx.arc(cx2,cy2,9,0,Math.PI*2);ctx.fillStyle='#f39c12';ctx.fill();
+  ctx.beginPath();ctx.arc(cx2,cy2,5,0,Math.PI*2);ctx.fillStyle='#fff';ctx.fill();
+}
+
+function s3DrawBasis(){
+  const t=s3T;
+  const n=s3Pts.length-1;
+  const cv=document.getElementById('c3b');
+  const ctx=cv.getContext('2d');
+  clearCanvas(ctx,cv);
+  const W=cv.width-40,H=cv.height-36,pad=20,top=16;
+
+  // bars for each B_{i,n}(t)
+  const ws=Array(n+1).fill(0).map((_,i)=>B(i,n,t));
+  const colors=['#e74c3c','#e67e22','#f1c40f','#2ecc71','#3498db','#9b59b6','#1abc9c','#e74c3c','#ff6b9d','#2ab0a0','#7b68ee'];
+  const bw=W/(n+1)-4;
+  ws.forEach((w,i)=>{
+    const x=pad+i*(W/(n+1));
+    const h=w*H;
+    ctx.fillStyle=colors[i%colors.length];
+    ctx.globalAlpha=0.8;
+    ctx.fillRect(x,top+H-h,bw,h);
+    ctx.globalAlpha=1;
+    ctx.fillStyle='rgba(255,255,255,0.6)';
+    ctx.font='9px sans-serif';
+    ctx.fillText(w.toFixed(2),x,top+H-h-3);
+    ctx.fillStyle='rgba(255,255,255,0.4)';
+    ctx.fillText('B'+i,x+bw/2-6,top+H+12);
+  });
+  ctx.fillStyle='rgba(255,255,255,0.5)';ctx.font='11px sans-serif';
+  ctx.fillText(`Suma = ${ws.reduce((a,b)=>a+b,0).toFixed(3)}`,pad,13);
+}
+
+function s3UpdateT(){
+  s3T=parseFloat(document.getElementById('sl3').value);
+  document.getElementById('sl3-v').textContent=s3T.toFixed(2);
+  document.getElementById('s3-t-val').textContent=s3T.toFixed(2);
+  s3DrawAll();s3DrawBasis();
+}
+function togglePolygon(){s3Polygon=!s3Polygon;document.getElementById('btn-polygon').classList.toggle('on',s3Polygon);s3DrawAll();}
+function toggleCast(){s3Cast=!s3Cast;document.getElementById('btn-cast').classList.toggle('on',s3Cast);s3DrawAll();}
+function resetBez(){s3Pts=JSON.parse(JSON.stringify(LETRAS.M));s3DrawAll();s3DrawBasis();}
+
+// ═══════════════════════════════════════════════════════════
+//  SECTION 4: Basis functions
+// ═══════════════════════════════════════════════════════════
+function s4Init(){s4Draw();}
+
+function s4Draw(){
+  const tCur=parseFloat(document.getElementById('sl4').value);
+  document.getElementById('sl4-v').textContent=tCur.toFixed(2);
+
+  const n=10; // degree for Bernstein (letter M: 11 pts → deg 10)
+  const k=3;  // B-spline degree
+  const nBs=11; // match n+1 control pts
+  const kv=clampedKnots(nBs,k);
+  const tf=linspace(0.001,0.999,300);
+
+  // BERNSTEIN
+  const cvA=document.getElementById('c4a');
+  const ctxA=cvA.getContext('2d');
+  clearCanvas(ctxA,cvA);
+  const W=cvA.width-40,H=cvA.height-40,pad=20,top=16;
+  const colors=['#e74c3c','#e67e22','#f1c40f','#2ecc71','#3498db','#9b59b6','#1abc9c','#ff6b9d','#2ab0a0','#7b68ee','#c0392b'];
+
+  for(let i=0;i<=n;i++){
+    const pts2=tf.map(t=>[pad+t*W, top+H-(B(i,n,t))*H]);
+    ctxA.beginPath();ctxA.strokeStyle=colors[i%colors.length];ctxA.lineWidth=1.8;ctxA.setLineDash([]);
+    pts2.forEach(([x,y],j)=>j===0?ctxA.moveTo(x,y):ctxA.lineTo(x,y));ctxA.stroke();
+  }
+  // current t line
+  const tx=pad+tCur*W;
+  ctxA.beginPath();ctxA.strokeStyle='#f39c12';ctxA.lineWidth=2;ctxA.setLineDash([4,3]);
+  ctxA.moveTo(tx,top);ctxA.lineTo(tx,top+H);ctxA.stroke();ctxA.setLineDash([]);
+  // axis
+  ctxA.strokeStyle='rgba(255,255,255,0.15)';ctxA.lineWidth=1;
+  ctxA.beginPath();ctxA.moveTo(pad,top+H);ctxA.lineTo(pad+W,top+H);ctxA.stroke();
+  ctxA.fillStyle='rgba(255,255,255,0.3)';ctxA.font='10px sans-serif';
+  ctxA.fillText('0',pad-4,top+H+14);ctxA.fillText('1',pad+W-4,top+H+14);
+  ctxA.fillText('1',4,top+4);
+
+  // B-SPLINE
+  const cvB=document.getElementById('c4b');
+  const ctxB=cvB.getContext('2d');
+  clearCanvas(ctxB,cvB);
+  const WB=cvB.width-40,HB=cvB.height-40;
+
+  for(let i=0;i<nBs;i++){
+    const pts2=tf.map(t=>{
+      Object.keys(_bsMemo).forEach(k=>delete _bsMemo[k]); // clear memo for precision
+      return[pad+t*WB, top+HB-(bsB(i,k,t,kv))*HB];
+    });
+    ctxB.beginPath();ctxB.strokeStyle=colors[i%colors.length];ctxB.lineWidth=1.8;
+    pts2.forEach(([x,y],j)=>j===0?ctxB.moveTo(x,y):ctxB.lineTo(x,y));ctxB.stroke();
+  }
+  // shade active basis at tCur
+  const tx2=pad+tCur*WB;
+  ctxB.beginPath();ctxB.strokeStyle='#f39c12';ctxB.lineWidth=2;ctxB.setLineDash([4,3]);
+  ctxB.moveTo(tx2,top);ctxB.lineTo(tx2,top+HB);ctxB.stroke();ctxB.setLineDash([]);
+  ctxB.strokeStyle='rgba(255,255,255,0.15)';ctxB.lineWidth=1;
+  ctxB.beginPath();ctxB.moveTo(pad,top+HB);ctxB.lineTo(pad+WB,top+HB);ctxB.stroke();
+  ctxB.fillStyle='rgba(255,255,255,0.3)';ctxB.font='10px sans-serif';
+  ctxB.fillText('0',pad-4,top+HB+14);ctxB.fillText('1',pad+WB-4,top+HB+14);
+
+  // SUPPORT COMPARISON
+  const cvC=document.getElementById('c4c');
+  const ctxC=cvC.getContext('2d');
+  clearCanvas(ctxC,cvC);
+  const WC=cvC.width-80,HC=cvC.height-40,padC=40;
+  const rowH=Math.min(11,HC/(nBs+1));
+
+  ctxC.fillStyle='rgba(255,255,255,0.3)';ctxC.font='11px sans-serif';
+  ctxC.fillText('Bernstein (soporte global)',padC,12);
+  ctxC.fillText('B-spline (soporte local)',padC+WC/2+20,12);
+
+  for(let i=0;i<=n;i++){
+    const y=18+i*rowH;
+    ctxC.fillStyle=colors[i%colors.length];ctxC.globalAlpha=0.7;
+    ctxC.fillRect(padC,y,WC/2-10,rowH-2);
+    ctxC.globalAlpha=1;
+  }
+  // B-spline supports
+  const tf2=linspace(0.001,0.999,500);
+  for(let i=0;i<nBs;i++){
+    let s0=-1,s1=-1;
+    tf2.forEach(t=>{
+      Object.keys(_bsMemo).forEach(kk=>delete _bsMemo[kk]);
+      const v=bsB(i,k,t,kv);
+      if(v>0.001){if(s0<0)s0=t;s1=t;}
+    });
+    if(s0<0)return;
+    const y=18+i*rowH;
+    const x0=padC+WC/2+20+s0*(WC/2-10);
+    const x1=padC+WC/2+20+s1*(WC/2-10);
+    ctxC.fillStyle=colors[i%colors.length];ctxC.globalAlpha=0.7;
+    ctxC.fillRect(x0,y,Math.max(1,x1-x0),rowH-2);
+    ctxC.globalAlpha=1;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SECTION 5: Surfaces
+// ═══════════════════════════════════════════════════════════
+const s5Z=[
+  [0.0,0.3,0.3,0.0],
+  [0.3,1.0,1.0,0.3],
+  [0.3,1.0,1.0,0.3],
+  [0.0,0.3,0.3,0.0]
+];
+
+function s5Init(){
+  // build grid display
+  const grid=document.getElementById('s5-grid');
+  grid.innerHTML='';
+  const flat=s5Z.flat();
+  const max=Math.max(...flat);
+  flat.forEach(v=>{
+    const div=document.createElement('div');
+    div.style.cssText=`width:48px;height:48px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:rgba(255,255,255,.85);`;
+    const a=v/max;
+    const r=Math.round(42+(156-42)*a);
+    const g=Math.round(176+(42-176)*a);
+    const b=Math.round(160+(42-160)*a);
+    div.style.background=`rgb(${r},${g},${b})`;
+    div.textContent=v.toFixed(1);
+    grid.appendChild(div);
+  });
+  s5Draw();
+}
+
+function bezierSurfPt(gz,u,v){
+  const m=gz.length-1,n=gz[0].length-1;
+  let z=0;
+  for(let i=0;i<=m;i++)for(let j=0;j<=n;j++)z+=B(i,m,v)*B(j,n,u)*gz[i][j];
+  return z;
+}
+
+function s5Draw(){
+  const u=parseFloat(document.getElementById('sl5u').value);
+  const v=parseFloat(document.getElementById('sl5v').value);
+  document.getElementById('sl5u-v').textContent=u.toFixed(2);
+  document.getElementById('sl5v-v').textContent=v.toFixed(2);
+
+  const cv=document.getElementById('c5');
+  const ctx=cv.getContext('2d');
+  clearCanvas(ctx,cv);
+
+  const N=50;
+  const ug=linspace(0,1,N),vg=linspace(0,1,N);
+  const pad=40;
+  const W=cv.width-2*pad,H=cv.height-2*pad;
+
+  // Draw surface as heatmap
+  const cellW=W/N,cellH=H/N;
+  for(let i=0;i<N;i++){
+    for(let j=0;j<N;j++){
+      const z=bezierSurfPt(s5Z,ug[j],vg[i]);
+      const a=z; // z in [0,1]
+      const r=Math.round(20+(42-20)*a+(120*a));
+      const g=Math.round(20+(176-20)*a);
+      const bl=Math.round(20+(160-20)*a*(1-a*0.3));
+      ctx.fillStyle=`rgb(${r},${g},${bl})`;
+      ctx.fillRect(pad+j*cellW,pad+i*cellH,cellW+1,cellH+1);
+    }
+  }
+
+  // Control grid
+  ctx.strokeStyle='rgba(255,255,255,0.25)';ctx.lineWidth=1;
+  [0,.33,.67,1].forEach(uu=>{
+    const x=pad+uu*W;ctx.beginPath();ctx.moveTo(x,pad);ctx.lineTo(x,pad+H);ctx.stroke();
+  });
+  [0,.33,.67,1].forEach(vv=>{
+    const y=pad+vv*H;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(pad+W,y);ctx.stroke();
+  });
+
+  // Current point S(u,v)
+  const z=bezierSurfPt(s5Z,u,v);
+  const px=pad+u*W, py=pad+v*H;
+  ctx.beginPath();ctx.arc(px,py,10,0,Math.PI*2);ctx.strokeStyle='#f39c12';ctx.lineWidth=2.5;ctx.stroke();
+  ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);ctx.fillStyle='#f39c12';ctx.fill();
+
+  // Crosshair
+  ctx.strokeStyle='rgba(243,156,18,0.4)';ctx.lineWidth=1;ctx.setLineDash([3,3]);
+  ctx.beginPath();ctx.moveTo(px,pad);ctx.lineTo(px,pad+H);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(pad,py);ctx.lineTo(pad+W,py);ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Label
+  ctx.fillStyle='#f39c12';ctx.font='13px monospace';
+  ctx.fillText(`S(${u.toFixed(2)}, ${v.toFixed(2)}) = ${z.toFixed(3)}`,pad+4,pad-8);
+
+  // Axis labels
+  ctx.fillStyle='rgba(255,255,255,0.4)';ctx.font='11px sans-serif';
+  ctx.fillText('u →',pad+W-20,pad+H+18);
+  ctx.save();ctx.translate(14,pad+H/2);ctx.rotate(-Math.PI/2);ctx.fillText('v →',0,0);ctx.restore();
+}
+
+// ═══════════════════════════════════════════════════════════
+//  SECTION 6: QUIZ
+// ═══════════════════════════════════════════════════════════
+const QUESTIONS=[
+  {q:"¿Por qué el polinomio interpolante de grado 10 (Lagrange) produce oscilaciones para la letra M?",
+   opts:["Porque no pasa por los datos — interpola mal","Por el fenómeno de Runge: oscilaciones que crecen en los extremos al aumentar el grado","Porque usa la base incorrecta de Bernstein","Porque el parámetro t no está bien definido"],
+   ans:1,
+   expl:"El fenómeno de Runge afecta a polinomios de grado alto: aunque interpola exactamente todos los puntos (error = 0 en los nodos), las oscilaciones entre nodos crecen hacia los extremos del intervalo. La solución: usar polinomios a trozos (splines)."},
+  {q:"¿Qué garantiza la condición C² en un spline cúbico?",
+   opts:["Que usa polinomios de grado 2","Que posición, velocidad (tangente) y curvatura son continuas en cada nodo","Que hay exactamente 2 trozos cúbicos","Que el error de interpolación es de orden 2"],
+   ans:1,
+   expl:"C² significa que la función y sus dos primeras derivadas son continuas en los nodos de unión. C⁰ = posición, C¹ = primera derivada (tangente), C² = segunda derivada (curvatura). Eso garantiza que las juntas entre trozos sean invisibles."},
+  {q:"¿La curva de Bézier pasa por todos los puntos de control?",
+   opts:["Sí, pasa exactamente por todos","No: solo pasa por el primer punto P₀ y el último Pₙ","Solo pasa por los puntos con índice par","Sí, siempre que los puntos estén en posición general"],
+   ans:1,
+   expl:"La curva de Bézier solo garantiza P(0)=P₀ y P(1)=Pₙ porque B₀,ₙ(0)=1 y Bₙ,ₙ(1)=1. Los puntos interiores son 'imanes' que atraen la curva sin que pase por ellos. Por eso Bézier aproxima en vez de interpolar."},
+  {q:"¿Cuál es la ventaja clave del B-spline sobre la curva de Bézier?",
+   opts:["Siempre produce curvas más suaves","Tiene soporte local: mover un punto de control solo deforma la curva en esa región","Es más rápido de calcular con muchos puntos","Puede representar círculos exactos"],
+   ans:1,
+   expl:"El soporte local es la gran ventaja. Cada función base N_{i,k} es distinta de cero solo en k+1 intervalos → mover un punto de control solo afecta la curva cercana. En Bézier, cada función base B_{i,n} cubre todo [0,1], así que mover un punto afecta toda la curva."},
+  {q:"En una superficie paramétrica S(u,v) = ΣΣ Pᵢⱼ φᵢ(u) φⱼ(v), ¿qué es el 'producto tensorial'?",
+   opts:["Multiplicar las coordenadas x·y de cada punto","Aplicar la misma base 1D en dos direcciones independientes u y v","Rotar una curva paramétrica alrededor de un eje","Unir dos superficies con continuidad C¹"],
+   ans:1,
+   expl:"El producto tensorial toma la base {φᵢ} usada en 1D y la multiplica consigo misma en dos direcciones. Si en 1D tenías φᵢ(t), en 2D tienes φᵢ(u)·φⱼ(v). Todas las propiedades se heredan: cápsula convexa, extremos garantizados, soporte local."},
+  {q:"Si la suma de las funciones base es siempre 1 — Σᵢ φᵢ(t) = 1 (partición de la unidad) — ¿qué garantiza esto geométricamente?",
+   opts:["Que la curva interpola todos los datos","Que la curva vive dentro de la cápsula convexa de los puntos de control","Que la derivada de la curva es continua","Que el parámetro t avanza uniformemente"],
+   ans:1,
+   expl:"Cuando Σφᵢ = 1 y φᵢ ≥ 0, cada punto de la curva es una combinación convexa de los puntos de control: C(t) = Σ φᵢ(t)·Pᵢ con pesos no negativos que suman 1. Eso es exactamente la definición de un punto dentro de la cápsula convexa."}
+];
+
+let quizScore=0,quizDone=0;
+
+function buildQuiz(){
+  const body=document.getElementById('quiz-body');
+  if(body.children.length>0)return;
+  quizScore=0;quizDone=0;
+  QUESTIONS.forEach((q,qi)=>{
+    const div=document.createElement('div');div.className='question';
+    div.innerHTML=`<div class="qtext"><span class="qn">${qi+1}</span>${q.q}</div>
+    <div class="opts">${q.opts.map((o,oi)=>`<div class="opt" data-qi="${qi}" data-oi="${oi}" onclick="pickOpt(this,${qi},${oi})">${o}</div>`).join('')}</div>
+    <div class="expl" id="expl-${qi}">${q.expl}</div>`;
+    body.appendChild(div);
+  });
+}
+
+function pickOpt(el,qi,oi){
+  if(el.classList.contains('disabled'))return;
+  const opts=el.parentElement.querySelectorAll('.opt');
+  opts.forEach(o=>o.classList.add('disabled'));
+  const correct=QUESTIONS[qi].ans===oi;
+  el.classList.add(correct?'correct':'wrong');
+  if(!correct)opts[QUESTIONS[qi].ans].classList.add('correct');
+  document.getElementById('expl-'+qi).classList.add('show');
+  if(correct)quizScore++;
+  quizDone++;
+  if(quizDone===QUESTIONS.length){
+    setTimeout(()=>{
+      document.getElementById('quiz-score').style.display='block';
+      document.getElementById('score-n').textContent=quizScore+'/'+QUESTIONS.length;
+      const msgs=['Repasa los conceptos fundamentales.','Vas bien, repasa Bézier y B-spline.','Sólido. Revisa el último punto.','Excelente dominio del tema! 🎉'];
+      document.getElementById('score-msg').textContent=msgs[quizScore<3?0:quizScore<5?1:quizScore<6?2:3];
+    },300);
+  }
+}
+
+function resetQuiz(){
+  document.getElementById('quiz-body').innerHTML='';
+  document.getElementById('quiz-score').style.display='none';
+  buildQuiz();
+}
+</script>
+</body>
+</html>
