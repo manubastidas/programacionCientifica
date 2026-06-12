@@ -387,6 +387,11 @@ print(f"Simpson:  {I_simp:.5f}")   # Salida: 2.00011
 			\item Con $n$ puntos equidistantes, integramos polinomios de grado $n-1$ exactamente.
 			\item Con $n$ puntos de Gauss, integramos polinomios de grado \textbf{$2n - 1$} exactamente. ¡El doble de precisión por el mismo costo computacional!
 		\end{itemize}
+		
+		\vspace{8pt}
+		\begin{center}
+				\textcolor{red}{\texttt{scipy.integrate.quadrature}}
+		\end{center}
 	\end{frame}
 	
 	% ----------
@@ -478,7 +483,7 @@ print(f"Simpson:  {I_simp:.5f}")   # Salida: 2.00011
 		\vspace{2pt}
 		\begin{columns}[T]
 			\column{0.5\textwidth}
-			Dado un cuadrado de lado 2 (área = 4) centrado en el origen. Dentro de él hay un círculo de radio 1 (área = $\pi$).
+			Dado un cuadrado de lado 2 centrado en el origen. Dentro de él hay un círculo de radio 1.
 			
 			Si lanzamos $N$ dardos aleatorios sobre el cuadrado, la probabilidad de caer dentro del círculo es:
 			\[ P \approx \frac{\text{Área Círculo}}{\text{Área Cuadrado}} = \frac{\pi}{4} \]
@@ -490,7 +495,7 @@ print(f"Simpson:  {I_simp:.5f}")   # Salida: 2.00011
 			\end{obsbox}
 			
 			\column{0.48\textwidth}
-			\begin{taskbox}{Tu turno (En Python)}
+			\begin{taskbox}{En Python}
 				\begin{enumerate}\small
 					\item Genere $N=10^6$ valores de $x$ aleatorios uniformes entre $[-1, 1]$.
 					\item Genere $N=10^6$ valores de $y$ independientes entre $[-1, 1]$.
@@ -499,6 +504,34 @@ print(f"Simpson:  {I_simp:.5f}")   # Salida: 2.00011
 					\item Imprima el error respecto a \texttt{np.pi}.
 				\end{enumerate}
 			\end{taskbox}
+		\end{columns}
+	\end{frame}
+	
+
+	% ----------
+	\begin{frame}{El volumen de una Hiperesfera (10D)}
+		\vspace{4pt}
+		En 2D, estimamos el área de un círculo ($x_1^2 + x_2^2 \le 1$). \\ \vspace{4pt}
+		¿Qué pasa si queremos calcular el volumen de una \textbf{hiperesfera en 10 dimensiones}?
+		
+		\vspace{6pt}
+		\begin{columns}[T]
+			\column{0.5\textwidth}
+			\begin{obsbox}{La Condición Analítica}
+				Un punto $(x_1, x_2, \dots, x_{10})$ pertenece a la hiperesfera de radio 1 si:
+				\[
+				\sum_{i=1}^{10} x_i^2 \le 1
+				\]
+			\end{obsbox}
+			
+			\column{0.48\textwidth}
+			\begin{defbox}{El fracaso de los métodos clásicos}
+				Si usamos la Regla de Simpson con una malla muy pobre de \textbf{apenas 10 puntos} por eje:
+				\begin{itemize}
+					\item En 2D: $10^2 = 100$ puntos.
+					\item En 10D: $10^{10} = 10.000.000.000$ evaluaciones.
+				\end{itemize}
+			\end{defbox}
 		\end{columns}
 	\end{frame}
 	
@@ -526,6 +559,8 @@ print(f"Simpson:  {I_simp:.5f}")   # Salida: 2.00011
 			\end{center}
 		\end{frame}
 	}
+	
+	
 
 	
 \end{document}
