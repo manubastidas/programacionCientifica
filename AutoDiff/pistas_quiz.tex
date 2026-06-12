@@ -1,0 +1,184 @@
+% ============================================================
+%  Programación Científica 2026-1 — UNAL
+%  Hoja de pistas A4: Quiz de Autodiff
+% ============================================================
+\documentclass[11pt]{article}
+
+\usepackage[a4paper,top=1.2cm,bottom=1.2cm,left=1.3cm,right=1.3cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{multicol}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{xcolor}
+\pagestyle{empty}
+
+% ---------- paleta ----------
+\definecolor{accent}{HTML}{6C63FF}
+\definecolor{accentteal}{HTML}{1DB89A}
+\definecolor{accentamber}{HTML}{F4A623}
+\definecolor{accentcoral}{HTML}{E05A4E}
+\definecolor{textgray}{HTML}{6B6B80}
+
+% ---------- cajas ----------
+\newtcolorbox{graybox}[1]{enhanced,title=#1,
+  colback=accent!6,colframe=accent,coltitle=white,
+  fonttitle=\bfseries\small,boxrule=0.5pt,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={colback=accent,boxrule=0pt},
+  left=4pt,right=4pt,top=6pt,bottom=4pt}
+
+\newtcolorbox{tealbox}[1]{enhanced,title=#1,
+  colback=accentteal!7,colframe=accentteal,coltitle=white,
+  fonttitle=\bfseries\small,boxrule=0.5pt,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={colback=accentteal,boxrule=0pt},
+  left=4pt,right=4pt,top=6pt,bottom=4pt}
+
+\newtcolorbox{amberbox}[1]{enhanced,title=#1,
+  colback=accentamber!8,colframe=accentamber,coltitle=white,
+  fonttitle=\bfseries\small,boxrule=0.5pt,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={colback=accentamber,boxrule=0pt},
+  left=4pt,right=4pt,top=6pt,bottom=4pt}
+
+\newtcolorbox{coralbox}[1]{enhanced,title=#1,
+  colback=accentcoral!7,colframe=accentcoral,coltitle=white,
+  fonttitle=\bfseries\small,boxrule=0.5pt,
+  attach boxed title to top left={yshift=-2mm,xshift=4mm},
+  boxed title style={colback=accentcoral,boxrule=0pt},
+  left=4pt,right=4pt,top=6pt,bottom=4pt}
+
+\begin{document}
+
+% ============================================================
+%  ENCABEZADO
+% ============================================================
+\begin{center}
+  {\Large\bfseries Hoja de pistas -- Autodiff}\\[2pt]
+  {\small\textcolor{textgray}{Programación Científica 2026-1 · UNAL}}
+\end{center}
+\vspace{2pt}
+\hrule
+\vspace{6pt}
+
+% ============================================================
+%  FILA 1: Grafo + Derivadas elementales
+% ============================================================
+\begin{minipage}[t]{0.36\textwidth}
+\begin{amberbox}{Paso 1 — El grafo computacional}
+\small
+\textbf{Cómo leer el código:}
+\begin{itemize}\setlength\itemsep{1pt}
+  \item Cada asignación es un \textbf{nodo}.
+  \item Arista $u \to v$: $v$ depende de $u$.
+  \item Nodos hoja (sin padres): entradas $v_1=x$, $v_2=y$.
+  \item Nodo raíz (sin hijos): salida $f$.
+\end{itemize}
+\vspace{3pt}
+\textcolor{accentcoral}{\textbf{Atención — nodo con varios hijos:}}\\
+Si \texttt{x} aparece en varias líneas del código, $v_1$ tiene \textbf{varios hijos} en el grafo.\\
+El gradiente debe \textbf{sumar} la contribución de cada camino.
+\end{amberbox}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.60\textwidth}
+		\vspace{-5.5cm}
+\begin{tealbox}{Derivadas elementales (se usan igual en forward y reverse)}
+\small
+\renewcommand{\arraystretch}{1.18}
+\begin{tabular}{lll@{\hspace{6mm}}lll}
+Operación & $\partial v/\partial u$ & & Operación & $\partial v/\partial u$ \\
+\midrule
+$v = u + w$    & $1$ (para $u$ y $w$)  & & $v = \sin u$  & $\cos u$ \\
+$v = u - w$    & $1$ (para $u$), $-1$ (para $w$)  & & $v = \cos u$  & $-\sin u$ \\
+$v = u\cdot w$ & $w$ (para $u$), $u$ (para $w$)   & & $v = e^u$     & $e^u$ \\
+$v = u^n$      & $n\,u^{n-1}$         & & $v = \ln u$   & $1/u$ \\
+$v = -u$       & $-1$                 & & $v = c\,u$    & $c$ \\
+\end{tabular}
+\end{tealbox}
+\end{minipage}
+
+\vspace{8pt}
+\hrule
+\vspace{6pt}
+
+% ============================================================
+%  FILA 2: Forward + Reverse en paralelo
+% ============================================================
+\begin{minipage}[t]{0.475\textwidth}
+\begin{graybox}{Paso 2 — Forward mode (cédula PAR)}
+\small
+\textbf{Objetivo:} propagar tangentes $\dot{v}_i = \dfrac{\partial v_i}{\partial x_j}$ de entrada a salida.
+
+\vspace{4pt}
+\textbf{Inicializar} (una corrida por variable de entrada):
+\[
+\frac{\partial f}{\partial x}:\;\dot{v}_1=1,\;\dot{v}_2=0
+\qquad
+\frac{\partial f}{\partial y}:\;\dot{v}_1=0,\;\dot{v}_2=1
+\]
+
+\textbf{Propagar} en orden natural (entrada $\to$ salida):
+\[
+\dot{v}_j = \sum_{k\,\in\,\text{padres}(j)} \frac{\partial v_j}{\partial v_k}\;\dot{v}_k
+\]
+
+\vspace{4pt}
+\textbf{Leer resultado:} $\dot{v}_\text{salida} = \partial f/\partial x_j$
+
+\vspace{3pt}
+\textcolor{textgray}{\small 2 corridas (una por entrada) dan $\nabla f$ completo.}
+\end{graybox}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.475\textwidth}
+\begin{coralbox}{Paso 2 — Reverse mode (cédula IMPAR)}
+\small
+\textbf{Objetivo:} propagar adjuntos $\bar{v}_i = \dfrac{\partial f}{\partial v_i}$ de salida a entradas.
+
+\vspace{4pt}
+\textbf{Paso 2a — Forward:} evaluar y \textbf{guardar} todos los $v_i$.
+
+\vspace{4pt}
+\textbf{Paso 2b — Backward:}\\
+Inicializar $\bar{v}_\text{salida} = 1$. Recorrer en orden \textbf{inverso}:
+\[
+\bar{v}_i \;\mathrel{+}=\; \bar{v}_j \cdot \frac{\partial v_j}{\partial v_i}
+\qquad \forall\, j \in \text{hijos}(i)
+\]
+\textcolor{accentcoral}{Sumar sobre \textbf{todos} los hijos de $v_i$.}
+
+\vspace{4pt}
+\textbf{Leer resultado al llegar a entradas:}
+\[
+\bar{v}_1 = \frac{\partial f}{\partial x}, \qquad \bar{v}_2 = \frac{\partial f}{\partial y}
+\]
+\textcolor{textgray}{\small 1 sola corrida da $\nabla f$ completo.}
+\end{coralbox}
+\end{minipage}
+
+\vspace{6pt}
+\hrule
+\vspace{4pt}
+
+% ============================================================
+%  FILA 3: recordatorio final
+% ============================================================
+\begin{center}
+\small
+\textcolor{textgray}{
+\textbf{Forward y reverse producen el mismo gradiente.} \quad
+Forward: $n$ corridas para $n$ entradas. \quad
+Reverse: 1 corrida da todo $\nabla f$. \quad
+Ambos usan las mismas derivadas elementales.
+}
+\end{center}
+
+\end{document}
