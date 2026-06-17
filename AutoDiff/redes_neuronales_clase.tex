@@ -1,0 +1,848 @@
+\documentclass[aspectratio=169,12pt]{beamer}
+
+% ============================================================
+%  PACKAGES
+% ============================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,backgrounds}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+% ============================================================
+%  COLORS
+% ============================================================
+\definecolor{darkbg}{HTML}{1A1A2E}
+\definecolor{accent}{HTML}{E94560}
+\definecolor{accentteal}{HTML}{0F9B8E}
+\definecolor{accentamber}{HTML}{F5A623}
+\definecolor{accentviolet}{HTML}{7B68EE}
+\definecolor{textlight}{HTML}{EAEAEA}
+\definecolor{textgray}{HTML}{9E9E9E}
+\definecolor{lightbg}{HTML}{F7F7F7}
+\definecolor{coralbox}{HTML}{FF6B6B}
+
+% ============================================================
+%  BEAMER SETUP
+% ============================================================
+\setbeamercolor{background canvas}{bg=lightbg}
+\setbeamercolor{normal text}{fg=darkbg}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{%
+  \hfill\textcolor{textgray}{\tiny\texttt{mbastidaso@unal.edu.co}\quad\insertframenumber/\inserttotalframenumber\quad}%
+  \vspace{4pt}
+}
+
+% ============================================================
+%  DARK SLIDE ENVIRONMENT
+% ============================================================
+\newenvironment{darkslide}{%
+  \setbeamercolor{background canvas}{bg=darkbg}%
+  \setbeamercolor{normal text}{fg=textlight}%
+}{%
+  \setbeamercolor{background canvas}{bg=lightbg}%
+  \setbeamercolor{normal text}{fg=darkbg}%
+}
+
+% ============================================================
+%  TCOLORBOX ENVIRONMENTS
+% ============================================================
+\tcbset{mybase/.style={
+  enhanced, breakable, arc=3pt,
+  boxrule=0.6pt, left=6pt, right=6pt, top=5pt, bottom=5pt,
+  fonttitle=\small\bfseries, fontupper=\small
+}}
+
+\newtcolorbox{defbox}[1]{mybase,
+  colback=accentviolet!8, colframe=accentviolet!60,
+  title={#1}}
+
+\newtcolorbox{resultbox}[1]{mybase,
+  colback=accentteal!8, colframe=accentteal!60,
+  title={#1}}
+
+\newtcolorbox{obsbox}[1]{mybase,
+  colback=accentamber!10, colframe=accentamber!70,
+  title={#1}}
+
+\newtcolorbox{taskbox}[1]{mybase,
+  colback=coralbox!8, colframe=coralbox!60,
+  title={#1}}
+
+% ============================================================
+%  LISTINGS
+% ============================================================
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\tiny,
+  keywordstyle=\color{accentviolet}\bfseries,
+  commentstyle=\color{textgray},
+  stringstyle=\color{accentteal},
+  backgroundcolor=\color{darkbg!5},
+  frame=single, framerule=0.4pt,
+  breaklines=true, showstringspaces=false,
+  morekeywords={jax,jit,grad,vmap,jnp}
+}
+
+% ============================================================
+%  TIKZ STYLES
+% ============================================================
+\tikzset{
+  neuron/.style={circle, draw=#1, fill=#1!15, minimum size=9mm, thick, font=\small},
+  conn/.style={-{Stealth[length=2mm]}, gray!60, line width=0.5pt},
+  thickconn/.style={-{Stealth[length=2.5mm]}, #1, line width=1.2pt},
+  graphnode/.style={circle, draw=accentviolet, fill=accentviolet!12,
+                    minimum size=8mm, thick, font=\footnotesize},
+  graphop/.style={rectangle, rounded corners=2pt, draw=accentteal,
+                  fill=accentteal!12, minimum width=12mm, minimum height=7mm,
+                  thick, font=\footnotesize},
+}
+
+% ============================================================
+%  DOCUMENT
+% ============================================================
+\begin{document}
+
+% ============================================================
+%  TÍTULO
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accent,opacity=0.15] (current page.north east) ++(-1.5,-1.5) circle (4cm);
+  \fill[accentteal,opacity=0.10] (current page.south west) ++(2,2) circle (3cm);
+  \fill[accentviolet,opacity=0.08] (current page.north west) ++(1,-2) circle (2.5cm);
+\end{tikzpicture}
+\vspace{1.5cm}
+\begin{center}
+  {\small\textcolor{textgray}{Programación Científica · 2026-1}}\\[16pt]
+  {\LARGE\textcolor{textlight}{\textbf{Redes Neuronales}}}\\[6pt]
+  {\large\textcolor{accent}{Otra vez: Aproximar funciones}}\\[20pt]
+  {\normalsize\textcolor{textgray}{Universidad Nacional de Colombia}}\\[4pt]
+  {\small\textcolor{textgray}{\texttt{mbastidaso@unal.edu.co}}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+% ============================================================
+%  PREGUNTA DE APERTURA
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accentteal,opacity=0.12] (current page.south east) ++(-2,2) circle (3.5cm);
+\end{tikzpicture}
+\vspace{2.5cm}
+\begin{center}
+  {\large\textcolor{textgray}{La pregunta de hoy:}}\\[18pt]
+  {\LARGE\textcolor{textlight}{\textbf{¿Cómo aproximamos}}}\\[6pt]
+  {\LARGE\textcolor{accent}{\textbf{funciones muy complicadas?}}}\\[30pt]
+  {\small\textcolor{textgray}{(dejen esta pregunta abierta — la responderemos al final)}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+% ============================================================
+%  SECCIÓN 1: HILO DEL CURSO
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accentviolet,opacity=0.12] (current page.north east) ++(-2,-2) circle (3cm);
+  \fill[accent,opacity=0.10] (current page.south west) ++(1,1) circle (2.5cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{textlight}{\textbf{Parte 1}}}\\[10pt]
+  {\large\textcolor{accentteal}{El hilo del curso}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}{El hilo del curso}
+
+\vspace{6pt}
+\begin{resultbox}{El mismo problema, con más libertad}
+En todos los métodos anteriores buscamos:
+\[
+  \hat{f}(x) = \sum_{i=1}^n c_i\,\phi_i(x)
+\]
+Las bases $\phi_i$ estaban \textbf{fijas}. En una red neuronal, los $\phi_i$ \textbf{también dependen de parámetros} que se optimizan.
+\end{resultbox}
+\end{frame}
+
+\begin{frame}{¿Qué ganamos con bases aprendibles?}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\begin{obsbox}{Bases fijas}
+\begin{itemize}\setlength\itemsep{3pt}
+  \item Escogemos la forma de $\phi_i$ antes de ver los datos
+  \item Funciona bien si tenemos intuición sobre la estructura
+  \item Monomios: oscilación de Runge
+  \item Splines: necesitamos nodos bien ubicados
+\end{itemize}
+\end{obsbox}
+
+\column{0.48\textwidth}
+\begin{resultbox}{Bases aprendibles}
+\begin{itemize}\setlength\itemsep{3pt}
+  \item Los $\phi_i$ se adaptan a los datos
+  \item No necesitamos saber la estructura a priori
+  \item El precio: necesitamos \textbf{optimizar} los parámetros
+  \item ¿Cómo? → gradiente 
+\end{itemize}
+\end{resultbox}
+\end{columns}
+
+\vspace{8pt}
+\begin{center}
+\textcolor{accentviolet}{\textbf{Hoy:}} construimos la maquinaria mínima para entender cómo se optimiza.
+\end{center}
+\end{frame}
+
+% ============================================================
+%  SECCIÓN 2: RED NEURONAL MÍNIMA
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accent,opacity=0.12] (current page.north west) ++(2,-2) circle (3cm);
+  \fill[accentteal,opacity=0.10] (current page.south east) ++(-2,2) circle (3cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{textlight}{\textbf{Parte 2}}}\\[10pt]
+  {\large\textcolor{accent}{La red neuronal mínima}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}{Una neurona}
+\begin{columns}[T]
+\column{0.52\textwidth}
+\begin{defbox}{Neurona (ML)}
+Recibe entradas $x_1,\ldots,x_n$, calcula:
+\[
+  z = \sum_{j=1}^n w_j x_j + b, \qquad a = \sigma(z)
+\]
+\begin{itemize}
+  \item $w_j$: pesos (\textit{weights})
+  \item $b$: sesgo (\textit{bias})
+  \item $\sigma$: función de activación (no lineal)
+\end{itemize}
+\end{defbox}
+
+\column{0.44\textwidth}
+\vspace{4pt}
+\begin{center}
+\begin{tikzpicture}[node distance=7mm and 12mm]
+  \node[neuron=textgray] (x1) {$x_1$};
+  \node[neuron=textgray, below=of x1] (x2) {$x_2$};
+  \node[neuron=textgray, below=of x2] (x3) {$x_3$};
+  \node[neuron=accentviolet, right=22mm of x2] (n) {$\sigma(z)$};
+  \node[neuron=accentteal, right=12mm of n] (out) {$a$};
+
+  \draw[conn] (x1) -- node[above,font=\small,sloped]{$w_1$} (n);
+  \draw[conn] (x2) -- node[above,font=\small]{$w_2$} (n);
+  \draw[conn] (x3) -- node[below,font=\small,sloped]{$w_3$} (n);
+  \draw[thickconn=accentteal] (n) -- (out);
+
+  \node[above=3mm of n, font=\small\color{textgray}] {$z = \bm{w}^\top\bm{x}+b$};
+\end{tikzpicture}
+\end{center}
+
+\vspace{6pt}
+\underline{{Activaciones comunes:}}\\
+
+{\footnotesize
+$\sigma(z) = \tanh(z)$\\
+$\sigma(z) = \max(0,z)$ \textcolor{textgray}{(ReLU)}\\
+$\sigma(z) = (1+e^{-z})^{-1}$ \textcolor{textgray}{(sigmoid)}
+}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Red feedforward de una capa oculta}
+
+\begin{defbox}{Arquitectura}
+\[
+  \hat{f}(x;\theta) = w^2\,\sigma(W^1 x + \bm{b}^1) + b_1^2
+\]
+\begin{itemize}
+  \item Capa oculta: $\bm{h} = \sigma(W_1 x + \bm{b}_1) \in \mathbb{R}^m$
+  \item Capa de salida: $\hat{f} = W_2\bm{h} + b_2 \in \mathbb{R}$
+  \item Parámetros: $\theta = \{W_1, \bm{b}_1, W_2, b_2\}$
+\end{itemize}
+\end{defbox}
+
+\begin{obsbox}{Dimensiones}
+Si $x \in \mathbb{R}$ y tengo $m$ neuronas ocultas:\\
+$W_1 \in \mathbb{R}^{m\times 1}$, $\bm{b}_1 \in \mathbb{R}^m$, $W_2 \in \mathbb{R}^{1\times m}$, $b_2 \in \mathbb{R}$\\
+\textbf{Total:} $3m + 1$ parámetros.
+\end{obsbox}
+
+\end{frame}
+
+\begin{frame}[fragile]{Dibujemos un grafo}
+\begin{taskbox}{Ejercicio}
+Considere la red con $m=2$ neuronas ocultas y entrada escalar $x$:
+\[
+  h_1 = \sigma(w_{1}^1x + b_1^1), \quad h_2 = \sigma(w_{2}^1x + b_2^1), \quad \hat{f} = w_1^2 h_1 + w_2^2 h_2 + b_1^2
+\]
+\textbf{Dibujen} el grafo computacional. \\[4pt]
+¿Cuántos parámetros tiene esta red?
+\end{taskbox}
+
+\vspace{-0.7cm}
+\begin{columns}[T]
+\column{0.6\textwidth}
+\begin{obsbox}{Variables intermedias}
+$z_1 = w_{1}^1x + b_1$\\
+$h_1 = \sigma(z_1)$\\
+$z_2 = w_{2}^1x + b_2$\\
+$h_2 = \sigma(z_2)$\\
+$\hat{f} = w_1^2 h_1 + w_2^2 h_2 + b_1^2$
+\end{obsbox}
+\column{0.46\textwidth}
+
+\end{columns}
+\end{frame}
+
+% ============================================================
+%  SECCIÓN 3: LOSS FUNCTION
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accentamber,opacity=0.12] (current page.north east) ++(-2,-2) circle (3cm);
+  \fill[accentteal,opacity=0.08] (current page.south west) ++(1,1) circle (3.5cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{textlight}{\textbf{Parte 3}}}\\[10pt]
+  {\large\textcolor{accentamber}{La función de pérdida}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}{¿Cómo medimos el error?}
+Queremos que $\hat{f}(x;\theta) \approx f(x)$ para todo $x \in [a,b]$.
+
+\vspace{8pt}
+\begin{defbox}{Loss function (pérdida L2)}
+\[
+  \mathcal{L}(\theta) = \int_a^b \bigl(f(x) - \hat{f}(x;\theta)\bigr)^2\,dx
+\]
+\end{defbox}
+
+\vspace{6pt}
+En la práctica, aproximamos la integral con $N$ puntos de muestra:
+
+\begin{resultbox}{Pérdida discreta (MSE)}
+\[
+  \mathcal{L}(\theta) \approx \frac{1}{N}\sum_{i=1}^N \bigl(f(x_i) - \hat{f}(x_i;\theta)\bigr)^2
+\]
+Los $\{x_i\}$ se llaman \textbf{datos de entrenamiento}.
+\end{resultbox}
+
+\vspace{4pt}
+\begin{obsbox}{Observación clave}
+$\mathcal{L}$ es una función $\mathcal{L}: \mathbb{R}^p \to \mathbb{R}$ donde $p = |\theta|$.\\
+Derivamos con respecto a $\theta$, \textbf{no} con respecto a $x$.
+\end{obsbox}
+\end{frame}
+
+%\begin{frame}{Geometría de la pérdida}
+%\begin{columns}[T]
+%\column{0.55\textwidth}
+%\vspace{4pt}
+%Imaginen $\mathcal{L}$ como una superficie sobre el espacio de parámetros $\theta \in \mathbb{R}^p$:
+%
+%\vspace{8pt}
+%\begin{center}
+%\begin{tikzpicture}[scale=0.9]
+%  % bowl shape using ellipses
+%  \draw[accentviolet!30, line width=1pt] (0,0) ellipse (2.5 and 0.8);
+%  \draw[accentviolet!50, line width=1pt] (0,0) ellipse (1.8 and 0.55);
+%  \draw[accentviolet!70, line width=1pt] (0,0) ellipse (1.0 and 0.30);
+%  \fill[accent] (0,0) circle (2pt) node[right,font=\tiny\color{accent}] {mínimo};
+%  \draw[-{Stealth}, accentteal, thick] (1.8,0.55) -- (1.2,0.36)
+%    node[midway, right, font=\tiny\color{accentteal}] {$-\nabla_\theta\mathcal{L}$};
+%  \node[above=3mm, font=\small\color{textgray}] at (0,0.8) {curvas de nivel de $\mathcal{L}(\theta)$};
+%\end{tikzpicture}
+%\end{center}
+%
+%\column{0.42\textwidth}
+%\vspace{4pt}
+%\begin{defbox}{Descenso de gradiente}
+%Repetir hasta converger:
+%\[
+%  \theta \leftarrow \theta - \eta\,\nabla_\theta\mathcal{L}(\theta)
+%\]
+%$\eta > 0$: tasa de aprendizaje.
+%\end{defbox}
+%
+%\vspace{6pt}
+%\begin{obsbox}{El problema central}
+%Necesitamos $\nabla_\theta\mathcal{L}$.\\[4pt]
+%$\mathcal{L}$ depende de $\theta$ \textit{a través} de la red $\hat{f}(x;\theta)$.\\[4pt]
+%¿Cómo calculamos ese gradiente?
+%\end{obsbox}
+%\end{columns}
+%\end{frame}
+
+% ============================================================
+%  SECCIÓN: TEORÍA DEL GRADIENTE DESCENDENTE
+% ============================================================
+\begin{darkslide}
+	\begin{frame}[plain]
+		\begin{tikzpicture}[remember picture, overlay]
+			\fill[accentamber,opacity=0.12] (current page.north west) ++(2,-2) circle (3.5cm);
+			\fill[accentviolet,opacity=0.10] (current page.south east) ++(-2,2) circle (3cm);
+		\end{tikzpicture}
+		\vspace{2cm}
+		\begin{center}
+			{\Large\textcolor{textlight}{\textbf{Teoría}}}\\[10pt]
+			{\large\textcolor{accentamber}{¿cómo optimizamos?}}
+		\end{center}
+	\end{frame}
+\end{darkslide}
+
+% --- Caso lineal: MSE como forma cuadrática ---
+\begin{frame}{La pérdida MSE es un funcional cuadrático}
+	Sea $\hat{f}(x;\theta) = \theta^\top \phi(x)$ una red \textbf{lineal} en $\theta$
+	(e.g.\ regresión lineal, red sin activación).
+	Con $N$ datos $\{(x_i, y_i)\}$:
+	\[
+	\mathcal{L}(\theta)
+	= \frac{1}{N}\sum_{i=1}^N (y_i - \theta^\top\vec{\phi}(x_i))^2
+	= \frac{1}{N}\|y - A\theta\|^2
+	\]
+	donde $y = (y_1,\ldots,y_N)^\top$ y $A_{ij} = \phi_j(x_i)$.
+	
+	\vspace{6pt}
+%	\begin{resultbox}{Forma cuadrática explícita}
+%		\[
+%		\mathcal{L}(\theta)
+%		= \frac{1}{N}\bigl(\theta^\top A^\top A\,\theta - 2\,y^\top A\,\theta + \|y\|^2\bigr)
+%		= \frac{1}{N}\bigl(\theta^\top Q\,\theta - 2\,\ell^\top\theta + c\bigr)
+%		\]
+%		con $Q = A^\top A \in \mathbb{R}^{p\times p}$ semidefinida positiva,
+%		$\ell = A^\top y$, $c = \|y\|^2$.
+%	\end{resultbox}
+	
+	\begin{obsbox}{Conexión con mínimos cuadrados}
+		$\nabla_\theta \mathcal{L} = 0$ da las ecuaciones normales $Q\theta^* = \ell$,
+		exactamente el sistema de mínimos cuadrados que ya conocen.
+		El mínimo global existe y es único si $A$ tiene rango completo.
+	\end{obsbox}
+\end{frame}
+
+% --- Gradiente del funcional cuadrático ---
+\begin{frame}{Gradiente de la pérdida cuadrática}
+	\begin{resultbox}{Gradiente explícito (caso lineal)}
+		\[
+		\nabla_\theta \mathcal{L}(\theta)
+		= \frac{2}{N} A^\top(A\theta - y)
+		= \frac{2}{N} A^\top(\hat{y} - y)
+		\]
+		donde $\hat{y} = A\theta$ son las predicciones actuales.
+	\end{resultbox}
+	
+	\vspace{6pt}
+	\begin{obsbox}{¿Por qué el gradiente apunta al mínimo?}
+		Para cualquier $\theta$, el vector $-\nabla_\theta\mathcal{L}(\theta)$ apunta
+		en la dirección de \textbf{mayor descenso local} de $\mathcal{L}$.
+		Para una forma cuadrática convexa, este descenso es global.
+	\end{obsbox}
+	
+\end{frame}
+
+
+% --- Generalización: caso no lineal ---
+\begin{darkslide}
+	\begin{frame}[plain]
+		\begin{tikzpicture}[remember picture, overlay]
+			\fill[accent,opacity=0.12] (current page.north east) ++(-2,-2) circle (3cm);
+			\fill[accentteal,opacity=0.10] (current page.south west) ++(1,1) circle (3cm);
+		\end{tikzpicture}
+		\vspace{2cm}
+		\begin{center}
+			{\Large\textcolor{textlight}{\textbf{Generalización}}}\\[10pt]
+			{\large\textcolor{accent}{Redes no lineales: $\hat{f}(x;\theta)$ arbitraria}}
+		\end{center}
+	\end{frame}
+\end{darkslide}
+
+% --- Aproximación cuadrática local ---
+\begin{frame}{Aproximación cuadrática local (caso no lineal)}
+	Para una red no lineal, $\mathcal{L}(\theta)$ puede ser no convexa.
+	Pero localmente, alrededor de $\theta_k$, aproximamos por Taylor de orden 2:
+	\[
+	\mathcal{L}(\theta_k + \delta)
+	\approx \mathcal{L}(\theta_k)
+	+ \nabla_\theta\mathcal{L}(\theta_k)^\top \delta
+	+ \tfrac{1}{2}\,\delta^\top H_k\,\delta,
+	\]
+	donde $H_k = \nabla^2_\theta\mathcal{L}(\theta_k)$ es la \textbf{matriz Hessiana}.
+	
+	\vspace{6pt}
+	\begin{obsbox}{Mínimo local de la aproximación cuadrática}
+		Si $H_k \succ 0$, el mínimo de la aproximación es:
+		\[
+		\delta^* = -H_k^{-1}\,\nabla_\theta\mathcal{L}(\theta_k).
+		\]
+		Gradiente descendente usa $\delta = -\eta\,\nabla_\theta\mathcal{L}$,
+		es decir, aproxima $H_k \approx \frac{1}{\eta}I$.
+	\end{obsbox}
+	
+%	\begin{resultbox}{Interpretación}
+%		Cada paso de gradiente descendente minimiza exactamente
+%		la aproximación cuadrática con Hessiana \textbf{esférica} $\frac{1}{\eta}I$.
+%		Funciona bien cuando $\eta < 1/L$ donde $L = \|\nabla^2\mathcal{L}\|_2$
+%		es la constante de Lipschitz del gradiente.
+%	\end{resultbox}
+\end{frame}
+
+% --- Convergencia no lineal ---
+\begin{frame}{Convergencia en el caso general}
+	\begin{defbox}{Función $L$-suave}
+		$\mathcal{L}$ es tal que $\|\nabla\mathcal{L}(\theta) - \nabla\mathcal{L}(\theta')\| \leq L\|\theta-\theta'\|$
+		para todo $\theta, \theta'$, entonces $\nabla^2\mathcal{L}(\theta) \preceq LI$.
+	\end{defbox}
+	
+	\begin{resultbox}{Teorema (descenso suficiente, caso $L$-suave)}
+		Si $\mathcal{L}$ es $L$-suave y $\eta \leq 1/L$, entonces:
+		\[
+		\mathcal{L}(\theta_{k+1}) \leq \mathcal{L}(\theta_k) - \frac{\eta}{2}\|\nabla_\theta\mathcal{L}(\theta_k)\|^2.
+		\]
+	\end{resultbox}
+	
+%	\begin{proof}
+%		Por $L$-suavidad: $\mathcal{L}(\theta_{k+1}) \leq \mathcal{L}(\theta_k)
+%		+ \nabla\mathcal{L}_k^\top(\theta_{k+1}-\theta_k) + \frac{L}{2}\|\theta_{k+1}-\theta_k\|^2$.
+%		Sustituyendo $\theta_{k+1}-\theta_k = -\eta\nabla\mathcal{L}_k$ y $\eta \leq 1/L$:
+%		$\mathcal{L}(\theta_{k+1}) \leq \mathcal{L}(\theta_k) - \eta\|\nabla\mathcal{L}_k\|^2
+%		+ \frac{\eta^2 L}{2}\|\nabla\mathcal{L}_k\|^2
+%		\leq \mathcal{L}(\theta_k) - \frac{\eta}{2}\|\nabla\mathcal{L}_k\|^2$.
+%	\end{proof}
+	
+	\begin{obsbox}{Consecuencia}
+		$\mathcal{L}(\theta_k) \to$ mínimo local si $\nabla\mathcal{L}(\theta_k) \neq 0$
+		en cada iteración. La convergencia a un \textbf{mínimo global} requiere convexidad.
+	\end{obsbox}
+\end{frame}
+
+% --- Resumen de garantías ---
+%\begin{frame}{Resumen: garantías de convergencia}
+%	\begin{center}
+%		\begin{tabular}{lccl}
+%			\toprule
+%			Escenario & Paso $\eta$ & Tasa & Garantía \\
+%			\midrule
+%			Lineal, paso fijo  & $\eta < 1/\lambda_{\max}$
+%			& $\rho^k$, $\rho<1$ & Convergencia global \\[3pt]
+%			Lineal, paso óptimo & $\eta_k^*$ exacto
+%			& $(1-\kappa^{-1})^{2k}$ & Convergencia global \\[3pt]
+%			\rowcolor{accentteal!15}
+%			$L$-suave (no lineal) & $\eta \leq 1/L$
+%			& $O(1/k)$ en $\|\nabla\mathcal{L}\|^2$ & Punto crítico \\[3pt]
+%			$L$-suave + convexo  & $\eta \leq 1/L$
+%			& $O(1/k)$ en $\mathcal{L}$ & Mínimo global \\
+%			\bottomrule
+%		\end{tabular}
+%	\end{center}
+%	
+%	\vspace{8pt}
+%	\begin{obsbox}{Moraleja para redes neuronales}
+%		$\mathcal{L}$ es no convexa en general $\Rightarrow$ solo garantizamos llegar a un
+%		\textbf{punto crítico}, no al mínimo global. \\
+%		El paso $\eta < 1/L$ es la condición suficiente.
+%	\end{obsbox}
+%\end{frame}
+
+\begin{frame}{El ciclo completo de entrenamiento}
+	\begin{center}
+		\begin{tikzpicture}[node distance=7mm and 18mm]
+			\node[graphop, fill=accentviolet!15, draw=accentviolet,
+			minimum width=38mm] (fwd) {Forward pass};
+			\node[graphop, fill=accentteal!15, draw=accentteal,
+			minimum width=38mm, below=of fwd] (loss) {Calcular $\mathcal{L}(\theta_k)$};
+			\node[graphop, fill=coralbox!15, draw=coralbox,
+			minimum width=38mm, below=of loss] (bwd) {Backward pass};
+			\node[graphop, fill=accentamber!15, draw=accentamber,
+			minimum width=38mm, below=of bwd] (upd) {Actualizar $\theta$};
+			
+			\draw[thickconn=accentviolet] (fwd) -- node[right,font=\small]{$\hat{f}(x;\theta_k)$} (loss);
+			\draw[thickconn=accentteal]   (loss) -- node[right,font=\small]{$\nabla_\theta\mathcal{L}$} (bwd);
+			\draw[thickconn=coralbox]     (bwd) -- node[right,font=\small]{$\theta_{k+1}$} (upd);
+			
+			\draw[thickconn=accentamber, rounded corners=4pt]
+			(upd.east) -- ++(8mm,0) -- ++(0,33mm) -- (fwd.east);
+			\node[right=12mm of loss, font=\small\color{accentamber}] {repetir};
+		\end{tikzpicture}
+	\end{center}
+	
+\end{frame}
+
+\begin{frame}{El ciclo completo de entrenamiento}
+	\vspace{2pt}
+	\begin{resultbox}{Actualización explícita por capa}
+		Para la red $\hat{f} = W_2\,\sigma(W_1 x + \bm{b}_1) + b_2$, un paso de gradiente:
+		\[
+		W_1 \leftarrow W_1 - \eta\,\frac{\partial\mathcal{L}}{\partial W_1}, \quad
+		\bm{b}_1 \leftarrow \bm{b}_1 - \eta\,\frac{\partial\mathcal{L}}{\partial \bm{b}_1}, \quad
+		W_2 \leftarrow W_2 - \eta\,\frac{\partial\mathcal{L}}{\partial W_2}, \quad
+		b_2 \leftarrow b_2 - \eta\,\frac{\partial\mathcal{L}}{\partial b_2}
+		\]
+		\vspace{2pt}
+		\\
+		\textbf{Backprop} calcula los cuatro gradientes en una sola pasada hacia atrás.\\ 	\vspace{2pt} \\
+		JAX con \texttt{grad} hace esto automáticamente para cualquier arquitectura.
+	\end{resultbox}
+	
+\end{frame}
+
+% ============================================================
+%  SECCIÓN 4: BACKPROPAGATION
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[coralbox,opacity=0.12] (current page.north west) ++(2,-2) circle (3.5cm);
+  \fill[accentviolet,opacity=0.10] (current page.south east) ++(-2,2) circle (3cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{textlight}{\textbf{Parte 4}}}\\[10pt]
+  {\large\textcolor{coralbox}{Backpropagation}}\\[6pt]
+  {\normalsize\textcolor{textgray}{= autodiff en modo reverso sobre el grafo de la red}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}{Regla de la cadena a través de la red}
+Recordemos: para la red de 1 neurona,
+\[
+  z = wx + b, \quad \hat{f} = \sigma(z), \quad \mathcal{L} = (y - \hat{f})^2
+\]
+
+\vspace{4pt}
+\begin{resultbox}{Grafo computacional}
+\begin{center}
+\begin{tikzpicture}[node distance=4mm and 16mm]
+  \node[graphnode] (x) {$x$};
+  \node[graphnode, right=of x] (z) {$z$};
+  \node[graphnode, right=of z] (fhat) {$\hat{f}$};
+  \node[graphnode, right=of fhat] (L) {$\mathcal{L}$};
+  \node[graphnode, above=8mm of z, fill=accent!15, draw=accent] (w) {$w$};
+  \node[graphnode, below=8mm of z, fill=accent!15, draw=accent] (b) {$b$};
+
+  \draw[thickconn=accentteal] (x) -- node[above,font=\small]{$\times w$} (z);
+  \draw[thickconn=accentteal] (w) -- (z);
+  \draw[thickconn=accentteal] (b) -- (z);
+  \draw[thickconn=accentteal] (z) -- node[above,font=\small]{$\sigma$} (fhat);
+  \draw[thickconn=accentteal] (fhat) -- node[above,font=\small]{$(y-\cdot)^2$} (L);
+
+  \node[below=2mm of x, font=\small\color{textgray}] {dato};
+  \node[below=16mm of z, font=\small\color{accent}] {parámetros};
+\end{tikzpicture}
+\end{center}
+\end{resultbox}
+
+\vspace{4pt}
+\begin{obsbox}{Regla de la cadena}
+\[
+  \frac{\partial\mathcal{L}}{\partial w} = \frac{\partial\mathcal{L}}{\partial \hat{f}}\cdot\frac{\partial \hat{f}}{\partial z}\cdot\frac{\partial z}{\partial w}
+\]
+Calculamos \textbf{de derecha a izquierda} en el grafo — modo reverso.
+\end{obsbox}
+\end{frame}
+
+\begin{frame}{Backprop: pasada hacia adelante y hacia atrás}
+\vspace{-0.5cm}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\begin{resultbox}{Forward pass (valores)}
+	\vspace{-0.5cm}
+\begin{align*}
+  z &= wx + b \\
+  \hat{f} &= \sigma(z) \\
+  \mathcal{L} &= (y - \hat{f})^2
+\end{align*}
+Guardamos $z$ y $\hat{f}$ para usarlos en el backward.
+\end{resultbox}
+
+\column{0.48\textwidth}
+\begin{defbox}{Backward pass (gradientes)}
+	\vspace{-0.5cm}
+\begin{align*}
+  \frac{\partial\mathcal{L}}{\partial \hat{f}} &= -2(y-\hat{f}) \\[4pt]
+  \frac{\partial\mathcal{L}}{\partial z} &= \frac{\partial\mathcal{L}}{\partial \hat{f}}\cdot\sigma'(z) \\[4pt]
+  \frac{\partial\mathcal{L}}{\partial w} &= \frac{\partial\mathcal{L}}{\partial z}\cdot x \\[4pt]
+  \frac{\partial\mathcal{L}}{\partial b} &= \frac{\partial\mathcal{L}}{\partial z}\cdot 1
+\end{align*}
+\end{defbox}
+\end{columns}
+
+\begin{obsbox}{Conexión con la clase anterior}
+Esto \textbf{es exactamente} autodiff en modo reverso: una pasada forward, una pasada backward, gradiente completo.
+\end{obsbox}
+\end{frame}
+
+\begin{frame}{¿Por qué no diferencias finitas?}
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Método & Exacto & Costo & Escala a $p$ parámetros \\
+\midrule
+Diferencias finitas & No & $O(p)$ evaluaciones & \textcolor{accent}{$p$ veces más lento} \\
+Simbólico & Sí & Explosión combinatoria & \textcolor{accent}{No factible} \\
+\rowcolor{accentteal!15}
+Autodiff (backprop) & Sí & $O(1)$ pasadas & \textcolor{accentteal}{\textbf{Independiente de $p$}} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{10pt}
+\begin{resultbox}{Por qué el gradiente exacto importa}
+Una red típica tiene $p \sim 10^6$ parámetros.\\
+Con diferencias finitas necesitaríamos $\sim 10^6$ evaluaciones de $\mathcal{L}$ por paso de gradiente.\\
+Con backprop: \textbf{2 evaluaciones} (forward + backward).
+\end{resultbox}
+\end{frame}
+
+% ============================================================
+%  EJERCICIO EN GRUPOS
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[coralbox,opacity=0.15] (current page.north east) ++(-1.5,-1.5) circle (3.5cm);
+  \fill[accentamber,opacity=0.10] (current page.south west) ++(2,2) circle (3cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{textlight}{\textbf{Ejercicio}}}\\[10pt]
+  {\large\textcolor{coralbox}{Backprop a mano + verificación en JAX}}\\[6pt]
+  {\small\textcolor{textgray}{20 minutos}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}[fragile]{Ejercicio — Parte A: a mano}
+\begin{taskbox}{Red de 2 neuronas, calcular gradientes a mano}
+Consideren:
+\[
+  h_1 = \sigma(w_1 x + b_1),\quad h_2 = \sigma(w_2 x + b_2),\quad \hat{f} = v_1 h_1 + v_2 h_2
+\]
+\[
+  \mathcal{L} = (y - \hat{f})^2, \qquad \sigma(z) = \tanh(z)
+\]
+Con $x=1$, $y=0.5$, $w_1=0.3$, $b_1=0.1$, $w_2=-0.2$, $b_2=0.4$, $v_1=0.6$, $v_2=0.8$.
+
+\vspace{4pt}
+\textbf{(a)} Hagan el forward pass: calculen $h_1$, $h_2$, $\hat{f}$, $\mathcal{L}$.\\[3pt]
+\textbf{(b)} Hagan el backward pass: calculen $\partial\mathcal{L}/\partial v_1$, $\partial\mathcal{L}/\partial v_2$, $\partial\mathcal{L}/\partial w_1$, $\partial\mathcal{L}/\partial b_1$.\\[3pt]
+%\textbf{(c)} Escriban la regla de la cadena que usaron explícitamente.
+\end{taskbox}
+\end{frame}
+
+\begin{frame}[fragile]{Ejercicio — Parte B: verificación en JAX}
+
+\begin{lstlisting}[language=Python]
+import jax.numpy as jnp
+from jax import grad, jit
+import jax
+
+def red(params, x, y):
+    w1, b1, w2, b2, v1, v2 = params
+    h1 = jnp.tanh(w1 * x + b1)
+    h2 = jnp.tanh(w2 * x + b2)
+    f_hat = v1 * h1 + v2 * h2
+    return (y - f_hat) ** 2
+
+params0 = jnp.array([0.3, 0.1, -0.2, 0.4, 0.6, 0.8])
+x, y = 1.0, 0.5
+
+# Verificar: coincide con el calculo a mano?
+gradientes = grad(red)(params0, x, y)
+print(gradientes)
+
+# Un paso de descenso de gradiente con eta = 0.1
+eta = 0.1
+params1 = params0 - eta * gradientes
+print("Loss antes:", red(params0, x, y))
+print("Loss despues:", red(params1, x, y))
+\end{lstlisting}
+
+\vspace{2pt}
+\textcolor{accentteal}{\small \texttt{grad(red)} calcula $\nabla_{\theta}\mathcal{L}$ usando backprop exactamente como lo hicieron a mano.}
+\end{frame}
+
+\begin{frame}[fragile]{Ejercicio — Parte C: entrenamiento}
+
+\begin{lstlisting}[language=Python]
+import matplotlib.pyplot as plt
+
+# Funcion objetivo: f(x) = sin(2*pi*x)
+key = jax.random.PRNGKey(42)
+xs = jnp.linspace(0, 1, 50)
+ys = jnp.sin(2 * jnp.pi * xs)
+
+def loss_total(params):
+    return jnp.mean(jax.vmap(lambda x, y: red(params, x, y))(xs, ys))
+
+grad_loss = jit(grad(loss_total))
+
+# Descenso de gradiente
+params = params0
+eta = 0.05
+historico = []
+for _ in range(500):
+    params = params - eta * grad_loss(params)
+    historico.append(float(loss_total(params)))  # guardar
+
+plt.semilogy(historico)
+plt.xlabel("iteracion"); plt.ylabel("L(theta)"); plt.title("Convergencia")
+plt.show()
+\end{lstlisting}
+
+\vspace{2pt}
+\textcolor{accentamber}{\small ¿La red converge? ¿Qué pasa si aumentan $m$ (más neuronas)?}
+\end{frame}
+
+
+% ============================================================
+%  SLIDE FINAL
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accent,opacity=0.15] (current page.north east) ++(-1,-1) circle (3.5cm);
+  \fill[accentteal,opacity=0.10] (current page.south west) ++(2,2) circle (2.8cm);
+  \fill[accentviolet,opacity=0.08] (current page.north west) ++(1,-2) circle (2cm);
+\end{tikzpicture}
+\vspace{1.8cm}
+\begin{center}
+  {\large\textcolor{textgray}{Recapitulando}}\\[14pt]
+  {\large\textcolor{textlight}{\textbf{Red neuronal}}}\\
+  {\small\textcolor{textgray}{$\hat{f}(x;\theta)$ con bases aprendibles — generaliza todo lo anterior}}\\[10pt]
+  {\large\textcolor{textlight}{\textbf{Loss function}}}\\
+  {\small\textcolor{textgray}{$\mathcal{L}(\theta)$ mide el error — es la integral que minimizamos}}\\[10pt]
+  {\large\textcolor{textlight}{\textbf{Backpropagation}}}\\
+  {\small\textcolor{textgray}{autodiff modo reverso sobre el grafo de la red — exacto, $O(1)$ pasadas}}\\[20pt]
+  \rule{4cm}{0.4pt}\\[6pt]
+  {\small\textcolor{textgray}{\texttt{mbastidaso@unal.edu.co}}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\end{document}
