@@ -1,0 +1,143 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+% ============================================================
+%  PACKAGES
+% ============================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,backgrounds}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{xcolor}
+
+% ============================================================
+%  COLORS
+% ============================================================
+\definecolor{darkbg}{HTML}{1A1A2E}
+\definecolor{accent}{HTML}{E94560}
+\definecolor{accentteal}{HTML}{0F9B8E}
+\definecolor{accentamber}{HTML}{F5A623}
+\definecolor{accentviolet}{HTML}{7B68EE}
+\definecolor{textlight}{HTML}{EAEAEA}
+\definecolor{textgray}{HTML}{9E9E9E}
+\definecolor{lightbg}{HTML}{F7F7F7}
+\definecolor{coralbox}{HTML}{FF6B6B}
+
+% ============================================================
+%  BEAMER SETUP
+% ============================================================
+\setbeamercolor{background canvas}{bg=lightbg}
+\setbeamercolor{normal text}{fg=darkbg}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{%
+  \hfill\textcolor{textgray}{\tiny\texttt{mbastidaso@unal.edu.co}\quad\insertframenumber/\inserttotalframenumber\quad}%
+  \vspace{4pt}
+}
+\setbeamertemplate{itemize item}{\textcolor{accent}{\textbullet}}
+\setbeamertemplate{itemize subitem}{\textcolor{accentteal}{--}}
+
+% ============================================================
+%  DARK SLIDE ENVIRONMENT (decorative circles)
+% ============================================================
+\newenvironment{darkslide}{%
+  \setbeamercolor{background canvas}{bg=darkbg}
+  \setbeamercolor{normal text}{fg=textlight}
+  \usebeamercolor[fg]{normal text}
+  \begin{frame}
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[accent,opacity=0.10]   (current page.north east) ++(-1.2,-1.0) circle (1.7);
+    \fill[accentteal,opacity=0.10](current page.south west) ++(1.6,1.2) circle (2.3);
+    \fill[accentviolet,opacity=0.10](current page.south east) ++(-2.0,2.4) circle (1.1);
+  \end{tikzpicture}
+}{%
+  \end{frame}
+}
+
+% ============================================================
+%  CONTENT BOXES
+% ============================================================
+\newtcolorbox{defbox}[1][]{colback=accentviolet!8, colframe=accentviolet,
+  boxrule=1pt, arc=3pt, left=6pt,right=6pt,top=5pt,bottom=5pt, #1}
+\newtcolorbox{resbox}[1][]{colback=accentteal!8, colframe=accentteal,
+  boxrule=1pt, arc=3pt, left=6pt,right=6pt,top=5pt,bottom=5pt, #1}
+\newtcolorbox{obsbox}[1][]{colback=accentamber!10, colframe=accentamber,
+  boxrule=1pt, arc=3pt, left=6pt,right=6pt,top=5pt,bottom=5pt, #1}
+\newtcolorbox{taskbox}[1][]{colback=coralbox!10, colframe=coralbox,
+  boxrule=1pt, arc=3pt, left=6pt,right=6pt,top=5pt,bottom=5pt, #1}
+
+\newcommand{\R}{\mathbb{R}}
+
+% ============================================================
+\begin{document}
+
+% ---------- TITLE ----------
+\begin{darkslide}
+  \vfill
+  \begin{flushleft}
+  {\Large\textcolor{accent}{\textbf{Teorema de Aproximaci\'on Universal}}}\\[6pt]
+  {\large\textcolor{textlight}{\textbf{?`Qu\'e puede representar una red neuronal?}}}\\[14pt]
+  {\small\textcolor{textgray}{Programaci\'on Cient\'ifica 2026-1 \quad$\cdot$\quad Universidad Nacional de Colombia}}
+  \end{flushleft}
+  \vfill
+\end{darkslide}
+
+% ---------- SLIDE 1: el hilo ----------
+\begin{frame}{El hilo del curso}
+  Toda nuestra aproximaci\'on tiene la misma forma:
+  \[
+    \hat{f}(x) = \sum_{i=1}^{n} c_i\,\phi_i(x).
+  \]
+  \medskip
+  \begin{itemize}
+    \item Con \textbf{bases fijas} (monomios, splines, B\'ezier, Fourier) elegimos los $\phi_i$ de antemano y solo ajustamos los $c_i$.
+    \item En una \textbf{red neuronal} los $\phi_i(x)=\sigma(w_i^\top x + b_i)$ \emph{tambi\'en} se aprenden.
+  \end{itemize}
+  \medskip
+  \begin{obsbox}
+  \textbf{La pregunta de hoy:} si dejamos que la red elija sus propias bases, ?`qu\'e funciones puede aproximar? ?`Hay un l\'imite?
+  \end{obsbox}
+\end{frame}
+
+% ---------- SLIDE 2: enunciado ----------
+\begin{frame}{El teorema (Cybenko 1989, Hornik 1991)}
+  Una red de \textbf{una sola capa oculta} con $n$ neuronas representa
+  \[
+    \hat{f}(x) = \sum_{i=1}^{n} c_i\,\sigma(w_i^\top x + b_i).
+  \]
+  \begin{defbox}
+  \textbf{Teorema.} Sea $\sigma$ continua, acotada y no constante, y $K\subset\R^d$ compacto. Para toda funci\'on continua $f:K\to\R$ y todo $\varepsilon>0$, existe $n$ y par\'ametros $\{c_i,w_i,b_i\}$ tales que
+  \[
+    \sup_{x\in K}\bigl|\,f(x)-\hat{f}(x)\,\bigr| < \varepsilon.
+  \]
+  \end{defbox}
+  \begin{obsbox}
+  El conjunto de redes de una capa es \textbf{denso} en $C(K)$ con la norma del supremo. No se acota $n$: la garant\'ia es de \emph{existencia}, no de eficiencia.
+  \end{obsbox}
+\end{frame}
+
+
+% ---------- SLIDE 4: conexion con la clase de redes ----------
+\begin{frame}{Conexi\'on con la clase}
+  \begin{columns}[T]
+    \column{0.5\textwidth}
+    \begin{resbox}
+    \textbf{Lo que garantiza el teorema}\\[2pt]
+    Existe un $n$ con error $<\varepsilon$
+    \end{resbox}
+    \column{0.5\textwidth}
+    \begin{taskbox}
+    \textbf{Lo que el teorema \emph{no} dice}\\[2pt]
+    No dice cu\'antas neuronas, ni que el descenso de gradiente \emph{encuentre} esos par\'ametros. Existencia $\neq$ optimizaci\'on.
+    \end{taskbox}
+  \end{columns}
+  \medskip
+  \begin{obsbox}
+  En la pr\'actica la profundidad importa: redes profundas logran el mismo $\varepsilon$ con muchas menos neuronas que una sola capa ancha.
+  \end{obsbox}
+\end{frame}
+
+
+
+\end{document}
