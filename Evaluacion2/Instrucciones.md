@@ -6,7 +6,7 @@
 
 mbastidaso@unal.edu.co
 
-**Modalidad:** individual · **Fecha límite:** Jueves 9 de julio, 23:59
+**Modalidad:** individual · **Fecha límite:** Lunes 13 de julio, 23:59
 
 ---
 
