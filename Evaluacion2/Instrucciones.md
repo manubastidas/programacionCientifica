@@ -69,25 +69,36 @@ El notebook debe contener, como mínimo, los siguientes entregables. Las gráfic
 - [ ] Evidencia de que, en su inicialización, la capa reproduce la transformada de Fourier de la señal (comparación con `np.fft`).
 - [ ] **Reporta la energía media del dataset** (`(X**2).mean()`, con 3 decimales).
 
+<span style="color:blue"> Esta parte es sobre el dataset y la capa de Fourier. ¿Cuáles son las entradas y salidas de np.fft? ¿Se hace a una señal o a varias? 
+¿Para que pedimos reportar la energía media del dataset?</span>.
+
+
 ### Entrenamiento y reconstrucción (25 pts)
 - [ ] **Gráfica:** la señal original junto a su reconstrucción final, para una señal de cada régimen.
 - [ ] Red entrenada con las dos inicializaciones (Fourier y aleatoria), con los parámetros del enunciado.
 - [ ] Error de reconstrucción relativo $\|\hat x - x\|/\|x\|$ reportado para cada caso.
 
+<span style="color:blue"> Esta parte es sobre el dataset y la capa de Fourier. Ojo: La gráfica es de los datos.
+El error es entre la salida de la red y la original. ¿Debería ser un dato con el que se entreno la red o algún dato de validación? 
+¿Cuál es la diferencia del error de resconstrucción de cada red-parametrización? </span>.
+
 ### Comparación de inicializaciones (25 pts)
 - [ ] **Gráfica:** curvas de la pérdida $\mathcal{L}$ vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
-- [ ] Medición de **cuántas iteraciones** necesita cada inicialización para bajar de error relativo 0.1.
-- [ ] **Gráfica/análisis del régimen difícil:** el mismo contraste para el régimen que te indica el enunciado, con la diferencia de velocidad de convergencia.
+- [ ] Medición de **cuántas iteraciones** necesita cada inicialización para que el **error relativo** 0.1.
+- [ ] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
+
+<span style="color:blue"> Ojo: ¿La pérdida es el error relativo? La gráfica de convergencia de la velocidad es para el régimen 
+del enunciado que dice: "Prestar especial atención al régimen # y a la velocidad con que cada inicialización mejora." </span>.
 
 ### Compresión (10 pts)
 - [ ] **Gráfica:** error de reconstrucción vs número de coeficientes conservados.
-- [ ] Cuántos coeficientes bastan para el umbral de energía del enunciado.
+- [ ] Cuántos coeficientes bastan para lograr umbral de energía del enunciado.
 
 ### GitHub (10 pts)
 - [ ] Rama, carpeta con apellidos (con `.ipynb`, `enunciado_XXXX.md`, `datos_XXXX.npz`), commits y PR.
 
 ### Sesión presencial de revisión (15 pts)
-- [ ] El viernes 10 de Julio en horario de clase, la profesora hará aleatoriamente una revisión rápida de PRs.
+- [ ] El miércoles 15 de Julio en horario de clase, la profesora hará aleatoriamente una revisión rápida de PRs.
 
 > Como cada quien tiene parámetros y datos únicos, los resultados no son transferibles: una entrega que no corresponda al ID será evidente.
 
