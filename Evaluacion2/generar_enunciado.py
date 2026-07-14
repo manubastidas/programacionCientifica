@@ -113,7 +113,7 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 2. Carpeta con los **apellidos** en la raíz del repositorio:
    ```
    PerezGomez/
-   ├── solucion.ipynb        # el notebook resuelto
+   ├── solucion.ipynb        # el notebook resuelto, con las 3 respuestas
    ├── enunciado_{seed}.md   # el enunciado personalizado
    └── datos_{seed}.npz      # los datos
    ```
