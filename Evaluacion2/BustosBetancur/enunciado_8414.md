@@ -4,7 +4,7 @@
 
 **Modalidad:** individual · **Entrega:** GitHub (rama + Pull Request)
 
-> ⚙️ **Enunciado personalizado — ID 1234.** Los parámetros son únicos. 
+> ⚙️ **Enunciado personalizado — ID 8414.** Los parámetros son únicos. 
 
 ---
 
@@ -62,11 +62,11 @@ $$\mathcal{L} = \tfrac1N\|\hat x - x\|^2$$
 
 ## La arquitectura
 
-La red tiene dos capas. La **primera** es una capa lineal de tamaño $256 \to 2K$ (con **K = 15** frecuencias) seguida de una no linealidad $\tanh$; la **siguiente** es una capa lineal $2K \to 256$ que reconstruye la señal:
+La red tiene dos capas. La **primera** es una capa lineal de tamaño $256 \to 2K$ (con **K = 20** frecuencias) seguida de una no linealidad $\tanh$; la **siguiente** es una capa lineal $2K \to 256$ que reconstruye la señal:
 
 $$\hat x = W_2\,\tanh(W_1 x).$$
 
-La idea central está en $W_1$. Sus pesos pueden **inicializarse como la matriz de Fourier**: las filas son $\sin(2\pi k t)$ y $\cos(2\pi k t)$, $k=1,\dots,15$ o de forma **aleatoria**. En ambos casos $W_1$ se sigue entrenando: lo único que cambia es el punto de partida.
+La idea central está en $W_1$. Sus pesos pueden **inicializarse como la matriz de Fourier**: las filas son $\sin(2\pi k t)$ y $\cos(2\pi k t)$, $k=1,\dots,20$ o de forma **aleatoria**. En ambos casos $W_1$ se sigue entrenando: lo único que cambia es el punto de partida.
 
 ## Lo que se espera
 
@@ -74,8 +74,8 @@ Este trabajo debe permitir responder, con evidencia propia, si conviene arrancar
 
 - Construir la capa Fourier y verificar que, en su punto de partida, calcula efectivamente una transformada de Fourier de la señal.
 - Entrenar la red con las **dos inicializaciones** (Fourier y aleatoria) sobre señales de los tres regímenes, durante **4000 iteraciones** (learning rate sugerido $\eta=0.1$), y estudiar la evolución de la pérdida (error) en cada caso.
-- Prestar especial atención al **régimen 2** y a la **velocidad** con que cada inicialización mejora.
-- Explorar cuánta información de la señal vive en pocos coeficientes de la capa Fourier (compresión, con referencia al **85%** de la energía).
+- Prestar especial atención al **régimen 0** y a la **velocidad** con que cada inicialización mejora.
+- Explorar cuánta información de la señal vive en pocos coeficientes de la capa Fourier (compresión, con referencia al **95%** de la energía).
 
 Las gráficas y resultados concretos que se deben entregar están en la **rúbrica** (documento de instrucciones de la evaluación).
 
@@ -87,8 +87,8 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
    ```
    PerezGomez/
    ├── solucion.ipynb        # el notebook resuelto, con las 3 respuestas
-   ├── enunciado_1234.md   # el enunciado personalizado
-   └── datos_1234.npz      # los datos
+   ├── enunciado_8414.md   # el enunciado personalizado
+   └── datos_8414.npz      # los datos
    ```
 3. **Varios Commits semánticos** (`feat:`, `fix:`, `docs:`, `data:`) no un único commit final.
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
