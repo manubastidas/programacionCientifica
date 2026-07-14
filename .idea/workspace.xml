@@ -43,7 +43,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "settings.editor.selected.configurable": "com.intellij.jupyter.core.jupyter.connections.configuration.JupyterServerConfigurable",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -73,7 +73,7 @@
       <updated>1783963704992</updated>
       <workItem from="1783963706349" duration="433000" />
       <workItem from="1783964167232" duration="765000" />
-      <workItem from="1783997973705" duration="3586000" />
+      <workItem from="1783997973705" duration="4227000" />
     </task>
     <servers />
   </component>
