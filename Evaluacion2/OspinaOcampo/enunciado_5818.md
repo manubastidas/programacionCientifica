@@ -94,3 +94,32 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
 
 > 📊 ** Acumulativo.** Este curso se evalúa de forma acumulativa, siempre debemos dar especial énfasis en visualización científica: ejes con unidades, tipo de gráfico y mapa de color justificados, leyendas claras, figuras que comuniquen una idea. Una reconstrucción correcta en una figura pobre no recibe puntaje completo.
+
+# Comentarios sobre la entrega:
+
+### Capa Fourier (15 pts)
+- [5] La función que construye la capa Fourier (W1 con filas de senos y cosenos).
+- [4] Evidencia de que, en su inicialización, la capa reproduce la transformada de Fourier de la señal (comparación con np.fft).
+- [5] **Reporta la energía media del dataset** ((X**2).mean(), con 3 decimales).
+
+(**Comentario**: No hay ningún error numérico, que no hay evidencia cuantitativa de la equivalencia.)
+
+### Entrenamiento y reconstrucción (25 pts)
+- [3] **Gráfica:** la señal original junto a su reconstrucción final, para una señal de cada régimen.
+- [3] Red entrenada con las dos inicializaciones (Fourier y aleatoria), con los parámetros del enunciado.
+- [0] Error de reconstrucción relativo ||x̂-x||/||x|| reportado para cada caso.
+
+(**Comentario**: la gráfica de reconstrucción  solo  muestra la reconstrucción con inicialización Fourier. Se reemplazó el descenso de gradiente por Adam que produce inestabilidad visible en las curvas de pérdida.)
+
+### Comparación de inicializaciones (25 pts)
+- [4] **Gráfica:** curvas de la pérdida L vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
+- [4] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
+- [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
+
+(**Comentario**: Las curvas de Fourier y aleatoria son indistinguibles y la pérdida vuelve a subir y oscila entonces las iteraciones hasta error<0.1 da exactamente el mismo valor (33) para ambas inicializaciones. El comentario del notebook (que afirma que Fourier converge "significativamente más rápido" en el régimen difícil) no es consistente con los números realmente obtenidos. Las curvas son semilogy, no loglog.)
+
+### Compresión (10 pts)
+- [5] **Gráfica:** error de reconstrucción vs número de coeficientes conservados.
+- [4] Cuántos coeficientes bastan para lograr el umbral de energía del enunciado.
+
+(**Comentario**: el truncamiento se hace correctamente ordenando por energía descendente. ¿Porqué nos da diferente?)

@@ -94,3 +94,32 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
 
 > 📊 ** Acumulativo.** Este curso se evalúa de forma acumulativa, siempre debemos dar especial énfasis en visualización científica: ejes con unidades, tipo de gráfico y mapa de color justificados, leyendas claras, figuras que comuniquen una idea. Una reconstrucción correcta en una figura pobre no recibe puntaje completo.
+
+# Comentarios sobre la entrega:
+
+### Capa Fourier (15 pts)
+- [5] La función que construye la capa Fourier (W1 con filas de senos y cosenos).
+- [0] Evidencia de que, en su inicialización, la capa reproduce la transformada de Fourier de la señal (comparación con np.fft).
+- [0] **Reporta la energía media del dataset** ((X**2).mean(), con 3 decimales).
+
+### Entrenamiento y reconstrucción (25 pts)
+- [4] **Gráfica:** la señal original junto a su reconstrucción final, para una señal de cada régimen.
+- [6] Red entrenada con las dos inicializaciones (Fourier y aleatoria), con los parámetros del enunciado.
+- [0] Error de reconstrucción relativo ||x̂-x||/||x|| reportado para cada caso.
+
+(**Comentario**: la reconstrucción final solo se grafica para el régimen 1 no para los tres regímenes. La red sí se entrena correctamente con ambas inicializaciones sobre el batch completo, pero el `learning_rate` original era `1e-2`, no el `eta=0.05` sugerido en el enunciado (sustituido para esta revisión). Nunca se calcula el error relativo ||x̂-x||/||x|| de la reconstrucción de la red; solo se reporta el MSE de la función de pérdida.)
+
+### Comparación de inicializaciones (25 pts)
+- [6] **Gráfica:** curvas de la pérdida L vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
+- [1] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
+- [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
+
+(**Comentario**: la curva de pérdida usa `semilogy` (no `loglog`). La medición de iteraciones hasta "error relativo < 0.1" en realidad compara el MSE bruto.
+
+### Compresión (10 pts)
+- [2] **Gráfica:** error de reconstrucción vs número de coeficientes conservados.
+- [3] Cuántos coeficientes bastan para lograr el umbral de energía del enunciado.
+
+(**Comentario**: el código trunca los coeficientes en orden de frecuencia no ordenados por energía descendente. El umbral usado en el código es 90% (coincide con la referencia), pero el enunciado personalizado del estudiante (ID 4879) pide 95%.)
+¿Porqué hay experimentos adicionales?
+¿Hay un problema con los datos? - Revisar! 
