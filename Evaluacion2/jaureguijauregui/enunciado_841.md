@@ -94,3 +94,32 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
 
 > 📊 ** Acumulativo.** Este curso se evalúa de forma acumulativa, siempre debemos dar especial énfasis en visualización científica: ejes con unidades, tipo de gráfico y mapa de color justificados, leyendas claras, figuras que comuniquen una idea. Una reconstrucción correcta en una figura pobre no recibe puntaje completo.
+
+# Comentarios sobre la entrega:
+
+### Capa Fourier (15 pts) — 6/15
+- [5] La función que construye la capa Fourier (W1 con filas de senos y cosenos).
+- [0] Evidencia de que, en su inicialización, la capa reproduce la transformada de Fourier de la señal (comparación con np.fft).
+- [0] **Reporta la energía media del dataset** ((X**2).mean(), con 3 decimales).
+
+(**Comentario**: `fourier_matrix` construye W1 correctamente (bloques sin/cos, K filas cada uno). La "verificación" solo grafica los coeficientes W1@x, sin comparar nunca contra `np.fft` ni reportar un error numérico. No aparece la energía media del dataset en ningún punto)
+
+### Entrenamiento y reconstrucción (25 pts) — 16/25
+- [3] **Gráfica:** la señal original junto a su reconstrucción final, para una señal de cada régimen.
+- [0] Red entrenada con las dos inicializaciones (Fourier y aleatoria), con los parámetros del enunciado.
+- [0] Error de reconstrucción relativo ||x̂-x||/||x|| reportado para cada caso.
+
+(**Comentario**: Entrena una red por señal (no sobre los regimenes ni el dataset completo). Solo reporta el MSE y una gráfica de diferencia sin normalizar; nunca calcula el error relativo.)
+
+### Comparación de inicializaciones (25 pts) — 12/25
+- [8] **Gráfica:** curvas de la pérdida L vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
+- [0] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
+- [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
+
+(**Comentario**: Curvas de pérdida en loglog superpuestas. No existe ninguna medición de iteraciones hasta cruzar error relativo < 0.1.
+
+### Compresión (10 pts) — 5/10
+- [2] **Gráfica:** error de reconstrucción vs número de coeficientes conservados.
+- [4] Cuántos coeficientes bastan para lograr el umbral de energía del enunciado.
+
+(**Comentario**: Solo grafica energía acumulada y magnitud de coeficientes ordenados; nunca reconstruye la señal truncada a m coeficientes, así que falta el error de reconstrucción real vs. m. Sí calcula correctamente, ordenando por energía descendente, cuántos coeficientes bastan para el umbral de su enunciado (85%).)

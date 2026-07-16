@@ -94,3 +94,33 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
 
 > 📊 ** Acumulativo.** Este curso se evalúa de forma acumulativa, siempre debemos dar especial énfasis en visualización científica: ejes con unidades, tipo de gráfico y mapa de color justificados, leyendas claras, figuras que comuniquen una idea. Una reconstrucción correcta en una figura pobre no recibe puntaje completo.
+
+# Comentarios sobre la entrega:
+
+### Capa Fourier (15 pts) - 10/15
+- [5] La función que construye la capa Fourier (`matrixFourier(k)`, W1 con filas de senos y cosenos). Forma correcta `(2k, 256)`, filas intercaladas seno/coseno para cada `k=1..K`.
+- [0] Evidencia de que, en su inicialización, la capa reproduce la transformada de Fourier de la señal (comparación con `np.fft`). **No está.** Solo se inspecciona el rango de amplitud de una fila (`np.min/np.max`, celda 24) y se explica conceptualmente por qué la matriz de Fourier "tiene sentido", pero nunca se compara numéricamente `W1@x` contra `np.fft.fft(x)`. No hay error relativo ni cuantitativo reportado para esta verificación.
+- [5] **Reporta la energía media del dataset**: `round((X**2).mean(), 3)` → con los datos y parámetros de referencia dio `0.678`.
+
+(**Comentario**: la construcción de $W_1$ es correcta y el reporte de energía está bien hecho, pero falta el paso central de "verificar contra `np.fft`" que pide explícitamente el enunciado.)
+
+### Entrenamiento y reconstrucción (25 pts) - 7/25
+- [2] **Gráfica:** señal original junto a su reconstrucción final, para una señal de cada régimen.
+- [0] Red entrenada con las dos inicializaciones (Fourier y aleatoria).
+- [5] Error de reconstrucción relativo `||x̂-x||/||x||` reportado para cada caso (celda 53), por régimen y por base.
+
+(**Comentario**: Entrena una red por cada regimen no una red completa.)
+
+### Comparación de inicializaciones (25 pts) — 12/25
+- [3] **Gráfica:** curvas de la pérdida vs iteraciones con las dos inicializaciones superpuestas.
+- [8] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
+- [1] Análisis específico del régimen foco del enunciado del estudiante (**régimen 0**): 
+
+(**Comentario**: La escala de la gráfica de pérdida (`semilogy` en vez de `loglog`), que es un detalle de visualización pedido explícitamente por la rúbrica.
+
+### Compresión (10 pts) — 1/10
+- [0] **Gráfica:** error de reconstrucción vs número de coeficientes conservados. **No existe.** No se grafica ni se calcula ningún error de reconstrucción en función de `m`.
+- [1] El resultado impreso, `(0, 25)` no refleja ningún cálculo real: al recalcular correctamente con los datos y umbral de referencia, el rango real de coeficientes necesarios es **mínimo 4, máximo 15** .
+
+(**Comentario**: la idea metodológica (ordenar energía descendente, usar `np.searchsorted` sobre la energía acumulada) es correcta y es la forma recomendada, pero la sección está incompleta y el único resultado numérico que se reporta es inválido por el choque de nombres `K`/`k`. 
+

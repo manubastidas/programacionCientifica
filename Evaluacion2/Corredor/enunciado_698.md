@@ -94,3 +94,29 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
 
 > 📊 ** Acumulativo.** Este curso se evalúa de forma acumulativa, siempre debemos dar especial énfasis en visualización científica: ejes con unidades, tipo de gráfico y mapa de color justificados, leyendas claras, figuras que comuniquen una idea. Una reconstrucción correcta en una figura pobre no recibe puntaje completo.
+
+# Comentarios sobre la entrega:
+
+### Capa Fourier (15 pts)
+- [5] La función que construye la capa Fourier (W1 con filas de senos y cosenos).
+- [5] Evidencia de que, en su inicialización, la capa reproduce la transformada de Fourier de la señal (comparación con np.fft).
+- [5] **Reporta la energía media del dataset** ((X**2).mean(), con 3 decimales).
+
+### Entrenamiento y reconstrucción (25 pts)
+- [4] **Gráfica:** la señal original junto a su reconstrucción final, para una señal de cada régimen.
+- [10] Red entrenada con las dos inicializaciones (Fourier y aleatoria), con los parámetros del enunciado.
+- [5] Error de reconstrucción relativo ||x̂-x||/||x|| reportado para cada caso.
+
+(**Comentario**: Entrena una red por inicialización sobre el batch completo de 24 señales (no por señal ni por régimen). Normaliza cada fila de W1 aleatoria a la misma norma que la de fourier y esto cambia el entrenamiento.
+
+### Comparación de inicializaciones (25 pts)
+- [10] **Gráfica:** curvas de la pérdida L vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
+- [0] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
+- [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
+
+
+### Compresión (10 pts)
+- [5] **Gráfica:** error de reconstrucción vs número de coeficientes conservados.
+- [5] Cuántos coeficientes bastan para lograr el umbral de energía del enunciado.
+
+** (-5 pts porque no usa los formatos o estilos del curso) **

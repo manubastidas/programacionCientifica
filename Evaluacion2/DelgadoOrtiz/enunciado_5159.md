@@ -94,3 +94,27 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
 
 > 📊 ** Acumulativo.** Este curso se evalúa de forma acumulativa, siempre debemos dar especial énfasis en visualización científica: ejes con unidades, tipo de gráfico y mapa de color justificados, leyendas claras, figuras que comuniquen una idea. Una reconstrucción correcta en una figura pobre no recibe puntaje completo.
+
+# Comentarios sobre la entrega:
+
+### Capa Fourier (15 pts)
+- [5] La función que construye la capa Fourier (`init_fourier`, W1 con columnas de senos y cosenos intercalados en vez de bloques).
+- [5] Evidencia **cuantitativa** de que la capa reproduce la FFT: compara magnitudes `np.fft.rfft` vs. la capa.
+- [5] **Energía media del dataset** reportada con 3 decimales: `0.678`
+
+### Entrenamiento y reconstrucción (25 pts)
+- [7] **Gráfica:** señal original y su reconstrucción, una señal por régimen.
+- [10] Red entrenada con las dos inicializaciones, sobre el batch completo del dataset (igual que la referencia, no por señal ni por régimen).
+- [5] Error de reconstrucción relativo `‖x̂-x‖/‖x‖` reportado por caso y por régimen
+
+### Comparación de inicializaciones (25 pts)
+- [5] **Gráfica:** curva de pérdida vs. iteraciones con ambas inicializaciones superpuestas, aunque solo con escala log en el eje Y (`plt.yscale('log')`), no `loglog`.
+- [10] Medición de iteraciones para error relativo implementado correctamente.
+- [5] Análisis específico del régimen foco: 
+
+
+### Compresión (10 pts)
+- [5] **Gráfica:** error de reconstrucción vs. número de coeficientes conservados.
+- [0] En vez de ordenar por energía los coeficientes **lineales** de `W1` calcula `z = tanh(x @ W1_f)` usando la **red ya entrenada**. Esto mide la compresibilidad de la representación aprendida, no la de la base de Fourier.
+
+
