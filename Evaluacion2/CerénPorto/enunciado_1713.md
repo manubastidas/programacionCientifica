@@ -116,7 +116,7 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 - [8] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
 - [1] Análisis específico del régimen foco del enunciado del estudiante (**régimen 0**): 
 
-(**Comentario**: La escala de la gráfica de pérdida (`semilogy` en vez de `loglog`), que es un detalle de visualización pedido explícitamente por la rúbrica.
+(**Comentario**: La escala de la gráfica de pérdida (`semilogy` en vez de `loglog`).
 
 ### Compresión (10 pts) — 1/10
 - [0] **Gráfica:** error de reconstrucción vs número de coeficientes conservados. **No existe.** No se grafica ni se calcula ningún error de reconstrucción en función de `m`.

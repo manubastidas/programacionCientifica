@@ -113,7 +113,7 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 
 ### Comparación de inicializaciones (25 pts) 
 - [9] **Gráfica:** curvas de la pérdida L vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
-- [3] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
+- [10] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
 - [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
 
 (**Comentario**: No reporta el número de iteración exacto en que cada curva cruza 0.1)

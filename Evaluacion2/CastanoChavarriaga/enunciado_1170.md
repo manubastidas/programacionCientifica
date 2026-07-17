@@ -112,10 +112,10 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 
 ### Comparación de inicializaciones (25 pts)
 - [10] **Gráfica:** curvas de la pérdida $\mathcal{L}$ vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
-- [0] Medición de **cuántas iteraciones** necesita cada inicialización para que el **error relativo** 0.1.
+- [8] Medición de **cuántas iteraciones** necesita cada inicialización para que el **error relativo** 0.1.
 - [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
 
-(**Comentario**: Las graficas son mejores en loglog. Se usa un optimizador mejor que el esperado en las instrucciones. No hay medida de iteraciones para el error relativo <0.1)
+(**Comentario**: Las graficas son mejores en loglog. Se usa un optimizador mejor que el esperado en las instrucciones.)
 
 ### Compresión (10 pts)
 - [5] **Gráfica:** error de reconstrucción vs número de coeficientes conservados.

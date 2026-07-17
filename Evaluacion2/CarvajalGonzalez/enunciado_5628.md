@@ -106,13 +106,13 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 ### Entrenamiento y reconstrucción (25 pts)
 - [5] **Gráfica:** la señal original junto a su reconstrucción final, para una señal de cada régimen.
 - [0] Red entrenada con las dos inicializaciones (Fourier y aleatoria), con los parámetros del enunciado.
-- [0] Error de reconstrucción relativo $\|\hat x - x\|/\|x\|$ reportado para cada caso.
+- [5] Error de reconstrucción relativo $\|\hat x - x\|/\|x\|$ reportado para cada caso.
 
 (**Comentario**: Las gráficas son mejores sobrepuestas. Además se entrena una red por cáda régimen (esto no está en las instrucciones) y no hay reporte de error para cada caso. 
 
 ### Comparación de inicializaciones (25 pts)
 - [10] **Gráfica:** curvas de la pérdida $\mathcal{L}$ vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
-- [0] Medición de **cuántas iteraciones** necesita cada inicialización para que el **error relativo** 0.1.
+- [10] Medición de **cuántas iteraciones** necesita cada inicialización para que el **error relativo** 0.1.
 - [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
 
 (**Comentario**: No es claro que es el error relativo y el MSE)
