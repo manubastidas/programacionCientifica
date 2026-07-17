@@ -94,3 +94,33 @@ Las gráficas y resultados concretos que se deben entregar están en la **rúbri
 4. Abre un **Pull Request** con una descripicón corta del trabajo.
 
 > 📊 ** Acumulativo.** Este curso se evalúa de forma acumulativa, siempre debemos dar especial énfasis en visualización científica: ejes con unidades, tipo de gráfico y mapa de color justificados, leyendas claras, figuras que comuniquen una idea. Una reconstrucción correcta en una figura pobre no recibe puntaje completo.
+
+# Comentarios sobre la entrega:
+
+**¿Porque tus markdown están en LATEX? Esto genera errores!**
+
+### Capa Fourier (15 pts) 
+- [5] La función que construye la capa Fourier (W1 con filas de senos y cosenos).
+- [5] Evidencia de que, en su inicialización, la capa reproduce la transformada de Fourier de la señal (comparación con np.fft).
+- [5] **Reporta la energía media del dataset** ((X**2).mean(), con 3 decimales).
+
+
+### Entrenamiento y reconstrucción (25 pts) 
+- [4] **Gráfica:** la señal original junto a su reconstrucción final, para una señal de cada régimen.
+- [4] Red entrenada con las dos inicializaciones (Fourier y aleatoria), con los parámetros del enunciado.
+- [3] Error de reconstrucción relativo ||x̂-x||/||x|| reportado para cada caso.
+
+(**Comentario**: El código asume que el dataset está ordenado en bloques por régimen (índices [0:8],[8:16],[16:24]) pero el `y` real está mezclado, así que las etiquetas "Régimen 0/1/2" en la gráfica y en los errores no corresponden a las señales reales de cada régimen. La gráfica de reconstrucción usa Adam en vez de GD simple del enunciado. )
+
+### Comparación de inicializaciones (25 pts) 
+- [5] **Gráfica:** curvas de la pérdida L vs iteraciones, con las dos inicializaciones superpuestas en la misma figura.
+- [4] Medición de cuántas iteraciones necesita cada inicialización para que el error relativo < 0.1.
+- [5] **Gráfica/análisis del régimen indicado:** contrastar velocidad de convergencia para el régimen que indica el enunciado.
+
+(**Comentario**: Entrena muchas redes no solo una.)
+
+### Compresión (10 pts) 
+- [5] **Gráfica:** error de reconstrucción vs número de coeficientes conservados.
+- [3] Cuántos coeficientes bastan para lograr el umbral de energía del enunciado.
+
+(**Comentario**: Resultados diferentes a la referencia.)
