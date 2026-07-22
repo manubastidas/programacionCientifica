@@ -1,0 +1,347 @@
+\documentclass[aspectratio=169,10pt]{beamer}
+
+% ============================================================
+%  PAQUETES
+% ============================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,backgrounds,shapes.geometric}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% ============================================================
+%  PALETA
+% ============================================================
+\definecolor{darkbg}{HTML}{1A1A2E}
+\definecolor{accent}{HTML}{E94560}
+\definecolor{accentteal}{HTML}{0F9B8E}
+\definecolor{accentamber}{HTML}{F5A623}
+\definecolor{accentviolet}{HTML}{7B68EE}
+\definecolor{textlight}{HTML}{EAEAEA}
+\definecolor{textgray}{HTML}{9E9E9E}
+\definecolor{lightbg}{HTML}{F7F7F7}
+\definecolor{coralbox}{HTML}{FF6B6B}
+\definecolor{codebg}{HTML}{272740}
+\definecolor{codefg}{HTML}{E8E8F0}
+
+% ============================================================
+%  TEMA BEAMER
+% ============================================================
+\setbeamercolor{background canvas}{bg=lightbg}
+\setbeamercolor{normal text}{fg=darkbg}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{%
+	\hfill\textcolor{textgray}{\tiny\texttt{mbastidaso@unal.edu.co}%
+		\quad\insertframenumber/\inserttotalframenumber\quad}%
+	\vspace{4pt}%
+}
+\setbeamertemplate{itemize item}{\textcolor{accent}{\textbullet}}
+\setbeamertemplate{itemize subitem}{\textcolor{accentteal}{--}}
+
+% ============================================================
+%  ENTORNO DARK SLIDE
+% ============================================================
+\newenvironment{darkslide}{%
+	\setbeamercolor{background canvas}{bg=darkbg}%
+	\setbeamercolor{normal text}{fg=textlight}%
+}{%
+	\setbeamercolor{background canvas}{bg=lightbg}%
+	\setbeamercolor{normal text}{fg=darkbg}%
+}
+
+% ============================================================
+%  CAJAS DE CONTENIDO
+% ============================================================
+\tcbset{mybase/.style={
+		enhanced, breakable, arc=3pt,
+		boxrule=0.6pt, left=6pt, right=6pt, top=5pt, bottom=5pt,
+		fonttitle=\bfseries, fontupper=\normalsize
+}}
+\newtcolorbox{defbox}[1]{mybase,
+	colback=accentviolet!8,colframe=accentviolet!60,title={#1}}
+\newtcolorbox{resultbox}[1]{mybase,
+	colback=accentteal!8,colframe=accentteal!60,title={#1}}
+\newtcolorbox{obsbox}[1]{mybase,
+	colback=accentamber!10,colframe=accentamber!70,title={#1}}
+\newtcolorbox{taskbox}[1]{mybase,
+	colback=coralbox!8,colframe=coralbox!60,title={#1}}
+
+% ============================================================
+%  CÓDIGO
+% ============================================================
+\lstset{
+	language=Python,
+	basicstyle=\ttfamily\scriptsize\color{codefg},
+	backgroundcolor=\color{codebg},
+	keywordstyle=\color{accentviolet!90!white}\bfseries,
+	stringstyle=\color{accentteal},
+	commentstyle=\color{textgray}\itshape,
+	frame=none, numbers=none,
+	breaklines=true, showstringspaces=false,
+	xleftmargin=4pt, xrightmargin=4pt,
+	aboveskip=3pt, belowskip=3pt,
+	morekeywords={np,plt,self}
+}
+
+\newcommand{\R}{\mathbb{R}}
+
+% ============================================================
+\begin{document}
+	% ============================================================
+	
+	% ── PORTADA ──────────────────────────────────────────────────
+	\begin{darkslide}
+		\begin{frame}[plain]
+			\begin{tikzpicture}[remember picture, overlay]
+				\fill[accent,opacity=0.15]      (current page.north east) ++(-1.5,-1.5) circle (4cm);
+				\fill[accentteal,opacity=0.10]  (current page.south west) ++(2,2)       circle (3cm);
+				\fill[accentviolet,opacity=0.08](current page.north west) ++(1,-2)       circle (2.5cm);
+			\end{tikzpicture}
+			\vspace{1.5cm}
+			\begin{center}
+				{\small\textcolor{textgray}{Programaci\'on Cient\'ifica $\cdot$ 2026-1}}\\[16pt]
+				{\LARGE\textcolor{textlight}{\textbf{Repaso: EDOs, el chisme y POO}}}\\[6pt]
+				{\large\textcolor{accent}{M\'odulo 4 -- Sesi\'on integradora}}\\[14pt]
+				{\normalsize\textcolor{textgray}{%
+						De la ecuaci\'on al c\'odigo, y del c\'odigo a la clase}}\\[20pt]
+				{\normalsize\textcolor{textgray}{Universidad Nacional de Colombia}}\\[4pt]
+				{\small\textcolor{textgray}{\texttt{mbastidaso@unal.edu.co}}}
+			\end{center}
+		\end{frame}
+	\end{darkslide}
+	
+	% ── PARTE 1: REPASO CONCEPTUAL ───────────────────────────
+	\begin{darkslide}
+		\begin{frame}[plain]
+			\begin{tikzpicture}[remember picture, overlay]
+				\fill[accentteal,opacity=0.12](current page.south east)++(-2,2)  circle(3.5cm);
+				\fill[accent,opacity=0.08]    (current page.north west)++(2,-1)  circle(2.5cm);
+			\end{tikzpicture}
+			\vspace{2.2cm}
+			\begin{center}
+				{\Large\textcolor{textlight}{\textbf{Parte 1}}}\\[8pt]
+				{\large\textcolor{accentteal}{Repaso: EDOs y sistemas din\'amicos}}
+			\end{center}
+		\end{frame}
+	\end{darkslide}
+	
+	% ─────────────────────────────────────────────────────────
+	\begin{frame}{Recordatorio r\'apido}
+		\vspace{4pt}
+		\begin{defbox}{Lo que ya vimos}
+			Un sistema din\'amico describe c\'omo cambia un \textbf{estado}
+			$x(t)$ en el tiempo mediante una EDO:
+			\[
+			\dot{x}(t) = f\!\bigl(x(t),t\bigr), \qquad x(t_0)=x_0.
+			\]
+			Si $f$ es Lipschitz, Picard-Lindel\"of garantiza soluci\'on \'unica.
+		\end{defbox}
+		
+		\vspace{8pt}
+		\begin{taskbox}{Hoy el estado es distinto}
+			En vez de una opini\'on continua (H-K), cada persona est\'a en uno de
+			\textbf{tres estados discretos} frente a un chisme: no lo sabe, lo
+			cuenta, o ya se cans\'o de contarlo.
+		\end{taskbox}
+	\end{frame}
+	
+	% ─────────────────────────────────────────────────────────
+	\begin{frame}{El chisme como sistema din\'amico}
+		\vspace{4pt}
+		\textbf{Tres estados (fracciones de la poblaci\'on):}
+		\begin{itemize}\small
+			\item \textbf{Ignorante} ($i$): no conoce el chisme.
+			\item \textbf{Difusor} ($s$): lo conoce y lo cuenta.
+			\item \textbf{Cansado} ($r$): lo conoce pero ya no lo cuenta.
+		\end{itemize}
+		
+		\vspace{6pt}
+		\textbf{Reglas (Maki-Thompson):}
+		\begin{itemize}\small
+			\item Ignorante $+$ difusor $\to$ dos difusores (tasa $\beta$).
+			\item Difusor $+$ alguien informado $\to$ un cansado m\'as
+			(tasa $\alpha$): se cansa al notar que ya lo sab\'ian.
+		\end{itemize}
+		
+		\vspace{6pt}
+		\begin{defbox}{Modelo}
+			\[
+			\dot{i} = -\beta i s, \qquad
+			\dot{s} = \beta i s - \alpha s(s+r), \qquad
+			\dot{r} = \alpha s(s+r), \qquad i+s+r=1.
+			\]
+		\end{defbox}
+	\end{frame}
+	
+	% ─────────────────────────────────────────────────────────
+	\begin{frame}{Repaso: Euler y RK4}
+		\vspace{4pt}
+		\begin{columns}[T]
+			\column{0.48\textwidth}
+			\begin{resultbox}{Euler (orden 1)}
+				\begin{align*}
+					w_0   &= x_0, \\
+					w_{i+1} &= w_i + h\,f(t_i,w_i)
+				\end{align*}
+				Error global $O(h)$.
+			\end{resultbox}
+			
+			\column{0.48\textwidth}
+			\begin{resultbox}{RK4 (orden 4)}
+				\begin{align*}
+					w_0   &= x_0, \\
+					k_1   &= h\,f(t_i,\;w_i), \\
+					k_2   &= h\,f\!\left(t_i + \tfrac{h}{2},\; w_i + \tfrac{1}{2}k_1\right), \\
+					k_3   &= h\,f\!\left(t_i + \tfrac{h}{2},\; w_i + \tfrac{1}{2}k_2\right), \\
+					k_4   &= h\,f\!\left(t_i + h,\;             w_i + k_3\right), \\
+					w_{i+1} &= w_i + \tfrac{1}{6}\!\left(k_1 + 2k_2 + 2k_3 + k_4\right),
+				\end{align*}
+				Error global $O(h^4)$.
+			\end{resultbox}
+		\end{columns}
+		
+	\end{frame}
+	
+	% ── PARTE 3: DE FUNCIONES A CLASES ───────────────────────
+	\begin{darkslide}
+		\begin{frame}[plain]
+			\begin{tikzpicture}[remember picture, overlay]
+				\fill[coralbox,opacity=0.12]    (current page.north east)++(-2,-2) circle(3.5cm);
+				\fill[accentviolet,opacity=0.10](current page.south west)++(1,1)   circle(3cm);
+			\end{tikzpicture}
+			\vspace{2cm}
+			\begin{center}
+				{\Large\textcolor{textlight}{\textbf{Parte 2}}}\\[8pt]
+				{\large\textcolor{coralbox}{De funciones a clases}}
+			\end{center}
+		\end{frame}
+	\end{darkslide}
+	
+	% ─────────────────────────────────────────────────────────
+	\begin{frame}[fragile]{El patr\'on que se repite}
+		
+		\vspace{2pt}
+		En el notebook, \texttt{euler} y \texttt{rk4} son funciones sueltas
+		que reciben siempre lo mismo:
+		
+		\begin{lstlisting}
+			def euler(f, x0, t, **kw): ...
+			def rk4(f, x0, t, **kw): ...
+		\end{lstlisting}
+		
+		\vspace{6pt}
+		\begin{obsbox}{Idea}
+			Si el campo \texttt{f}, el estado y el paso \texttt{dt} siempre viajan
+			juntos, agrup\'emoslos en un objeto que \textbf{recuerda su propio
+				estado} entre llamadas.
+		\end{obsbox}
+	\end{frame}
+	
+	% ─────────────────────────────────────────────────────────
+	\begin{frame}[fragile]{Ingredientes m\'inimos de una clase}
+		\vspace{2pt}
+		\begin{columns}[T]
+			\column{0.46\textwidth}
+			\begin{defbox}{Vocabulario}
+				\begin{itemize}\small
+					\item \texttt{class}: define un nuevo tipo.
+					\item \texttt{\_\_init\_\_}: se ejecuta al crear el objeto.
+					\item \texttt{self}: el objeto mismo.
+					\item \textbf{atributo}: dato que vive en el objeto.
+					\item \textbf{m\'etodo}: funci\'on que vive en el objeto.
+				\end{itemize}
+			\end{defbox}
+			
+			\column{0.50\textwidth}
+\begin{lstlisting}
+class Particula:
+def __init__(self, x, v):
+self.x = x
+self.v = v
+
+def mover(self, dt):
+self.x += self.v * dt
+
+p = Particula(x=0.0, v=2.0)
+p.mover(dt=0.5)
+print(p.x)   # 1.0
+\end{lstlisting}
+		\end{columns}
+	\end{frame}
+	
+	% ─────────────────────────────────────────────────────────
+	\begin{frame}[fragile]{La clase \texttt{Solver} y su subclase \texttt{Euler}}
+		\vspace{2pt}
+\begin{lstlisting}
+class Solver:
+def __init__(self, f, x0, dt, **kwargs):
+self.f, self.dt, self.kwargs = f, dt, kwargs
+self.x = np.array(x0, dtype=float)
+self.t = 0.0
+
+def step(self):
+raise NotImplementedError(
+"Las subclases deben implementar step()")
+
+
+class Euler(Solver):
+def step(self):
+self.x = self.x + self.dt * self.f(
+self.x, self.t, **self.kwargs)
+self.t += self.dt
+\end{lstlisting}
+		
+		\vspace{4pt}
+		\begin{resultbox}{Herencia}
+			\texttt{Euler} hereda \texttt{\_\_init\_\_} sin reescribirlo y solo
+			sobrescribe \texttt{step()}.
+		\end{resultbox}
+	\end{frame}
+	
+	% ─────────────────────────────────────────────────────────
+	\begin{frame}{Ejercicio: complete \texttt{RK4(Solver)}}
+		\vspace{4pt}
+		\begin{taskbox}{En el notebook}
+			Complete \texttt{step()} de \texttt{RK4(Solver)} con la f\'ormula
+			de RK4, reutilizando \texttt{self.f}, \texttt{self.x}, \texttt{self.t},
+			\texttt{self.dt}, \texttt{self.kwargs}. Verifique que coincide con
+			\texttt{rk4()} aplicada al mismo \texttt{dk\_rhs} que ya escribieron.
+		\end{taskbox}
+		
+		\vspace{10pt}
+		\begin{obsbox}{El punto de toda la sesi\'on}
+			El mismo \texttt{Solver} que integr\'o el chisme sirve para
+			\textbf{cualquier} modelo futuro solo cambiando \texttt{f}.
+		\end{obsbox}
+	\end{frame}
+	
+	% ── SLIDE FINAL ───────────────────────────────────────────
+	\begin{darkslide}
+		\begin{frame}[plain]
+			\begin{tikzpicture}[remember picture, overlay]
+				\fill[accent,opacity=0.15]      (current page.north east) ++(-1,-1) circle (3.5cm);
+				\fill[accentteal,opacity=0.10]  (current page.south west) ++(2,2)   circle (2.8cm);
+				\fill[accentviolet,opacity=0.08](current page.north west) ++(1,-2)  circle (2cm);
+			\end{tikzpicture}
+			\vspace{1.8cm}
+			\begin{center}
+				{\large\textcolor{textgray}{Recapitulando}}\\[14pt]
+				{\large\textcolor{textlight}{\textbf{Modelo del chisme}}}\\
+				{\small\textcolor{textgray}{tres estados discretos, campo suave, un rumor nunca llega al 100\%}}\\[10pt]
+				{\large\textcolor{textlight}{\textbf{Clases y herencia}}}\\
+				{\small\textcolor{textgray}{\texttt{Solver} agrupa estado y comportamiento; las subclases sobrescriben \texttt{step()}}}\\[10pt]
+				{\large\textcolor{textlight}{\textbf{Un patr\'on, muchos modelos}}}\\
+				{\small\textcolor{textgray}{el mismo c\'odigo servir\'a para todo lo que viene en el curso}}\\[20pt]
+				\rule{4cm}{0.4pt}\\[6pt]
+				{\small\textcolor{textgray}{\texttt{mbastidaso@unal.edu.co}}}
+			\end{center}
+		\end{frame}
+	\end{darkslide}
+	
+\end{document}
