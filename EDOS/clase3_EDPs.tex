@@ -1,0 +1,505 @@
+\documentclass[aspectratio=169,12pt]{beamer}
+
+% ============================================================
+%  PACKAGES
+% ============================================================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,backgrounds}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+% ============================================================
+%  COLORS
+% ============================================================
+\definecolor{darkbg}{HTML}{1A1A2E}
+\definecolor{accent}{HTML}{E94560}
+\definecolor{accentteal}{HTML}{0F9B8E}
+\definecolor{accentamber}{HTML}{F5A623}
+\definecolor{accentviolet}{HTML}{7B68EE}
+\definecolor{textlight}{HTML}{EAEAEA}
+\definecolor{textgray}{HTML}{9E9E9E}
+\definecolor{lightbg}{HTML}{F7F7F7}
+\definecolor{coralbox}{HTML}{FF6B6B}
+
+% ============================================================
+%  BEAMER SETUP
+% ============================================================
+\setbeamercolor{background canvas}{bg=lightbg}
+\setbeamercolor{normal text}{fg=darkbg}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{%
+  \hfill\textcolor{textgray}{\tiny\texttt{mbastidaso@unal.edu.co}\quad\insertframenumber/\inserttotalframenumber\quad}%
+  \vspace{4pt}
+}
+
+% ============================================================
+%  DARK SLIDE ENVIRONMENT
+% ============================================================
+\newenvironment{darkslide}{%
+  \setbeamercolor{background canvas}{bg=darkbg}%
+  \setbeamercolor{normal text}{fg=textlight}%
+}{%
+  \setbeamercolor{background canvas}{bg=lightbg}%
+  \setbeamercolor{normal text}{fg=darkbg}%
+}
+
+% ============================================================
+%  TCOLORBOX ENVIRONMENTS
+% ============================================================
+\tcbset{mybase/.style={
+  enhanced, breakable, arc=3pt,
+  boxrule=0.6pt, left=6pt, right=6pt, top=5pt, bottom=5pt,
+  fonttitle=\small\bfseries, fontupper=\small
+}}
+
+\newtcolorbox{defbox}[1]{mybase,
+  colback=accentviolet!8, colframe=accentviolet!60,
+  title={#1}}
+
+\newtcolorbox{resultbox}[1]{mybase,
+  colback=accentteal!8, colframe=accentteal!60,
+  title={#1}}
+
+\newtcolorbox{obsbox}[1]{mybase,
+  colback=accentamber!10, colframe=accentamber!70,
+  title={#1}}
+
+\newtcolorbox{taskbox}[1]{mybase,
+  colback=coralbox!8, colframe=coralbox!60,
+  title={#1}}
+
+% ============================================================
+%  LISTINGS
+% ============================================================
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\tiny,
+  keywordstyle=\color{accentviolet}\bfseries,
+  commentstyle=\color{textgray},
+  stringstyle=\color{accentteal},
+  backgroundcolor=\color{darkbg!5},
+  frame=single, framerule=0.4pt,
+  breaklines=true, showstringspaces=false,
+  morekeywords={solve_ivp,args,dense_output,RK45,Radau,LSODA}
+}
+
+% ============================================================
+%  TIKZ STYLES
+% ============================================================
+\tikzset{
+  graphnode/.style={circle, draw=accentviolet, fill=accentviolet!12,
+                    minimum size=8mm, thick, font=\footnotesize},
+  graphop/.style={rectangle, rounded corners=2pt, draw=accentteal,
+                  fill=accentteal!12, minimum width=12mm, minimum height=7mm,
+                  thick, font=\footnotesize},
+  stateop/.style={rectangle, rounded corners=2pt, draw=accent,
+                  fill=accent!10, minimum width=14mm, minimum height=8mm,
+                  thick, font=\small},
+  thickconn/.style={-{Stealth[length=2.5mm]}, #1, line width=1.2pt},
+  conn/.style={-{Stealth[length=2mm]}, gray!60, line width=0.5pt},
+}
+
+% ============================================================
+%  TIKZ STYLES
+% ============================================================
+\tikzset{
+	stateop/.style={rectangle, rounded corners=2pt, draw=accent,
+		fill=accent!10, minimum width=14mm, minimum height=8mm,
+		thick, font=\small},
+	gridnode/.style={circle, draw=accentviolet, fill=accentviolet!15,
+		minimum size=6mm, thick, font=\footnotesize},
+	bcnode/.style={circle, draw=textgray, fill=textgray!15,
+		minimum size=6mm, thick, font=\footnotesize},
+	thickconn/.style={-{Stealth[length=2.5mm]}, #1, line width=1.2pt},
+	conn/.style={-{Stealth[length=2mm]}, gray!60, line width=0.5pt},
+}
+% ============================================================
+%  DOCUMENT
+% ============================================================
+\begin{document}
+
+% ============================================================
+%  TÍTULO
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accent,opacity=0.15] (current page.north east) ++(-1.5,-1.5) circle (4cm);
+  \fill[accentteal,opacity=0.10] (current page.south west) ++(2,2) circle (3cm);
+  \fill[accentviolet,opacity=0.08] (current page.north west) ++(1,-2) circle (2.5cm);
+\end{tikzpicture}
+\vspace{1.5cm}
+\begin{center}
+  {\small\textcolor{textgray}{Programación Científica · 2026-1}}\\[16pt]
+  {\LARGE\textcolor{textlight}{\textbf{Orden superior y PDEs}}}\\[10pt]
+  {\normalsize\textcolor{textgray}{Universidad Nacional de Colombia}}\\[4pt]
+  {\small\textcolor{textgray}{\texttt{mbastidaso@unal.edu.co}}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+
+% ============================================================
+%  PARTE 1: RECAPITULANDO
+% ============================================================
+\begin{frame}{Dos preguntas, una misma herramienta}
+	\begin{resultbox}{El punto de partida}
+		En todos los casos ya saben resolver un problema de valor inicial (PVI) de \textbf{primer orden}:
+		\[
+		\dot u(t) = g(t,u), \qquad u(t_0)=u_0, \qquad u\in\mathbb{R}^n,
+		\]
+		con \texttt{solve\_ivp} o con sus propios integradores (Euler, RK4).
+	\end{resultbox}
+	
+	\vspace{8pt}
+	\begin{obsbox}{Hoy: dos situaciones en las que la ecuación \textbf{no} viene en esa forma}
+		\begin{enumerate}\setlength\itemsep{5pt}
+			\item[\textbf{1.}] \textcolor{accent}{\textbf{¿Y si tengo EDOs de orden superior?}} : $\ddot y$, $y'''$,  aparecen en la ecuación.
+			\item[\textbf{2.}] \textcolor{accentteal}{\textbf{¿Y si tengo EDPs?}} : la incógnita $u(x,t)$ depende también de una variable espacial continua.
+		\end{enumerate}
+	\end{obsbox}
+	
+\end{frame}
+
+% ============================================================
+%  PARTE 2: EL PROBLEMA
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accentamber,opacity=0.12] (current page.north west) ++(2,-2) circle (3.5cm);
+  \fill[accent,opacity=0.10] (current page.south east) ++(-2,2) circle (3cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{textlight}{\textbf{Parte 1}}}\\[10pt]
+  {\large\textcolor{accentamber}{El problema: la física no viene en orden 1}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}{La mayoría de las leyes físicas son de orden superior}
+La segunda ley de Newton ya es de \textbf{orden 2}:
+\[
+  m\,\ddot{x}(t) = F(t,x,\dot{x})
+\]
+
+\vspace{6pt}
+\begin{obsbox}{Ejemplos}
+\begin{itemize}\setlength\itemsep{4pt}
+  \item Oscilador armónico: $\ddot{y} + \omega^2 y = 0$
+  \item Péndulo: $\ddot\theta + \dfrac{g}{L}\sin\theta = 0$
+  \item Van der Pol (circuito no lineal): $\ddot{y} - \mu(1-y^2)\dot{y} + y = 0$
+  \item Viga de Euler--Bernoulli: $y^{(4)} = f(x)$ 
+\end{itemize}
+\end{obsbox}
+
+\end{frame}
+
+% ============================================================
+%  PARTE 3: TEORÍA : REDUCCIÓN DE ORDEN
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accentviolet,opacity=0.12] (current page.north east) ++(-2,-2) circle (3cm);
+  \fill[accentteal,opacity=0.10] (current page.south west) ++(1,1) circle (3.5cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{accentviolet}{Reducción de orden: la idea general}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}{El truco: el estado incluye las derivadas}
+Consideremos una ecuación escalar de orden $n$:
+\[
+  y^{(n)}(t) = F\bigl(t,\,y,\,\dot{y},\,\ddot{y},\,\ldots,\,y^{(n-1)}\bigr)
+\]
+
+\vspace{4pt}
+\begin{defbox}{Vector de estado}
+Definimos un nuevo vector $u(t)\in\mathbb{R}^n$ que \textbf{ordena} la función y sus primeras $n-1$ derivadas:
+\[
+  u(t) = \bigl(u_1,u_2,\ldots,u_n\bigr) := \bigl(y,\ \dot{y},\ \ddot{y},\ \ldots,\ y^{(n-1)}\bigr)
+\]
+\end{defbox}
+
+\begin{obsbox}{¿Por qué funciona?}
+Cada componente de $u$ ya \textbf{es} una derivada conocida de la anterior, excepto la última: $\dot u_n = y^{(n)}$, que sustituimos usando la ecuación original.
+\end{obsbox}
+\end{frame}
+
+\begin{frame}{El sistema de primer orden equivalente}
+\begin{resultbox}{\textit{Companion Form}}
+\[
+\begin{aligned}
+  \dot u_1 &= u_2\\
+  \dot u_2 &= u_3\\
+  &\ \,\vdots\\
+  \dot u_{n-1} &= u_n\\
+  \dot u_n &= F(t,u_1,u_2,\ldots,u_n)
+\end{aligned}
+\qquad\Longleftrightarrow\qquad
+\dot{u} = g(t,u)
+\]
+\end{resultbox}
+
+\vspace{4pt}
+\begin{obsbox}{Esto es exactamente lo que \texttt{solve\_ivp} necesita}
+$g(t,u)$ es una función vectorial de $\mathbb{R}^n\to\mathbb{R}^n$ (un PVI de primer orden y dimensión $n$.)
+\end{obsbox}
+
+\end{frame}
+
+% ============================================================
+%  PARTE 4: EJEMPLO LINEAL
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[accentteal,opacity=0.12] (current page.north west) ++(2,-2) circle (3cm);
+  \fill[accentviolet,opacity=0.10] (current page.south east) ++(-2,2) circle (3cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{accentteal}{Ejemplo 1: el oscilador armónico}}
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}{Reduciendo el oscilador armónico}
+\begin{taskbox}{Ecuación de orden 2}
+\[
+  \ddot y + \omega^2 y = 0, \qquad y(0)=y_0,\quad \dot y(0)=v_0
+\]
+\end{taskbox}
+
+\vspace{4pt}
+\begin{resultbox}{Reducción}
+Estado: $u_1 = y$, $u_2=\dot y$. Como $\ddot y = -\omega^2 y$:
+\[
+  \dot u_1 = u_2, \qquad \dot u_2 = -\omega^2 u_1
+\]
+En forma matricial (el sistema es \textbf{lineal}):
+\[
+  \dot{u} = A u, \qquad A = \begin{pmatrix} 0 & 1 \\ -\omega^2 & 0 \end{pmatrix}
+\]
+\end{resultbox}
+
+\end{frame}
+
+% ============================================================
+%  EJERCICIO
+% ============================================================
+\begin{darkslide}
+\begin{frame}[plain]
+\begin{tikzpicture}[remember picture, overlay]
+  \fill[coralbox,opacity=0.15] (current page.north east) ++(-1.5,-1.5) circle (3.5cm);
+  \fill[accentamber,opacity=0.10] (current page.south west) ++(2,2) circle (3cm);
+\end{tikzpicture}
+\vspace{2cm}
+\begin{center}
+  {\Large\textcolor{textlight}{\textbf{Ejercicio}}}\\[10pt]
+  {\large\textcolor{coralbox}{Reducir y resolver: el péndulo}}\\[6pt]
+\end{center}
+\end{frame}
+\end{darkslide}
+
+\begin{frame}[fragile]{Ejercicio : péndulo no lineal}
+\begin{taskbox}{Enunciado}
+La ecuación del péndulo simple (sin aproximación de ángulo pequeño) es
+\[
+  \ddot\theta + \frac{g}{L}\sin\theta = 0, \qquad \theta(0)=\theta_0,\quad \dot\theta(0)=0.
+\]
+
+\vspace{4pt}
+\textbf{(a)} Definan el vector de estado $u=(u_1,u_2)$ y escriban el sistema de primer orden $\dot u = g(t,u)$.\\[3pt]
+\textbf{(b)} Impleméntenlo en Python y resuélvanlo con \texttt{solve\_ivp} para $\theta_0 = 3.0$ rad, $g=9.8$, $L=1$.
+\end{taskbox}
+\end{frame}
+
+
+% ============================================================
+%  PREGUNTA 2
+% ============================================================
+\begin{darkslide}
+	\begin{frame}[plain]
+		\begin{tikzpicture}[remember picture, overlay]
+			\fill[accentamber,opacity=0.12] (current page.north west) ++(2,-2) circle (3.5cm);
+			\fill[accent,opacity=0.10] (current page.south east) ++(-2,2) circle (3cm);
+		\end{tikzpicture}
+		\vspace{2cm}
+		\begin{center}
+			{\Large\textcolor{textlight}{\textbf{Parte 2}}}\\[10pt]
+			{\LARGE\textcolor{textlight}{\textbf{¿Y si tengo \textcolor{teal}{EDPs}?}}}\\[26pt]
+			{\small\textcolor{textgray}{$\partial u/\partial t = \alpha\,\partial^2 u/\partial x^2$, \ldots}}
+		\end{center}
+	\end{frame}
+\end{darkslide}
+
+\begin{frame}{Lo que hemos construido hasta ahora}
+	
+	\begin{taskbox}{La limitación}
+		En todos los ejemplos, el estado $u(t)$ tenía un número \textbf{finito y fijo} de componentes. Pero una ecuación diferencial \textbf{parcial} (EDP) describe una cantidad $u(x,t)$ que depende de un espacio \textbf{continuo} de posiciones $x$: en principio, infinitas componentes.
+	\end{taskbox}
+	
+	\begin{resultbox}{La idea ...}
+		Discretizamos el espacio (finitas componentes) y dejamos el tiempo continuo: la EDP se convierte en un sistema de EDOs \textbf{gigante}, resoluble con exactamente las herramientas que ya tienen.
+	\end{resultbox}
+\end{frame}
+
+\begin{frame}{Semidiscretización: espacio discreto, tiempo continuo}
+	\begin{defbox}{Ecuación del calor (1D)}
+		\[
+		\frac{\partial u}{\partial t}(x,t) = \alpha\,\frac{\partial^2 u}{\partial x^2}(x,t), \qquad x\in[0,L],\ t>0
+		\]
+		con condición inicial $u(x,0)=u_0(x)$ y condiciones de frontera (hoy: Dirichlet, $u(0,t)=u(L,t)=0$).
+	\end{defbox}
+	
+	\vspace{6pt}
+	\begin{resultbox}{Malla espacial}
+		Discretizamos $x$ en $N+2$ puntos equiespaciados $x_i = i\,\Delta x$, $i=0,\ldots,N+1$, con $\Delta x = L/(N+1)$. Definimos el \textbf{vector de estado}
+		\[
+		u(t) = \bigl(u_1(t),\ldots,u_N(t)\bigr), \qquad u_i(t) \approx u(x_i,t)
+		\]
+	\end{resultbox}
+	
+%	\begin{obsbox}{Exactamente el mismo tipo de objeto que antes}
+%		$u(t)\in\mathbb{R}^N$ es un vector de estado, como en el modelo de Hegselmann--Krause o en la reducción de orden: sólo que ahora $N$ representa \textbf{puntos de una malla}, no agentes ni derivadas.
+%	\end{obsbox}
+\end{frame}
+
+%\begin{frame}{La malla, dibujada}
+%	\begin{center}
+%		\begin{tikzpicture}[node distance=11mm]
+%			\node[bcnode] (x0) {$u_0$};
+%			\node[gridnode, right=of x0] (x1) {$u_1$};
+%			\node[gridnode, right=of x1] (x2) {$u_2$};
+%			\node[right=8mm of x2, font=\Large] (dots) {$\cdots$};
+%			\node[gridnode, right=of dots] (xn) {$u_N$};
+%			\node[bcnode, right=of xn] (xn1) {$u_{N+1}$};
+%			
+%			\draw[conn] (x0) -- (x1);
+%			\draw[conn] (x1) -- (x2);
+%			\draw[conn] (x2) -- (dots);
+%			\draw[conn] (dots) -- (xn);
+%			\draw[conn] (xn) -- (xn1);
+%			
+%			\node[below=3mm of x0, font=\footnotesize\color{textgray}] {$x=0$};
+%			\node[below=3mm of xn1, font=\footnotesize\color{textgray}] {$x=L$};
+%			\node[above=4mm of x1, font=\footnotesize\color{accentviolet}] {$\Delta x$};
+%		\end{tikzpicture}
+%	\end{center}
+%	\vspace{6pt}
+%	\begin{center}
+%		\textcolor{textgray}{Nodos grises: frontera (valor fijo por Dirichlet). Nodos violeta: componentes del vector de estado $u(t)\in\mathbb{R}^N$ que vamos a evolucionar en el tiempo.}
+%	\end{center}
+%\end{frame}
+
+\begin{frame}{¿Cómo aproximamos $\partial^2 u/\partial x^2$ en un punto?}
+	\begin{defbox}{Expansión de Taylor alrededor de $x_i$}
+		\[
+		u(x_i\pm\Delta x) = u(x_i) \pm \Delta x\,u'(x_i) + \frac{\Delta x^2}{2}u''(x_i) \pm \frac{\Delta x^3}{6}u'''(x_i) + O(\Delta x^4)
+		\]
+	\end{defbox}
+	
+	\vspace{4pt}
+	\begin{resultbox}{Sumando las dos expansiones}
+		Los términos impares se cancelan:
+		\[
+		u(x_i+\Delta x) + u(x_i-\Delta x) = 2u(x_i) + \Delta x^2\,u''(x_i) + O(\Delta x^4)
+		\]
+		Despejando $u''(x_i)$:
+		\[
+		u''(x_i) \approx \frac{u(x_i+\Delta x) - 2u(x_i) + u(x_i-\Delta x)}{\Delta x^2}
+		\]
+	\end{resultbox}
+	
+%	\begin{obsbox}{Diferencia central de segundo orden}
+%		El error de esta aproximación es $O(\Delta x^2)$: si refinamos la malla a la mitad, el error se reduce a un cuarto.
+%	\end{obsbox}
+\end{frame}
+
+\begin{frame}{Notación estándar: el operador de segunda diferencia}
+	\begin{resultbox}{Fórmula que vamos a usar}
+		\[
+		u_i''\ \approx\ \frac{u_{i+1} - 2u_i + u_{i-1}}{\Delta x^2}, \qquad i=1,\ldots,N
+		\]
+	\end{resultbox}
+	
+	Reemplazamos $\partial^2 u/\partial x^2$ por la segunda diferencia central en cada nodo interior $i=1,\ldots,N$:
+	\[
+	\frac{du_i}{dt} = \alpha\,\frac{u_{i+1} - 2u_i + u_{i-1}}{\Delta x^2}, \qquad i=1,\ldots,N
+	\]
+	
+	\vspace{4pt}
+	\begin{obsbox}{¿Qué acabamos de obtener?}
+		Un sistema de $N$ ecuaciones diferenciales \textbf{ordinarias} de primer orden, acopladas: la derivada temporal de $u_i$ depende de sus vecinos $u_{i-1}, u_{i+1}$. Es exactamente la forma $\dot u = g(t,u)$ que ya sabemos resolver.
+	\end{obsbox}
+\end{frame}
+
+\begin{frame}{Forma matricial: el sistema es lineal}
+	\begin{resultbox}{Matriz de segunda diferencia}
+		Con $u_0=u_{N+1}=0$ (Dirichlet homogéneo), el sistema se escribe
+		\[
+		\dot u = \frac{\alpha}{\Delta x^2}\, A\, u, \qquad
+		A = \begin{pmatrix}
+			-2 & 1 &  &  \\
+			1 & -2 & 1 &  \\
+			& \ddots & \ddots & \ddots \\
+			&  & 1 & -2
+		\end{pmatrix} \in \mathbb{R}^{N\times N}
+		\]
+		$A$ es \textbf{tridiagonal}: cada fila sólo tiene tres entradas no nulas.
+	\end{resultbox}
+	
+	\begin{obsbox}{La misma estructura que el oscilador armónico}
+		En la Parte 1 escribimos $\dot u = Au$ para el oscilador armónico. Aquí tenemos la misma forma, sólo que $A$ es $N\times N$ y viene de discretizar el espacio.
+	\end{obsbox}
+\end{frame}
+
+\begin{frame}[fragile]{Ejercicio}
+	\begin{taskbox}{Enunciado}
+		Partiendo del código de la construcción de $A$ y \texttt{calor\_rhs}:
+		
+		\vspace{4pt}
+		\textbf{(a)} Cambien la condición inicial a $u_0(x) = \mathbb{I}_{[0.4 \le x \le 0.6]}$ (un pulso rectangular) y observen cómo se difunde. ¿Por qué se suaviza tan rápido?\\[6pt]
+		\textbf{(b)} Repitan con dos dos gaussianas y observen cómo interactúan al difundirse.\\[4pt]
+	\end{taskbox}
+\end{frame}
+
+% ============================================================
+%  SLIDE FINAL
+% ============================================================
+\begin{darkslide}
+	\begin{frame}[plain]
+		\begin{tikzpicture}[remember picture, overlay]
+			\fill[accent,opacity=0.15] (current page.north east) ++(-1,-1) circle (3.5cm);
+			\fill[accentteal,opacity=0.10] (current page.south west) ++(2,2) circle (2.8cm);
+			\fill[accentviolet,opacity=0.08] (current page.north west) ++(1,-2) circle (2cm);
+		\end{tikzpicture}
+		\vspace{1.4cm}
+		\begin{center}
+			{\large\textcolor{textgray}{Recapitulando}}\\[12pt]
+			{\large\textcolor{accent}{\textbf{Pregunta 1: Orden superior}}}\\
+			{\small\textcolor{textgray}{el estado $u=(y,\dot y,\ldots,y^{(n-1)})$ reduce cualquier EDO de orden $n$ a un PVI de primer orden en $\mathbb{R}^n$}}\\[10pt]
+			{\large\textcolor{accentteal}{\textbf{Pregunta 2: EDPs}}}\\
+			{\small\textcolor{textgray}{discretizar el espacio con diferencias finitas convierte la EDP en un PVI de primer orden}}\\[10pt]
+			{\large\textcolor{textlight}{\textbf{El hilo común}}}\\
+			{\small\textcolor{textgray}{en ambos casos, terminamos resolviendo $\dot u=g(t,u)$ con \texttt{solve\_ivp}}}\\[18pt]
+		\end{center}
+	\end{frame}
+\end{darkslide}
+
+\end{document}
+
