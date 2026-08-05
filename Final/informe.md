@@ -70,7 +70,7 @@ _(agregar: resultado + gráfica de distribución, 2-3 líneas de interpretación
 _(cada integrante: 2-3 líneas de opinión sobre el tema + autoevaluación del curso)_
 
 - **David Delgado Ortiz:** _(pendiente)_
-- **Miguel Angel Fonseca Aldana:** _(pendiente)_
+- **Miguel Angel Fonseca Aldana:** En Criptografía solo había visto la parte teórica y no lo había puesto en práctica hasta este trabajo. Me pareció un buen ejercicio poder aplicarlo en Programación Científica, sobre todo viendo lo del método de Montecarlo. Evaluación del curso: 4.5 y autoevaluación del curso: 4.0 .
 - **Jose Daniel Moreno Ceballos:** _(pendiente)_
 - **Juan Diego Ospina Ocampo:** _(pendiente)_
 - **Haison Urrutia Manyoma:** _(pendiente)_
